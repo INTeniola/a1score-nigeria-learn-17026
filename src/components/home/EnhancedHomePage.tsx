@@ -2,7 +2,7 @@
 import { useState, useRef } from "react";
 import HomeSidebar from "../layout/HomeSidebar";
 import HeroSection from "./sections/HeroSection";
-import StatsSection from "./sections/StatsSection";
+
 import FeaturesSection from "./sections/FeaturesSection";
 import SubjectsSection from "./sections/SubjectsSection";
 import DashboardsSection from "./sections/DashboardsSection";
@@ -44,9 +44,6 @@ const EnhancedHomePage = ({ onLogin, onShowAuth }: EnhancedHomePageProps) => {
       {/* Hero Section */}
       <section ref={(el) => setSectionRef('hero', el)}>
         <HeroSection onShowAuth={onShowAuth} />
-        <div className="container mx-auto px-4">
-          <StatsSection />
-        </div>
       </section>
 
       {/* Features Section */}

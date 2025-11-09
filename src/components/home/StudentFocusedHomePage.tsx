@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Brain, BookOpen, Trophy, Users, Target, Code, GraduationCap, Sparkles, ArrowRight, CheckCircle2 } from "lucide-react";
 import HeroSection from "./sections/HeroSection";
-import StatsSection from "./sections/StatsSection";
+
 import FeaturesSection from "./sections/FeaturesSection";
 import SubjectsSection from "./sections/SubjectsSection";
 import PricingSection from "./sections/PricingSection";
@@ -105,9 +105,6 @@ const StudentFocusedHomePage = ({ onLogin, onShowAuth }: StudentFocusedHomePageP
       {/* Hero Section */}
       <section ref={(el) => setSectionRef('hero', el)}>
         <HeroSection onShowAuth={onShowAuth} />
-        <div className="container mx-auto px-4">
-          <StatsSection />
-        </div>
       </section>
 
       {/* Learner Types Section */}
