@@ -183,23 +183,6 @@ const RotatingHeroContent = ({ onShowAuth }: RotatingHeroContentProps) => {
           ))}
         </div>
 
-        {/* Slide labels */}
-        <div className="flex justify-center mt-4 space-x-6 text-sm text-muted-foreground">
-          {heroContent.map((content, index) => (
-            <button
-              key={index}
-              onClick={() => navigateToSlide(index)}
-              disabled={isTransitioning}
-              className={`capitalize transition-all duration-300 ${
-                index === (currentSlide % heroContent.length)
-                  ? 'text-foreground font-medium' 
-                  : 'hover:text-foreground/70'
-              }`}
-            >
-              {t(`hero.${content.slideKey}.label`)}
-            </button>
-          ))}
-        </div>
       </div>
     </div>
   );
