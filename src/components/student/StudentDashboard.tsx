@@ -18,7 +18,7 @@ import LanguageSelector from "../language/LanguageSelector";
 import MonetizationDemo from "../monetization/MonetizationDemo";
 import StudentSidebar from "./StudentSidebar";
 import FormulaReference from "./FormulaReference";
-import ProgressTracker from "./ProgressTracker";
+import { ProgressTrackerDashboard } from "./ProgressTrackerDashboard";
 import StudyGoals from "./StudyGoals";
 import StudyTimer from "./StudyTimer";
 import PDFUploader from "./PDFUploader";
@@ -550,7 +550,7 @@ const StudentDashboard = ({ user, onLogout }: StudentDashboardProps) => {
           </TabsContent>
 
           <TabsContent value="progress-tracker">
-            <ProgressTracker />
+            <ProgressTrackerDashboard />
           </TabsContent>
 
           <TabsContent value="study-goals">

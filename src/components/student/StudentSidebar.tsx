@@ -30,6 +30,7 @@ const StudentSidebar = ({ activeTab, onTabChange, userLevel }: StudentSidebarPro
     { id: 'pdf-helper', label: 'PDF Helper', icon: FileText, feature: 'pdfHelper' as const },
     { id: 'homework-scanner', label: 'Homework Scanner', icon: Camera, feature: 'homeworkScanner' as const },
     { id: 'study-timer', label: 'Study Timer', icon: Timer, feature: 'studyTimer' as const },
+    { id: 'progress-tracker', label: 'Progress Tracker', icon: BarChart3, feature: 'dashboard' as const },
     { id: 'study-goals', label: 'Study Goals', icon: Target, feature: 'studyGoals' as const },
     { id: 'formula-reference', label: 'Formulas', icon: Calculator, feature: 'formulaReference' as const },
     { id: 'literature-review', label: 'Literature Review', icon: Search, feature: 'literatureReview' as const },
