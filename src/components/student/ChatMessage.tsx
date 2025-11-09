@@ -1,8 +1,8 @@
-
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { User } from "lucide-react";
 import AITransparencyBadge from "@/components/ethics/AITransparencyBadge";
+import DocumentSources from "./DocumentSources";
 
 interface Message {
   id: number;
@@ -11,6 +11,13 @@ interface Message {
   timestamp: Date;
   subject?: string;
   tutorPersonality?: string;
+  sources?: Array<{
+    documentName: string;
+    similarity: number;
+    chunkIndex: number;
+    content: string;
+  }>;
+  usedDocuments?: boolean;
 }
 
 interface TutorPersonalityData {
@@ -51,16 +58,23 @@ const ChatMessage = ({ message, selectedTutor }: ChatMessageProps) => {
               }
             </AvatarFallback>
           </Avatar>
-          <div className={`p-4 rounded-lg ${
-            message.type === 'user' 
-              ? 'bg-green-600 text-white' 
-              : 'bg-gray-100 text-gray-900'
-          }`}>
-            <div className="whitespace-pre-wrap">{message.content}</div>
-            {message.tutorPersonality && (
-              <Badge variant="secondary" className="mt-2">
-                {message.tutorPersonality}
-              </Badge>
+          <div className="flex-1">
+            <div className={`p-4 rounded-lg ${
+              message.type === 'user' 
+                ? 'bg-green-600 text-white' 
+                : 'bg-gray-100 text-gray-900'
+            }`}>
+              <div className="whitespace-pre-wrap">{message.content}</div>
+              {message.tutorPersonality && (
+                <Badge variant="secondary" className="mt-2">
+                  {message.tutorPersonality}
+                </Badge>
+              )}
+            </div>
+            
+            {/* Display document sources for AI messages */}
+            {message.type === 'ai' && message.sources && message.sources.length > 0 && (
+              <DocumentSources sources={message.sources} />
             )}
           </div>
         </div>

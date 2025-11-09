@@ -4,8 +4,11 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { 
   Calculator, FlaskConical, BookOpen, 
-  Brain, Zap
+  Brain, Zap, FileSearch, BookMarked
 } from "lucide-react";
+import { Switch } from "@/components/ui/switch";
+import { Label } from "@/components/ui/label";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import { supabase } from "@/integrations/supabase/client";
 import HomeworkScanner from "./HomeworkScanner";
 import EnhancedLearningPaths from "./EnhancedLearningPaths";
@@ -24,6 +27,13 @@ interface Message {
   timestamp: Date;
   subject?: string;
   tutorPersonality?: string;
+  sources?: Array<{
+    documentName: string;
+    similarity: number;
+    chunkIndex: number;
+    content: string;
+  }>;
+  usedDocuments?: boolean;
 }
 
 interface TutorPersonality {
@@ -44,6 +54,8 @@ const AITutorChat = () => {
   const [selectedTutor, setSelectedTutor] = useState<TutorPersonality | null>(null);
   const [conversationMemory, setConversationMemory] = useState<{[key: string]: any}>({});
   const [pdfAnalysis, setPdfAnalysis] = useState<any>(null);
+  const [useDocuments, setUseDocuments] = useState(false);
+  const [isSearchingDocuments, setIsSearchingDocuments] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const tutorPersonalities: TutorPersonality[] = [
@@ -145,18 +157,24 @@ const AITutorChat = () => {
     saveConversationMemory(newMemory);
   };
 
-  const generateAIResponse = async (userMessage: string): Promise<string> => {
+  const generateAIResponse = async (userMessage: string): Promise<{ response: string; sources?: any[]; usedDocuments?: boolean }> => {
     const tutor = selectedTutor || tutorPersonalities[4]; // Default to AIDA
     
     try {
       setIsTyping(true);
       
-      // Call the AI tutor chat function
+      // Show document search indicator if enabled
+      if (useDocuments) {
+        setIsSearchingDocuments(true);
+      }
+      
+      // Call the AI tutor chat function with RAG support
       const { data, error } = await supabase.functions.invoke('ai-tutor-chat', {
         body: {
           message: userMessage,
           tutorId: tutor.id,
           subject: tutor.subject,
+          useDocuments: useDocuments,
           conversationContext: {
             personality: tutor.personality,
             expertise: tutor.expertise,
@@ -165,15 +183,26 @@ const AITutorChat = () => {
         }
       });
 
+      setIsSearchingDocuments(false);
+
       if (error) {
         console.error('AI tutor error:', error);
-        return `I apologize, but I'm having trouble connecting right now. As ${tutor.name}, I want to help you with ${tutor.subject}. Could you try asking your question again in a moment?`;
+        return { 
+          response: `I apologize, but I'm having trouble connecting right now. As ${tutor.name}, I want to help you with ${tutor.subject}. Could you try asking your question again in a moment?`
+        };
       }
 
-      return data.response || `Hi! I'm ${tutor.name}, your ${tutor.subject} tutor. I'm here to help you succeed! What would you like to learn about today?`;
+      return {
+        response: data.response || `Hi! I'm ${tutor.name}, your ${tutor.subject} tutor. I'm here to help you succeed! What would you like to learn about today?`,
+        sources: data.sources,
+        usedDocuments: data.usedDocuments
+      };
     } catch (error) {
       console.error('Error generating AI response:', error);
-      return `I'm ${tutor.name}, and I'm excited to help you with ${tutor.subject}! There seems to be a connection issue, but let's work through this together. What topic are you studying?`;
+      setIsSearchingDocuments(false);
+      return { 
+        response: `I'm ${tutor.name}, and I'm excited to help you with ${tutor.subject}! There seems to be a connection issue, but let's work through this together. What topic are you studying?`
+      };
     }
   };
 
@@ -195,14 +224,16 @@ const AITutorChat = () => {
     // Simulate AI thinking time
     await new Promise(resolve => setTimeout(resolve, 1500));
 
-    const aiResponse = await generateAIResponse(text);
+    const aiResponseData = await generateAIResponse(text);
     const aiMessage: Message = {
       id: messages.length + 2,
       type: 'ai',
-      content: aiResponse,
+      content: aiResponseData.response,
       timestamp: new Date(),
       subject: selectedTutor?.subject,
-      tutorPersonality: selectedTutor?.name
+      tutorPersonality: selectedTutor?.name,
+      sources: aiResponseData.sources,
+      usedDocuments: aiResponseData.usedDocuments
     };
 
     setIsTyping(false);
@@ -262,6 +293,30 @@ const AITutorChat = () => {
                 onSwitchTutor={() => setSelectedTutor(null)}
               />
 
+              {/* Document Search Toggle */}
+              <Card>
+                <CardContent className="p-4">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <BookMarked className="h-5 w-5 text-primary" />
+                      <div>
+                        <Label htmlFor="use-documents" className="text-sm font-medium cursor-pointer">
+                          Search My Documents
+                        </Label>
+                        <p className="text-xs text-muted-foreground">
+                          Answer from your uploaded PDFs and notes
+                        </p>
+                      </div>
+                    </div>
+                    <Switch
+                      id="use-documents"
+                      checked={useDocuments}
+                      onCheckedChange={setUseDocuments}
+                    />
+                  </div>
+                </CardContent>
+              </Card>
+
               {/* Chat Messages */}
               <Card>
                 <CardContent className="p-0">
@@ -274,7 +329,17 @@ const AITutorChat = () => {
                       />
                     ))}
                     
-                    {isTyping && (
+                    {/* Searching Documents Indicator */}
+                    {isSearchingDocuments && (
+                      <Alert className="border-primary bg-primary/5">
+                        <FileSearch className="h-4 w-4 text-primary animate-pulse" />
+                        <AlertDescription className="text-sm">
+                          Searching your documents...
+                        </AlertDescription>
+                      </Alert>
+                    )}
+                    
+                    {isTyping && !isSearchingDocuments && (
                       <TutorTypingIndicator selectedTutor={selectedTutor} />
                     )}
                     <div ref={messagesEndRef} />
