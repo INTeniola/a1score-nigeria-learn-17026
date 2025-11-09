@@ -4,8 +4,10 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { EthicsProvider } from '@/contexts/EthicsContext';
+import { AuthProvider } from "@/hooks/useAuth";
 import { ScrollToTop } from "@/components/layout/ScrollToTop";
 import { BackToTop } from "@/components/layout/BackToTop";
+import { OnboardingWrapper } from "@/components/onboarding/OnboardingWrapper";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import AuthPage from "./components/auth/AuthPage";
@@ -49,57 +51,60 @@ const PublicRoute = ({ children }: { children: React.ReactNode }) => {
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <EthicsProvider>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <ScrollToTop />
-          <BackToTop />
-          <Routes>
-            <Route path="/select-role" element={<UserTypeSelector />} />
-            <Route path="/auth" element={
-              <PublicRoute>
-                <AuthPage />
-              </PublicRoute>
-            } />
-            <Route path="/" element={<Index />} />
-            <Route path="/for-teachers" element={<ForTeachers />} />
-            <Route path="/for-parents" element={<ForParents />} />
-            <Route path="/for-institutions" element={<ForInstitutions />} />
-            <Route path="/join-waitlist" element={<JoinWaitlist />} />
-            <Route path="/stay-updated" element={<StayUpdated />} />
-            <Route path="/dashboard/*" element={
-              <ProtectedRoute>
-                <Index />
-              </ProtectedRoute>
-            } />
-            <Route path="/student/formula-reference" element={
-              <ProtectedRoute>
-                <Index />
-              </ProtectedRoute>
-            } />
-            <Route path="/student/progress-tracker" element={
-              <ProtectedRoute>
-                <Index />
-              </ProtectedRoute>
-            } />
-            <Route path="/student/study-goals" element={
-              <ProtectedRoute>
-                <Index />
-              </ProtectedRoute>
-            } />
-            <Route path="/student/study-timer" element={
-              <ProtectedRoute>
-                <Index />
-              </ProtectedRoute>
-            } />
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
-      </TooltipProvider>
-    </EthicsProvider>
+    <AuthProvider>
+      <EthicsProvider>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <OnboardingWrapper />
+          <BrowserRouter>
+            <ScrollToTop />
+            <BackToTop />
+            <Routes>
+              <Route path="/select-role" element={<UserTypeSelector />} />
+              <Route path="/auth" element={
+                <PublicRoute>
+                  <AuthPage />
+                </PublicRoute>
+              } />
+              <Route path="/" element={<Index />} />
+              <Route path="/for-teachers" element={<ForTeachers />} />
+              <Route path="/for-parents" element={<ForParents />} />
+              <Route path="/for-institutions" element={<ForInstitutions />} />
+              <Route path="/join-waitlist" element={<JoinWaitlist />} />
+              <Route path="/stay-updated" element={<StayUpdated />} />
+              <Route path="/dashboard/*" element={
+                <ProtectedRoute>
+                  <Index />
+                </ProtectedRoute>
+              } />
+              <Route path="/student/formula-reference" element={
+                <ProtectedRoute>
+                  <Index />
+                </ProtectedRoute>
+              } />
+              <Route path="/student/progress-tracker" element={
+                <ProtectedRoute>
+                  <Index />
+                </ProtectedRoute>
+              } />
+              <Route path="/student/study-goals" element={
+                <ProtectedRoute>
+                  <Index />
+                </ProtectedRoute>
+              } />
+              <Route path="/student/study-timer" element={
+                <ProtectedRoute>
+                  <Index />
+                </ProtectedRoute>
+              } />
+              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </BrowserRouter>
+        </TooltipProvider>
+      </EthicsProvider>
+    </AuthProvider>
   </QueryClientProvider>
 );
 

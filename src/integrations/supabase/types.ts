@@ -470,6 +470,66 @@ export type Database = {
         }
         Relationships: []
       }
+      onboarding_progress: {
+        Row: {
+          completed_steps: string[] | null
+          created_at: string | null
+          current_step: string
+          exam_date: string | null
+          explanation_preference: string | null
+          goals_set: boolean | null
+          has_asked_question: boolean | null
+          has_uploaded_document: boolean | null
+          id: string
+          last_session_at: string | null
+          learning_style: string | null
+          learning_subjects: string[] | null
+          notification_preferences_set: boolean | null
+          onboarding_completed: boolean | null
+          session_count: number | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          completed_steps?: string[] | null
+          created_at?: string | null
+          current_step?: string
+          exam_date?: string | null
+          explanation_preference?: string | null
+          goals_set?: boolean | null
+          has_asked_question?: boolean | null
+          has_uploaded_document?: boolean | null
+          id?: string
+          last_session_at?: string | null
+          learning_style?: string | null
+          learning_subjects?: string[] | null
+          notification_preferences_set?: boolean | null
+          onboarding_completed?: boolean | null
+          session_count?: number | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          completed_steps?: string[] | null
+          created_at?: string | null
+          current_step?: string
+          exam_date?: string | null
+          explanation_preference?: string | null
+          goals_set?: boolean | null
+          has_asked_question?: boolean | null
+          has_uploaded_document?: boolean | null
+          id?: string
+          last_session_at?: string | null
+          learning_style?: string | null
+          learning_subjects?: string[] | null
+          notification_preferences_set?: boolean | null
+          onboarding_completed?: boolean | null
+          session_count?: number | null
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       parent_notifications: {
         Row: {
           created_at: string | null

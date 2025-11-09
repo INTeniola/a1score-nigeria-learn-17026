@@ -47,7 +47,7 @@ const AuthPage = (): JSX.Element => {
     password: "",
     confirmPassword: "",
     displayName: "",
-    userType: locationState?.userType || "student"
+    userType: "student" // Default to student, can be changed later
   });
 
   /**
@@ -317,32 +317,20 @@ const AuthPage = (): JSX.Element => {
             <TabsContent value="signup">
               <form onSubmit={handleSignUp} className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="signup-name">Display Name</Label>
+                  <Label htmlFor="signup-displayName">Full Name</Label>
                   <Input
-                    id="signup-name"
+                    id="signup-displayName"
                     type="text"
-                    placeholder="Your display name"
+                    placeholder="Enter your full name"
                     value={signUpData.displayName}
                     onChange={handleSignUpChange}
                     required
                   />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="signup-usertype">I am a...</Label>
-                  <Select 
-                    value={signUpData.userType} 
-                    onValueChange={(value) => setSignUpData({ ...signUpData, userType: value as UserType })}
-                  >
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select your role" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="student">Student</SelectItem>
-                      <SelectItem value="teacher">Teacher</SelectItem>
-                      <SelectItem value="parent">Parent</SelectItem>
-                      <SelectItem value="admin">School Administrator</SelectItem>
-                    </SelectContent>
-                  </Select>
+                  {fieldErrors.displayName && (
+                    <p className="text-sm text-destructive mt-1">
+                      {fieldErrors.displayName}
+                    </p>
+                  )}
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="signup-email">Email</Label>
@@ -352,8 +340,15 @@ const AuthPage = (): JSX.Element => {
                     placeholder="your@email.com"
                     value={signUpData.email}
                     onChange={handleSignUpChange}
+                    aria-invalid={!!fieldErrors.email}
+                    aria-describedby={fieldErrors.email ? 'signup-email-error' : undefined}
                     required
                   />
+                  {fieldErrors.email && (
+                    <p id="signup-email-error" className="text-sm text-destructive mt-1">
+                      {fieldErrors.email}
+                    </p>
+                  )}
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="signup-password">Password</Label>
@@ -361,9 +356,11 @@ const AuthPage = (): JSX.Element => {
                     <Input
                       id="signup-password"
                       type={showPassword ? "text" : "password"}
-                      placeholder="Create a password"
+                      placeholder="Create a password (min 6 characters)"
                       value={signUpData.password}
                       onChange={handleSignUpChange}
+                      aria-invalid={!!fieldErrors.password}
+                      aria-describedby={fieldErrors.password ? 'signup-password-error' : undefined}
                       required
                     />
                     <Button
@@ -376,22 +373,37 @@ const AuthPage = (): JSX.Element => {
                       {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                     </Button>
                   </div>
+                  {fieldErrors.password && (
+                    <p id="signup-password-error" className="text-sm text-destructive mt-1">
+                      {fieldErrors.password}
+                    </p>
+                  )}
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="signup-confirm">Confirm Password</Label>
+                  <Label htmlFor="signup-confirmPassword">Confirm Password</Label>
                   <Input
-                    id="signup-confirm"
+                    id="signup-confirmPassword"
                     type="password"
                     placeholder="Confirm your password"
                     value={signUpData.confirmPassword}
                     onChange={handleSignUpChange}
+                    aria-invalid={!!fieldErrors.confirmPassword}
+                    aria-describedby={fieldErrors.confirmPassword ? 'signup-confirm-error' : undefined}
                     required
                   />
+                  {fieldErrors.confirmPassword && (
+                    <p id="signup-confirm-error" className="text-sm text-destructive mt-1">
+                      {fieldErrors.confirmPassword}
+                    </p>
+                  )}
                 </div>
                 <Button type="submit" className="w-full" disabled={isLoading}>
                   {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                  Sign Up
+                  Create Account
                 </Button>
+                <p className="text-xs text-center text-muted-foreground">
+                  We'll personalize your experience in the next step
+                </p>
               </form>
             </TabsContent>
           </Tabs>
