@@ -1,6 +1,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ArrowRight, BookOpen, Users, Heart, Building2, GraduationCap, Target, TrendingUp } from "lucide-react";
@@ -11,6 +12,7 @@ interface RotatingHeroContentProps {
 
 const RotatingHeroContent = ({ onShowAuth }: RotatingHeroContentProps) => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const [currentSlide, setCurrentSlide] = useState(0);
   const [direction, setDirection] = useState<'forward' | 'backward'>('forward');
   const [isTransitioning, setIsTransitioning] = useState(false);
@@ -145,7 +147,14 @@ const RotatingHeroContent = ({ onShowAuth }: RotatingHeroContentProps) => {
                       <Button 
                         size="lg" 
                         className={`bg-gradient-to-r ${content.gradient} hover:opacity-90 text-white px-8 py-4 text-lg hover:scale-105 transition-all duration-200`}
-                        onClick={() => onShowAuth('student')}
+                        onClick={() => {
+                          // For slide 4 (feature3), route to waitlist page
+                          if (content.slideKey === 'feature3') {
+                            navigate('/join-waitlist');
+                          } else {
+                            onShowAuth('student');
+                          }
+                        }}
                       >
                         {t(`hero.${content.slideKey}.primaryButton`)}
                         <ArrowRight className="ml-2 h-5 w-5" />
@@ -154,7 +163,14 @@ const RotatingHeroContent = ({ onShowAuth }: RotatingHeroContentProps) => {
                         size="lg" 
                         variant="outline" 
                         className="px-8 py-4 text-lg border-2 hover:scale-105 transition-all duration-200"
-                        onClick={() => onShowAuth('student')}
+                        onClick={() => {
+                          // For slide 4 (feature3), route to stay updated page
+                          if (content.slideKey === 'feature3') {
+                            navigate('/stay-updated');
+                          } else {
+                            onShowAuth('student');
+                          }
+                        }}
                       >
                         {t(`hero.${content.slideKey}.secondaryButton`)}
                       </Button>

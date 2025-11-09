@@ -159,6 +159,30 @@ export type Database = {
         }
         Relationships: []
       }
+      newsletter_signups: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          name: string | null
+          update_preferences: Json | null
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          name?: string | null
+          update_preferences?: Json | null
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          name?: string | null
+          update_preferences?: Json | null
+        }
+        Relationships: []
+      }
       parent_notifications: {
         Row: {
           created_at: string | null
@@ -330,6 +354,33 @@ export type Database = {
           status?: string | null
           user1_id?: string
           user2_id?: string
+        }
+        Relationships: []
+      }
+      waitlist_signups: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          interest_area: string | null
+          name: string
+          user_type: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          interest_area?: string | null
+          name: string
+          user_type: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          interest_area?: string | null
+          name?: string
+          user_type?: string
         }
         Relationships: []
       }

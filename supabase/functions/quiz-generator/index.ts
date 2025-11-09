@@ -139,7 +139,8 @@ Make questions challenging but fair, and ensure explanations help students under
         generatedQuestions = JSON.parse(aiResponse);
       }
     } catch (parseError) {
-      logStep("Failed to parse AI response as JSON", { error: parseError.message });
+      const errorMessage = parseError instanceof Error ? parseError.message : 'Unknown parse error';
+      logStep("Failed to parse AI response as JSON", { error: errorMessage });
       throw new Error('Failed to parse generated questions');
     }
 

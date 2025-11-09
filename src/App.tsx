@@ -11,6 +11,8 @@ import UserTypeSelector from "./components/auth/UserTypeSelector";
 import ForTeachers from "./pages/ForTeachers";
 import ForParents from "./pages/ForParents";
 import ForInstitutions from "./pages/ForInstitutions";
+import JoinWaitlist from "./pages/JoinWaitlist";
+import StayUpdated from "./pages/StayUpdated";
 import { useAuth } from "./hooks/useAuth";
 
 const queryClient = new QueryClient();
@@ -61,6 +63,8 @@ const App = () => (
             <Route path="/for-teachers" element={<ForTeachers />} />
             <Route path="/for-parents" element={<ForParents />} />
             <Route path="/for-institutions" element={<ForInstitutions />} />
+            <Route path="/join-waitlist" element={<JoinWaitlist />} />
+            <Route path="/stay-updated" element={<StayUpdated />} />
             <Route path="/dashboard/*" element={
               <ProtectedRoute>
                 <Index />
