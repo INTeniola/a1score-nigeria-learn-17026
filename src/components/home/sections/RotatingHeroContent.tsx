@@ -54,7 +54,7 @@ const RotatingHeroContent = ({ onShowAuth }: RotatingHeroContentProps) => {
     autoRotateRef.current = setInterval(() => {
       setDirection('forward');
       setCurrentSlide((prev) => (prev + 1) % heroContent.length);
-    }, 5000);
+    }, 8000);
 
     setTimeout(() => setIsTransitioning(false), 600);
   };
@@ -63,7 +63,7 @@ const RotatingHeroContent = ({ onShowAuth }: RotatingHeroContentProps) => {
     autoRotateRef.current = setInterval(() => {
       setDirection('forward');
       setCurrentSlide((prev) => (prev + 1) % heroContent.length);
-    }, 5000);
+    }, 8000);
 
     return () => {
       if (autoRotateRef.current) {
@@ -89,9 +89,9 @@ const RotatingHeroContent = ({ onShowAuth }: RotatingHeroContentProps) => {
         </div>
 
         {/* Carousel container with overflow hidden */}
-        <div className="relative h-[500px] md:h-[450px] overflow-hidden">
+        <div className="relative min-h-[550px] md:min-h-[500px] overflow-hidden">
           <div 
-            className="flex transition-transform duration-600 ease-in-out h-full"
+            className="flex transition-transform duration-600 ease-in-out"
             style={{
               transform: `translateX(-${currentSlide * 100}%)`,
             }}
@@ -101,50 +101,52 @@ const RotatingHeroContent = ({ onShowAuth }: RotatingHeroContentProps) => {
               return (
                 <div 
                   key={content.slideKey}
-                  className="min-w-full flex-shrink-0 space-y-6"
+                  className="min-w-full flex-shrink-0 px-4"
                 >
-                  <h2 className="text-4xl md:text-6xl font-bold text-foreground leading-tight">
-                    {t(`hero.${content.slideKey}.title`)}
-                  </h2>
-                  
-                  <h3 className={`text-2xl md:text-3xl font-medium text-transparent bg-clip-text bg-gradient-to-r ${content.gradient}`}>
-                    {t(`hero.${content.slideKey}.subtitle`)}
-                  </h3>
-                  
-                  <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-                    {t(`hero.${content.slideKey}.description`)}
-                  </p>
+                  <div className="space-y-6 max-w-4xl mx-auto">
+                    <h2 className="text-4xl md:text-6xl font-bold text-foreground leading-tight text-center">
+                      {t(`hero.${content.slideKey}.title`)}
+                    </h2>
+                    
+                    <h3 className={`text-2xl md:text-3xl font-medium text-transparent bg-clip-text bg-gradient-to-r ${content.gradient} text-center`}>
+                      {t(`hero.${content.slideKey}.subtitle`)}
+                    </h3>
+                    
+                    <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto text-center px-4">
+                      {t(`hero.${content.slideKey}.description`)}
+                    </p>
 
-                  {/* Examples for main slide */}
-                  {content.showExamples && (
-                    <div className="flex flex-wrap gap-3 justify-center mt-6">
-                      <Badge variant="secondary" className="px-4 py-2 text-base">
-                        📚 {t('hero.main.example1')}
-                      </Badge>
-                      <Badge variant="secondary" className="px-4 py-2 text-base">
-                        🎓 {t('hero.main.example2')}
-                      </Badge>
+                    {/* Examples for main slide */}
+                    {content.showExamples && (
+                      <div className="flex flex-wrap gap-3 justify-center mt-6">
+                        <Badge variant="secondary" className="px-4 py-2 text-base">
+                          📚 {t('hero.main.example1')}
+                        </Badge>
+                        <Badge variant="secondary" className="px-4 py-2 text-base">
+                          🎓 {t('hero.main.example2')}
+                        </Badge>
+                      </div>
+                    )}
+
+                    {/* Action buttons */}
+                    <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
+                      <Button 
+                        size="lg" 
+                        className={`bg-gradient-to-r ${content.gradient} hover:opacity-90 text-white px-8 py-4 text-lg hover:scale-105 transition-all duration-200`}
+                        onClick={() => onShowAuth('student')}
+                      >
+                        {t(`hero.${content.slideKey}.primaryButton`)}
+                        <ArrowRight className="ml-2 h-5 w-5" />
+                      </Button>
+                      <Button 
+                        size="lg" 
+                        variant="outline" 
+                        className="px-8 py-4 text-lg border-2 hover:scale-105 transition-all duration-200"
+                        onClick={() => onShowAuth('student')}
+                      >
+                        {t(`hero.${content.slideKey}.secondaryButton`)}
+                      </Button>
                     </div>
-                  )}
-
-                  {/* Action buttons */}
-                  <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
-                    <Button 
-                      size="lg" 
-                      className={`bg-gradient-to-r ${content.gradient} hover:opacity-90 text-white px-8 py-4 text-lg hover:scale-105 transition-all duration-200`}
-                      onClick={() => onShowAuth('student')}
-                    >
-                      {t(`hero.${content.slideKey}.primaryButton`)}
-                      <ArrowRight className="ml-2 h-5 w-5" />
-                    </Button>
-                    <Button 
-                      size="lg" 
-                      variant="outline" 
-                      className="px-8 py-4 text-lg border-2 hover:scale-105 transition-all duration-200"
-                      onClick={() => onShowAuth('student')}
-                    >
-                      {t(`hero.${content.slideKey}.secondaryButton`)}
-                    </Button>
                   </div>
                 </div>
               );
