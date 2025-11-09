@@ -4,7 +4,6 @@ import StudentDashboard from "@/components/student/StudentDashboard";
 import TeacherDashboard from "@/components/teacher/TeacherDashboard";
 import AdminDashboard from "@/components/admin/AdminDashboard";
 import ParentDashboard from "@/components/parent/ParentDashboard";
-import OnboardingFlow from "@/components/onboarding/OnboardingFlow";
 import ProfileSetup from "@/components/profile/ProfileSetup";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
@@ -22,7 +21,6 @@ const DashboardRouter = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [userProfile, setUserProfile] = useState<any>(null);
-  const [showOnboarding, setShowOnboarding] = useState(false);
   const [showProfileSetup, setShowProfileSetup] = useState(false);
   const [profileLoading, setProfileLoading] = useState(true);
 
@@ -40,12 +38,6 @@ const DashboardRouter = () => {
           
           if (!error && data) {
             setUserProfile(data);
-            
-            // Check if user needs onboarding
-            const hasCompletedOnboarding = localStorage.getItem(`onboarding-${user.id}`);
-            if (!hasCompletedOnboarding) {
-              setShowOnboarding(true);
-            }
           } else {
             // No profile found, create one from user metadata
             const userType = user.user_metadata?.user_type || 'student';
@@ -94,18 +86,6 @@ const DashboardRouter = () => {
     }
   };
 
-  const handleOnboardingComplete = () => {
-    setShowOnboarding(false);
-    if (user) {
-      localStorage.setItem(`onboarding-${user.id}`, 'true');
-    }
-    
-    // Show profile setup for new users
-    const hasCompletedProfile = userProfile && Object.keys(userProfile).length > 3;
-    if (!hasCompletedProfile) {
-      setShowProfileSetup(true);
-    }
-  };
 
   const handleProfileSetupComplete = async (profile: Partial<UserProfile>) => {
     if (!user) return;
@@ -185,14 +165,6 @@ const DashboardRouter = () => {
     return (
       <>
         {DashboardComponent}
-        
-        {/* Onboarding Flow */}
-        {showOnboarding && (
-          <OnboardingFlow
-            userType={(userProfile?.user_type as any) || 'student'}
-            onComplete={handleOnboardingComplete}
-          />
-        )}
 
         {/* Profile Setup */}
         {showProfileSetup && (
