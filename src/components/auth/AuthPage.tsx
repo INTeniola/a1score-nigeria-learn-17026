@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, type FormEvent, type ChangeEvent } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -9,103 +9,155 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { supabase } from "@/integrations/supabase/client";
 import { Eye, EyeOff, Loader2, ArrowLeft } from "lucide-react";
+import { useAuth } from "@/hooks/useAuth";
+import { validateEmail, validatePassword, validatePasswordMatch } from "@/lib/auth-validation";
+import type { SignInFormData, SignUpFormData, UserType } from "@/types/auth";
 
-const AuthPage = () => {
+/**
+ * Location state type for navigation
+ */
+interface LocationState {
+  userType?: UserType;
+  redirectTo?: string;
+}
+
+/**
+ * Authentication page component
+ * Handles sign in, sign up, and guest authentication
+ */
+const AuthPage = (): JSX.Element => {
   const navigate = useNavigate();
   const location = useLocation();
-  const [isLoading, setIsLoading] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
+  const { signIn, signUp } = useAuth();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [showPassword, setShowPassword] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
 
-  const [signInData, setSignInData] = useState({
+  const locationState = location.state as LocationState | null;
+
+  const [signInData, setSignInData] = useState<SignInFormData>({
     email: "",
     password: ""
   });
 
-  const [signUpData, setSignUpData] = useState({
+  const [signUpData, setSignUpData] = useState<SignUpFormData>({
     email: "",
     password: "",
     confirmPassword: "",
     displayName: "",
-    userType: (location.state as any)?.userType || "student"
+    userType: locationState?.userType || "student"
   });
 
-  const handleSignIn = async (e: React.FormEvent) => {
+  /**
+   * Handle sign in form submission
+   */
+  const handleSignIn = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
     setIsLoading(true);
     setError(null);
+    setFieldErrors({});
+
+    // Validate email
+    const emailValidation = validateEmail(signInData.email);
+    if (!emailValidation.isValid) {
+      setFieldErrors({ email: emailValidation.error || 'Invalid email' });
+      setIsLoading(false);
+      return;
+    }
 
     try {
-      const { error } = await supabase.auth.signInWithPassword({
-        email: signInData.email,
-        password: signInData.password,
-      });
+      const { user, error } = await signIn(signInData);
 
       if (error) {
         setError(error.message);
-      } else {
+      } else if (user) {
         // Get user type from profile or default to student
         const { data: profile } = await supabase
           .from('profiles')
           .select('user_type')
-          .eq('user_id', (await supabase.auth.getUser()).data.user?.id)
+          .eq('user_id', user.id)
           .single();
         
         const userType = profile?.user_type || 'student';
-        navigate(`/dashboard/${userType}`);
+        const redirectTo = locationState?.redirectTo || `/dashboard/${userType}`;
+        navigate(redirectTo);
       }
     } catch (err) {
-      setError("An unexpected error occurred");
+      const errorMessage = err instanceof Error ? err.message : "An unexpected error occurred";
+      setError(errorMessage);
     } finally {
       setIsLoading(false);
     }
   };
 
-  const handleSignUp = async (e: React.FormEvent) => {
+  /**
+   * Handle sign up form submission
+   */
+  const handleSignUp = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
     setIsLoading(true);
     setError(null);
     setSuccess(null);
+    setFieldErrors({});
 
-    if (signUpData.password !== signUpData.confirmPassword) {
-      setError("Passwords do not match");
+    // Validate email
+    const emailValidation = validateEmail(signUpData.email);
+    if (!emailValidation.isValid) {
+      setFieldErrors({ email: emailValidation.error || 'Invalid email' });
       setIsLoading(false);
       return;
     }
 
-    if (signUpData.password.length < 6) {
-      setError("Password must be at least 6 characters long");
+    // Validate password
+    const passwordValidation = validatePassword(signUpData.password);
+    if (!passwordValidation.isValid) {
+      setFieldErrors({ password: passwordValidation.errors[0] || 'Invalid password' });
+      setIsLoading(false);
+      return;
+    }
+
+    // Validate password match
+    if (!validatePasswordMatch(signUpData.password, signUpData.confirmPassword)) {
+      setFieldErrors({ confirmPassword: "Passwords do not match" });
+      setIsLoading(false);
+      return;
+    }
+
+    // Validate display name
+    if (signUpData.displayName.trim().length < 2) {
+      setFieldErrors({ displayName: "Display name must be at least 2 characters" });
       setIsLoading(false);
       return;
     }
 
     try {
-      const { error } = await supabase.auth.signUp({
-        email: signUpData.email,
-        password: signUpData.password,
-        options: {
-          emailRedirectTo: `${window.location.origin}/dashboard/${signUpData.userType}`,
-          data: {
-            display_name: signUpData.displayName,
-            user_type: signUpData.userType
-          }
-        }
-      });
+      const { user, error, emailConfirmationRequired } = await signUp(signUpData);
 
       if (error) {
         setError(error.message);
-      } else {
-        setSuccess("Account created successfully! Check your email for the confirmation link.");
+      } else if (user) {
+        if (emailConfirmationRequired) {
+          setSuccess("Account created successfully! Check your email for the confirmation link.");
+        } else {
+          // User is automatically signed in
+          const redirectTo = locationState?.redirectTo || `/dashboard/${signUpData.userType}`;
+          navigate(redirectTo);
+        }
       }
     } catch (err) {
-      setError("An unexpected error occurred");
+      const errorMessage = err instanceof Error ? err.message : "An unexpected error occurred";
+      setError(errorMessage);
     } finally {
       setIsLoading(false);
     }
   };
 
-  const handleGuestSignIn = async () => {
+  /**
+   * Handle guest sign in (anonymous authentication)
+   */
+  const handleGuestSignIn = async (): Promise<void> => {
     setIsLoading(true);
     setError(null);
 
@@ -116,22 +168,58 @@ const AuthPage = () => {
         setError(error.message);
       } else if (data.user) {
         // Create a profile for the guest user with the selected user type
-        const userType = (location.state as any)?.userType || 'student';
+        const userType = locationState?.userType || 'student';
         
         await supabase
           .from('profiles')
           .insert({
             user_id: data.user.id,
-            display_name: `Guest ${userType.charAt(0).toUpperCase() + userType.slice(1)}`,
+            full_name: `Guest ${userType.charAt(0).toUpperCase() + userType.slice(1)}`,
             user_type: userType
           });
         
-        navigate(`/dashboard/${userType}`);
+        const redirectTo = locationState?.redirectTo || `/dashboard/${userType}`;
+        navigate(redirectTo);
       }
     } catch (err) {
-      setError("An unexpected error occurred");
+      const errorMessage = err instanceof Error ? err.message : "An unexpected error occurred";
+      setError(errorMessage);
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  /**
+   * Handle input change for sign in form
+   */
+  const handleSignInChange = (e: ChangeEvent<HTMLInputElement>): void => {
+    const { id, value } = e.target;
+    const field = id.replace('signin-', '') as keyof SignInFormData;
+    setSignInData(prev => ({ ...prev, [field]: value }));
+    // Clear field error when user starts typing
+    if (fieldErrors[field]) {
+      setFieldErrors(prev => {
+        const newErrors = { ...prev };
+        delete newErrors[field];
+        return newErrors;
+      });
+    }
+  };
+
+  /**
+   * Handle input change for sign up form
+   */
+  const handleSignUpChange = (e: ChangeEvent<HTMLInputElement>): void => {
+    const { id, value } = e.target;
+    const field = id.replace('signup-', '') as keyof SignUpFormData;
+    setSignUpData(prev => ({ ...prev, [field]: value }));
+    // Clear field error when user starts typing
+    if (fieldErrors[field]) {
+      setFieldErrors(prev => {
+        const newErrors = { ...prev };
+        delete newErrors[field];
+        return newErrors;
+      });
     }
   };
 
@@ -179,9 +267,16 @@ const AuthPage = () => {
                     type="email"
                     placeholder="your@email.com"
                     value={signInData.email}
-                    onChange={(e) => setSignInData({ ...signInData, email: e.target.value })}
+                    onChange={handleSignInChange}
+                    aria-invalid={!!fieldErrors.email}
+                    aria-describedby={fieldErrors.email ? 'signin-email-error' : undefined}
                     required
                   />
+                  {fieldErrors.email && (
+                    <p id="signin-email-error" className="text-sm text-destructive mt-1">
+                      {fieldErrors.email}
+                    </p>
+                  )}
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="signin-password">Password</Label>
@@ -191,7 +286,9 @@ const AuthPage = () => {
                       type={showPassword ? "text" : "password"}
                       placeholder="Enter your password"
                       value={signInData.password}
-                      onChange={(e) => setSignInData({ ...signInData, password: e.target.value })}
+                      onChange={handleSignInChange}
+                      aria-invalid={!!fieldErrors.password}
+                      aria-describedby={fieldErrors.password ? 'signin-password-error' : undefined}
                       required
                     />
                     <Button
@@ -204,6 +301,11 @@ const AuthPage = () => {
                       {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                     </Button>
                   </div>
+                  {fieldErrors.password && (
+                    <p id="signin-password-error" className="text-sm text-destructive mt-1">
+                      {fieldErrors.password}
+                    </p>
+                  )}
                 </div>
                 <Button type="submit" className="w-full" disabled={isLoading}>
                   {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
@@ -221,7 +323,7 @@ const AuthPage = () => {
                     type="text"
                     placeholder="Your display name"
                     value={signUpData.displayName}
-                    onChange={(e) => setSignUpData({ ...signUpData, displayName: e.target.value })}
+                    onChange={handleSignUpChange}
                     required
                   />
                 </div>
@@ -229,7 +331,7 @@ const AuthPage = () => {
                   <Label htmlFor="signup-usertype">I am a...</Label>
                   <Select 
                     value={signUpData.userType} 
-                    onValueChange={(value) => setSignUpData({ ...signUpData, userType: value as any })}
+                    onValueChange={(value) => setSignUpData({ ...signUpData, userType: value as UserType })}
                   >
                     <SelectTrigger>
                       <SelectValue placeholder="Select your role" />
@@ -249,7 +351,7 @@ const AuthPage = () => {
                     type="email"
                     placeholder="your@email.com"
                     value={signUpData.email}
-                    onChange={(e) => setSignUpData({ ...signUpData, email: e.target.value })}
+                    onChange={handleSignUpChange}
                     required
                   />
                 </div>
@@ -261,7 +363,7 @@ const AuthPage = () => {
                       type={showPassword ? "text" : "password"}
                       placeholder="Create a password"
                       value={signUpData.password}
-                      onChange={(e) => setSignUpData({ ...signUpData, password: e.target.value })}
+                      onChange={handleSignUpChange}
                       required
                     />
                     <Button
@@ -282,7 +384,7 @@ const AuthPage = () => {
                     type="password"
                     placeholder="Confirm your password"
                     value={signUpData.confirmPassword}
-                    onChange={(e) => setSignUpData({ ...signUpData, confirmPassword: e.target.value })}
+                    onChange={handleSignUpChange}
                     required
                   />
                 </div>

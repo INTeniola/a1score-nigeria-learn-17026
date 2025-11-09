@@ -1,52 +1,77 @@
-import { useState } from "react";
+import { useState, type MouseEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { BookOpen, Users, Heart, Building2, ArrowLeft } from "lucide-react";
+import type { UserType, UserTypeConfig } from "@/types/auth";
 
 interface UserTypeSelectorProps {
   onClose?: () => void;
+  onSelect?: (userType: UserType) => void;
+  preselectedType?: UserType;
 }
 
-const UserTypeSelector = ({ onClose }: UserTypeSelectorProps) => {
+/**
+ * User type selector component
+ * Allows users to choose their role before authentication
+ */
+const UserTypeSelector = ({ onClose, onSelect, preselectedType }: UserTypeSelectorProps): JSX.Element => {
   const navigate = useNavigate();
-  const [selectedType, setSelectedType] = useState<string | null>(null);
+  const [selectedType, setSelectedType] = useState<UserType | null>(preselectedType || null);
 
-  const userTypes = [
+  const userTypes: UserTypeConfig[] = [
     {
-      type: 'student',
+      type: 'student' as const,
       title: 'Student',
       description: 'Access AI tutoring, practice tests, and study resources',
       icon: BookOpen,
-      gradient: "from-blue-600 to-purple-600"
+      gradient: "from-blue-600 to-purple-600",
+      features: ['AI Tutor', 'Practice Tests', 'Progress Tracking']
     },
     {
-      type: 'teacher',
+      type: 'teacher' as const,
       title: 'Teacher',
       description: 'Create content, manage classes, and track student progress',
       icon: Users,
-      gradient: "from-green-600 to-teal-600"
+      gradient: "from-green-600 to-teal-600",
+      features: ['Class Management', 'Content Creation', 'Analytics']
     },
     {
-      type: 'parent',
+      type: 'parent' as const,
       title: 'Parent',
       description: 'Monitor your child\'s progress and support their learning',
       icon: Heart,
-      gradient: "from-pink-600 to-rose-600"
+      gradient: "from-pink-600 to-rose-600",
+      features: ['Progress Monitoring', 'Reports', 'Communication']
     },
     {
-      type: 'admin',
+      type: 'admin' as const,
       title: 'Institution',
       description: 'Manage school-wide analytics and educational resources',
       icon: Building2,
-      gradient: "from-purple-600 to-indigo-600"
+      gradient: "from-purple-600 to-indigo-600",
+      features: ['School Analytics', 'Resource Management', 'Admin Panel']
     }
   ];
 
-  const handleContinue = () => {
+  /**
+   * Handle continue button click
+   */
+  const handleContinue = (): void => {
     if (selectedType) {
-      navigate('/auth', { state: { userType: selectedType } });
+      if (onSelect) {
+        onSelect(selectedType);
+      } else {
+        navigate('/auth', { state: { userType: selectedType } });
+      }
     }
+  };
+
+  /**
+   * Handle user type selection
+   */
+  const handleSelectType = (type: UserType): void => {
+    setSelectedType(type);
   };
 
   return (
@@ -91,7 +116,16 @@ const UserTypeSelector = ({ onClose }: UserTypeSelectorProps) => {
                       ? 'border-primary bg-primary/5'
                       : 'border-muted hover:border-primary/50'
                   }`}
-                  onClick={() => setSelectedType(userType.type)}
+                  onClick={() => handleSelectType(userType.type)}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      handleSelectType(userType.type);
+                    }
+                  }}
+                  aria-pressed={selectedType === userType.type}
                 >
                   <div className="flex items-start space-x-4">
                     <div className={`w-12 h-12 rounded-full bg-gradient-to-r ${userType.gradient} flex items-center justify-center flex-shrink-0`}>
