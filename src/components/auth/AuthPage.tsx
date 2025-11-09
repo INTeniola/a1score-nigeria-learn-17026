@@ -81,9 +81,9 @@ const AuthPage = (): JSX.Element => {
           .from('profiles')
           .select('user_type')
           .eq('user_id', user.id)
-          .single();
+          .maybeSingle();
         
-        const userType = profile?.user_type || 'student';
+        const userType = profile?.user_type || user.user_metadata?.user_type || 'student';
         const redirectTo = locationState?.redirectTo || `/dashboard/${userType}`;
         navigate(redirectTo);
       }
