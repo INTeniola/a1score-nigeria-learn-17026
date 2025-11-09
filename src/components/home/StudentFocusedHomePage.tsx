@@ -162,8 +162,8 @@ const StudentFocusedHomePage = ({ onLogin, onShowAuth }: StudentFocusedHomePageP
           </p>
           <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {otherAudiences.map((audience, index) => (
-              <Card key={index} className="bg-white/10 border-white/20 backdrop-blur-sm hover:bg-white/20 transition-all">
-                <CardHeader>
+              <Card key={index} className="bg-white/10 border-white/20 backdrop-blur-sm hover:bg-white/20 transition-all flex flex-col h-full">
+                <CardHeader className="flex-grow">
                   <audience.icon className="w-10 h-10 text-white mb-4" />
                   <CardTitle className="text-white">{audience.title}</CardTitle>
                   <CardDescription className="text-white/80 text-base">{audience.description}</CardDescription>
