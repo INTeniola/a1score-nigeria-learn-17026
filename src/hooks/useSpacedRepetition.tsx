@@ -14,6 +14,9 @@ interface SpacedRepetitionCard {
   repetitions: number;
   next_review_date: string;
   last_reviewed_at?: string;
+  mastery_level?: number;
+  total_reviews?: number;
+  source_document_id?: string;
 }
 
 type ReviewQuality = 0 | 1 | 2 | 3 | 4 | 5; // 0=complete failure, 5=perfect recall
@@ -124,6 +127,11 @@ export function useSpacedRepetition() {
         newEaseFactor = 1.3;
       }
 
+      // Calculate mastery level based on performance
+      const masteryLevel = Math.min(100, Math.round(
+        (newRepetitions * 10) + (newEaseFactor - 1.3) * 30 + (newInterval / 7) * 10
+      ));
+
       // Calculate next review date
       const nextReviewDate = new Date();
       nextReviewDate.setDate(nextReviewDate.getDate() + newInterval);
@@ -136,7 +144,9 @@ export function useSpacedRepetition() {
           repetitions: newRepetitions,
           next_review_date: nextReviewDate.toISOString(),
           last_reviewed_at: new Date().toISOString(),
-          difficulty: quality < 3 ? card.difficulty + 1 : Math.max(0, card.difficulty - 1)
+          difficulty: quality < 3 ? card.difficulty + 1 : Math.max(0, card.difficulty - 1),
+          mastery_level: masteryLevel,
+          total_reviews: (card.total_reviews || 0) + 1
         })
         .eq('id', cardId);
 
@@ -146,6 +156,78 @@ export function useSpacedRepetition() {
     } catch (error) {
       console.error('Error reviewing card:', error);
       toast.error('Failed to save review');
+    }
+  };
+
+  const generateFlashcardsFromDocument = async (
+    documentId: string,
+    count: number = 10
+  ): Promise<void> => {
+    try {
+      const { data, error } = await supabase.functions.invoke('generate-flashcards', {
+        body: {
+          source: 'document',
+          documentId,
+          count
+        }
+      });
+
+      if (error) throw error;
+
+      toast.success(`Generated ${data.count} flashcards!`);
+      await loadCards();
+    } catch (error) {
+      console.error('Error generating flashcards:', error);
+      toast.error('Failed to generate flashcards');
+    }
+  };
+
+  const generateFlashcardsFromTopic = async (
+    subject: string,
+    topic: string,
+    count: number = 10
+  ): Promise<void> => {
+    try {
+      const { data, error } = await supabase.functions.invoke('generate-flashcards', {
+        body: {
+          source: 'topic',
+          subject,
+          topic,
+          count
+        }
+      });
+
+      if (error) throw error;
+
+      toast.success(`Generated ${data.count} flashcards!`);
+      await loadCards();
+    } catch (error) {
+      console.error('Error generating flashcards:', error);
+      toast.error('Failed to generate flashcards');
+    }
+  };
+
+  const importFromCSV = async (csvData: Array<{
+    question: string;
+    answer: string;
+    subject: string;
+    topic: string;
+  }>): Promise<void> => {
+    try {
+      const { data, error } = await supabase.functions.invoke('generate-flashcards', {
+        body: {
+          source: 'csv',
+          csvData
+        }
+      });
+
+      if (error) throw error;
+
+      toast.success(`Imported ${data.count} flashcards!`);
+      await loadCards();
+    } catch (error) {
+      console.error('Error importing flashcards:', error);
+      toast.error('Failed to import flashcards');
     }
   };
 
@@ -178,6 +260,9 @@ export function useSpacedRepetition() {
     reviewCard,
     deleteCard,
     getDueCardsBySubject,
+    generateFlashcardsFromDocument,
+    generateFlashcardsFromTopic,
+    importFromCSV,
     refreshCards: loadCards
   };
 }

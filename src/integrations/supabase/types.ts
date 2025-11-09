@@ -238,14 +238,18 @@ export type Database = {
       }
       learning_sessions: {
         Row: {
+          achievements_unlocked: string[] | null
+          ai_questions_asked: number | null
           concepts_covered: string[] | null
           correct_answers: number | null
+          distractions_count: number | null
           duration_minutes: number | null
           ended_at: string | null
           id: string
           metadata: Json | null
           performance_score: number | null
           questions_answered: number | null
+          session_settings: Json | null
           session_type: string
           started_at: string | null
           subject: string | null
@@ -253,14 +257,18 @@ export type Database = {
           user_id: string
         }
         Insert: {
+          achievements_unlocked?: string[] | null
+          ai_questions_asked?: number | null
           concepts_covered?: string[] | null
           correct_answers?: number | null
+          distractions_count?: number | null
           duration_minutes?: number | null
           ended_at?: string | null
           id?: string
           metadata?: Json | null
           performance_score?: number | null
           questions_answered?: number | null
+          session_settings?: Json | null
           session_type: string
           started_at?: string | null
           subject?: string | null
@@ -268,14 +276,18 @@ export type Database = {
           user_id: string
         }
         Update: {
+          achievements_unlocked?: string[] | null
+          ai_questions_asked?: number | null
           concepts_covered?: string[] | null
           correct_answers?: number | null
+          distractions_count?: number | null
           duration_minutes?: number | null
           ended_at?: string | null
           id?: string
           metadata?: Json | null
           performance_score?: number | null
           questions_answered?: number | null
+          session_settings?: Json | null
           session_type?: string
           started_at?: string | null
           subject?: string | null
@@ -562,12 +574,15 @@ export type Database = {
           id: string
           interval_days: number | null
           last_reviewed_at: string | null
+          mastery_level: number | null
           metadata: Json | null
           next_review_date: string | null
           question: string
           repetitions: number | null
+          source_document_id: string | null
           subject: string
           topic: string
+          total_reviews: number | null
           user_id: string
         }
         Insert: {
@@ -578,12 +593,15 @@ export type Database = {
           id?: string
           interval_days?: number | null
           last_reviewed_at?: string | null
+          mastery_level?: number | null
           metadata?: Json | null
           next_review_date?: string | null
           question: string
           repetitions?: number | null
+          source_document_id?: string | null
           subject: string
           topic: string
+          total_reviews?: number | null
           user_id: string
         }
         Update: {
@@ -594,15 +612,26 @@ export type Database = {
           id?: string
           interval_days?: number | null
           last_reviewed_at?: string | null
+          mastery_level?: number | null
           metadata?: Json | null
           next_review_date?: string | null
           question?: string
           repetitions?: number | null
+          source_document_id?: string | null
           subject?: string
           topic?: string
+          total_reviews?: number | null
           user_id?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "spaced_repetition_cards_source_document_id_fkey"
+            columns: ["source_document_id"]
+            isOneToOne: false
+            referencedRelation: "user_documents"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       student_reports: {
         Row: {
