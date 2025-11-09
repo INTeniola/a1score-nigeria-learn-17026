@@ -1,8 +1,9 @@
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useTranslation } from 'react-i18next';
 import { Button } from "@/components/ui/button";
-import { ArrowRight, BookOpen, Users, Heart, Building2 } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { ArrowRight, BookOpen, Users, Heart, Building2, GraduationCap, Target, TrendingUp } from "lucide-react";
 
 interface RotatingHeroContentProps {
   onShowAuth: (userType: 'student' | 'teacher' | 'parent' | 'admin') => void;
@@ -11,37 +12,65 @@ interface RotatingHeroContentProps {
 const RotatingHeroContent = ({ onShowAuth }: RotatingHeroContentProps) => {
   const { t } = useTranslation();
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [direction, setDirection] = useState<'forward' | 'backward'>('forward');
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const autoRotateRef = useRef<NodeJS.Timeout | null>(null);
 
   const heroContent = [
     {
-      userType: 'student' as const,
-      icon: BookOpen,
-      gradient: "from-blue-600 to-purple-600"
+      slideKey: 'main' as const,
+      icon: GraduationCap,
+      gradient: "from-primary to-purple-600",
+      showExamples: true
     },
     {
-      userType: 'teacher' as const,
-      icon: Users,
+      slideKey: 'feature1' as const,
+      icon: Target,
       gradient: "from-green-600 to-teal-600"
     },
     {
-      userType: 'parent' as const,
+      slideKey: 'feature2' as const,
       icon: Heart,
       gradient: "from-pink-600 to-rose-600"
     },
     {
-      userType: 'admin' as const,
-      icon: Building2,
+      slideKey: 'feature3' as const,
+      icon: TrendingUp,
       gradient: "from-purple-600 to-indigo-600"
     }
   ];
 
-  useEffect(() => {
-    const interval = setInterval(() => {
+  const navigateToSlide = (index: number) => {
+    if (isTransitioning) return;
+    
+    setIsTransitioning(true);
+    setDirection(index > currentSlide ? 'forward' : 'backward');
+    setCurrentSlide(index);
+    
+    // Reset auto-rotate timer
+    if (autoRotateRef.current) {
+      clearInterval(autoRotateRef.current);
+    }
+    autoRotateRef.current = setInterval(() => {
+      setDirection('forward');
       setCurrentSlide((prev) => (prev + 1) % heroContent.length);
     }, 5000);
 
-    return () => clearInterval(interval);
-  }, []);
+    setTimeout(() => setIsTransitioning(false), 600);
+  };
+
+  useEffect(() => {
+    autoRotateRef.current = setInterval(() => {
+      setDirection('forward');
+      setCurrentSlide((prev) => (prev + 1) % heroContent.length);
+    }, 5000);
+
+    return () => {
+      if (autoRotateRef.current) {
+        clearInterval(autoRotateRef.current);
+      }
+    };
+  }, [heroContent.length]);
 
   const currentContent = heroContent[currentSlide];
   const CurrentIcon = currentContent.icon;
@@ -54,44 +83,73 @@ const RotatingHeroContent = ({ onShowAuth }: RotatingHeroContentProps) => {
       <div className="relative z-10 text-center max-w-4xl mx-auto">
         {/* Icon */}
         <div className="mb-6">
-          <div className={`w-16 h-16 mx-auto rounded-full bg-gradient-to-r ${currentContent.gradient} flex items-center justify-center transition-all duration-500`}>
+          <div className={`w-16 h-16 mx-auto rounded-full bg-gradient-to-r ${currentContent.gradient} flex items-center justify-center transition-all duration-600`}>
             <CurrentIcon className="h-8 w-8 text-white" />
           </div>
         </div>
 
-        {/* Main content with smooth transitions */}
-        <div className="space-y-6 transition-all duration-700 ease-in-out">
-          <h2 className="text-4xl md:text-6xl font-bold text-gray-900 leading-tight">
-            {t(`hero.${currentContent.userType}.title`)}
-          </h2>
-          
-          <h3 className={`text-2xl md:text-3xl font-medium text-transparent bg-clip-text bg-gradient-to-r ${currentContent.gradient}`}>
-            {t(`hero.${currentContent.userType}.subtitle`)}
-          </h3>
-          
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            {t(`hero.${currentContent.userType}.description`)}
-          </p>
-        </div>
-        
-        {/* Action buttons */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
-          <Button 
-            size="lg" 
-            className={`bg-gradient-to-r ${currentContent.gradient} hover:opacity-90 text-white px-8 py-4 text-lg hover:scale-105 transition-all duration-200`}
-            onClick={() => onShowAuth(currentContent.userType)}
+        {/* Carousel container with overflow hidden */}
+        <div className="relative h-[500px] md:h-[450px] overflow-hidden">
+          <div 
+            className="flex transition-transform duration-600 ease-in-out h-full"
+            style={{
+              transform: `translateX(-${currentSlide * 100}%)`,
+            }}
           >
-            {t(`hero.${currentContent.userType}.primaryButton`)}
-            <ArrowRight className="ml-2 h-5 w-5" />
-          </Button>
-          <Button 
-            size="lg" 
-            variant="outline" 
-            className={`px-8 py-4 text-lg border-2 border-gray-300 text-gray-700 hover:bg-gray-50 hover:scale-105 transition-all duration-200`}
-            onClick={() => onShowAuth(currentContent.userType)}
-          >
-            {t(`hero.${currentContent.userType}.secondaryButton`)}
-          </Button>
+            {heroContent.map((content, index) => {
+              const Icon = content.icon;
+              return (
+                <div 
+                  key={content.slideKey}
+                  className="min-w-full flex-shrink-0 space-y-6"
+                >
+                  <h2 className="text-4xl md:text-6xl font-bold text-foreground leading-tight">
+                    {t(`hero.${content.slideKey}.title`)}
+                  </h2>
+                  
+                  <h3 className={`text-2xl md:text-3xl font-medium text-transparent bg-clip-text bg-gradient-to-r ${content.gradient}`}>
+                    {t(`hero.${content.slideKey}.subtitle`)}
+                  </h3>
+                  
+                  <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+                    {t(`hero.${content.slideKey}.description`)}
+                  </p>
+
+                  {/* Examples for main slide */}
+                  {content.showExamples && (
+                    <div className="flex flex-wrap gap-3 justify-center mt-6">
+                      <Badge variant="secondary" className="px-4 py-2 text-base">
+                        📚 {t('hero.main.example1')}
+                      </Badge>
+                      <Badge variant="secondary" className="px-4 py-2 text-base">
+                        🎓 {t('hero.main.example2')}
+                      </Badge>
+                    </div>
+                  )}
+
+                  {/* Action buttons */}
+                  <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
+                    <Button 
+                      size="lg" 
+                      className={`bg-gradient-to-r ${content.gradient} hover:opacity-90 text-white px-8 py-4 text-lg hover:scale-105 transition-all duration-200`}
+                      onClick={() => onShowAuth('student')}
+                    >
+                      {t(`hero.${content.slideKey}.primaryButton`)}
+                      <ArrowRight className="ml-2 h-5 w-5" />
+                    </Button>
+                    <Button 
+                      size="lg" 
+                      variant="outline" 
+                      className="px-8 py-4 text-lg border-2 hover:scale-105 transition-all duration-200"
+                      onClick={() => onShowAuth('student')}
+                    >
+                      {t(`hero.${content.slideKey}.secondaryButton`)}
+                    </Button>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
 
         {/* Slide indicators */}
@@ -99,29 +157,32 @@ const RotatingHeroContent = ({ onShowAuth }: RotatingHeroContentProps) => {
           {heroContent.map((_, index) => (
             <button
               key={index}
-              onClick={() => setCurrentSlide(index)}
+              onClick={() => navigateToSlide(index)}
+              disabled={isTransitioning}
               className={`w-3 h-3 rounded-full transition-all duration-300 ${
                 index === currentSlide 
                   ? `bg-gradient-to-r ${currentContent.gradient}` 
-                  : 'bg-gray-300 hover:bg-gray-400'
+                  : 'bg-muted hover:bg-muted-foreground/40'
               }`}
+              aria-label={`Go to slide ${index + 1}`}
             />
           ))}
         </div>
 
-        {/* User type labels */}
-        <div className="flex justify-center mt-4 space-x-6 text-sm text-gray-500">
+        {/* Slide labels */}
+        <div className="flex justify-center mt-4 space-x-6 text-sm text-muted-foreground">
           {heroContent.map((content, index) => (
             <button
               key={index}
-              onClick={() => setCurrentSlide(index)}
+              onClick={() => navigateToSlide(index)}
+              disabled={isTransitioning}
               className={`capitalize transition-all duration-300 ${
                 index === currentSlide 
-                  ? 'text-gray-800 font-medium' 
-                  : 'hover:text-gray-700'
+                  ? 'text-foreground font-medium' 
+                  : 'hover:text-foreground/70'
               }`}
             >
-              {content.userType === 'admin' ? 'Institution' : content.userType}
+              {t(`hero.${content.slideKey}.label`)}
             </button>
           ))}
         </div>
