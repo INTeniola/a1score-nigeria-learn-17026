@@ -56,7 +56,7 @@ const RotatingHeroContent = ({ onShowAuth }: RotatingHeroContentProps) => {
       setCurrentSlide((prev) => (prev + 1) % heroContent.length);
     }, 8000);
 
-    setTimeout(() => setIsTransitioning(false), 600);
+    setTimeout(() => setIsTransitioning(false), 1000);
   };
 
   useEffect(() => {
@@ -91,7 +91,7 @@ const RotatingHeroContent = ({ onShowAuth }: RotatingHeroContentProps) => {
         {/* Carousel container with overflow hidden */}
         <div className="relative min-h-[550px] md:min-h-[500px] overflow-hidden">
           <div 
-            className="flex transition-transform duration-600 ease-in-out"
+            className="flex transition-transform duration-1000 ease-in-out"
             style={{
               transform: `translateX(-${currentSlide * 100}%)`,
             }}
