@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { EthicsProvider } from '@/contexts/EthicsContext';
 import { ScrollToTop } from "@/components/layout/ScrollToTop";
+import { BackToTop } from "@/components/layout/BackToTop";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import AuthPage from "./components/auth/AuthPage";
@@ -54,6 +55,7 @@ const App = () => (
         <Sonner />
         <BrowserRouter>
           <ScrollToTop />
+          <BackToTop />
           <Routes>
             <Route path="/select-role" element={<UserTypeSelector />} />
             <Route path="/auth" element={
