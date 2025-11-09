@@ -222,7 +222,7 @@ const StudentDashboard = ({ user, onLogout }: StudentDashboardProps) => {
                     <Play className="h-7 w-7 text-blue-600" />
                   </div>
                   <div className="text-center">
-                    <div className="font-semibold">Interactive Tutorials</div>
+                    <div className="font-semibold">Tutorials</div>
                     <div className="text-xs text-gray-500 mt-1">Visual learning</div>
                   </div>
                 </Button>
@@ -269,133 +269,9 @@ const StudentDashboard = ({ user, onLogout }: StudentDashboardProps) => {
                   </div>
                 </Button>
               </div>
-            </motion.div>
-
-            {/* Study Progress & Tools Combined */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="grid grid-cols-1 lg:grid-cols-3 gap-6"
-            >
-              {/* Today's Study Goal */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-base font-semibold">Today's Goal</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    <div className="text-center">
-                      <div className="text-3xl font-bold text-blue-600">45 min</div>
-                      <Progress value={65} className="h-2 mt-3 mb-2" />
-                      <div className="text-sm text-gray-600">29 of 45 minutes completed</div>
-                    </div>
-                    <Button 
-                      onClick={() => setActiveTab('study-timer')} 
-                      className="w-full"
-                      size="sm"
-                    >
-                      Start Study Session
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-
-              {/* Study Management Tools */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-base font-semibold">Study Tools</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-2">
-                    <Button 
-                      onClick={() => setActiveTab('study-timer')}
-                      variant="ghost" 
-                      className="w-full justify-start"
-                      size="sm"
-                    >
-                      <Clock className="h-4 w-4 mr-2" />
-                      Study Timer
-                    </Button>
-                    <Button 
-                      onClick={() => setActiveTab('progress-tracker')}
-                      variant="ghost" 
-                      className="w-full justify-start"
-                      size="sm"
-                    >
-                      <BarChart3 className="h-4 w-4 mr-2" />
-                      Progress Tracker
-                    </Button>
-                    <Button 
-                      onClick={() => setActiveTab('study-goals')}
-                      variant="ghost" 
-                      className="w-full justify-start"
-                      size="sm"
-                    >
-                      <Target className="h-4 w-4 mr-2" />
-                      Study Goals
-                    </Button>
-                    <Button 
-                      onClick={() => setActiveTab('learning-paths')}
-                      variant="ghost" 
-                      className="w-full justify-start"
-                      size="sm"
-                    >
-                      <Sparkles className="h-4 w-4 mr-2" />
-                      Learning Paths
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-
-              {/* Quick Resources */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-base font-semibold">Resources</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-2">
-                    <Button 
-                      onClick={() => setActiveTab('pdf-helper')}
-                      variant="ghost" 
-                      className="w-full justify-start"
-                      size="sm"
-                    >
-                      <FileText className="h-4 w-4 mr-2" />
-                      PDF Helper
-                    </Button>
-                    <Button 
-                      onClick={() => setActiveTab('formula-reference')}
-                      variant="ghost" 
-                      className="w-full justify-start"
-                      size="sm"
-                    >
-                      <Calculator className="h-4 w-4 mr-2" />
-                      Formula Reference
-                    </Button>
-                    <Button 
-                      onClick={() => setActiveTab('community')}
-                      variant="ghost" 
-                      className="w-full justify-start"
-                      size="sm"
-                    >
-                      <Users className="h-4 w-4 mr-2" />
-                      Study Community
-                    </Button>
-                    {hasFeatureAccess(academicLevel, 'homeworkScanner') && (
-                      <Button 
-                        onClick={() => setActiveTab('homework-scanner')}
-                        variant="ghost" 
-                        className="w-full justify-start"
-                        size="sm"
-                      >
-                        <Shield className="h-4 w-4 mr-2" />
-                        Homework Help
-                      </Button>
-                    )}
-                  </div>
-                </CardContent>
-              </Card>
+              <p className="text-sm text-gray-500 mt-4 text-center">
+                💡 Use the menu (top-left) to access Study Timer, Progress Tracker, and more tools
+              </p>
             </motion.div>
 
             {/* Subject Progress */}

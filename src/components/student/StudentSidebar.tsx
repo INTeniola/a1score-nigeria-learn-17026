@@ -19,28 +19,26 @@ const StudentSidebar = ({ activeTab, onTabChange, userLevel }: StudentSidebarPro
     setIsOpen(!isOpen);
   };
 
-  // Define tab configuration with level requirements
   const tabs = [
     { id: 'dashboard', label: 'Dashboard', icon: TrendingUp, feature: 'dashboard' as const },
-    { id: 'animated-tutorials', label: 'Interactive Tutorials', icon: Play, feature: 'dashboard' as const },
-    { id: 'learning-paths', label: 'Smart Paths', icon: Target, feature: 'dashboard' as const },
     { id: 'tutor', label: 'AI Tutor', icon: Brain, feature: 'aiTutor' as const },
     { id: 'quiz', label: 'Practice Quiz', icon: MessageCircle, feature: 'quizzes' as const },
     { id: 'subjects', label: 'Subjects', icon: BookOpen, feature: 'subjects' as const },
+    { id: 'animated-tutorials', label: 'Tutorials', icon: Play, feature: 'dashboard' as const },
+    { id: 'learning-paths', label: 'Learning Paths', icon: TrendingUp, feature: 'dashboard' as const },
     { id: 'pdf-helper', label: 'PDF Helper', icon: FileText, feature: 'pdfHelper' as const },
     { id: 'homework-scanner', label: 'Homework Scanner', icon: Camera, feature: 'homeworkScanner' as const },
     { id: 'study-timer', label: 'Study Timer', icon: Timer, feature: 'studyTimer' as const },
     { id: 'progress-tracker', label: 'Progress Tracker', icon: BarChart3, feature: 'dashboard' as const },
     { id: 'study-goals', label: 'Study Goals', icon: Target, feature: 'studyGoals' as const },
     { id: 'formula-reference', label: 'Formulas', icon: Calculator, feature: 'formulaReference' as const },
-    { id: 'literature-review', label: 'Literature Review', icon: Search, feature: 'literatureReview' as const },
-    { id: 'reference-manager', label: 'References', icon: BookOpen, feature: 'referenceManager' as const },
-    { id: 'thesis-assistant', label: 'Thesis Assistant', icon: PenTool, feature: 'thesisWriting' as const },
-    { id: 'data-analysis', label: 'Data Analysis', icon: BarChart3, feature: 'dataAnalysis' as const },
     { id: 'community', label: 'A1Connect', icon: Users, feature: 'studentCommunity' as const },
     { id: 'gamification', label: 'Achievements', icon: Trophy, feature: 'adaptiveLearning' as const },
     { id: 'ethics', label: 'Ethics Dashboard', icon: Shield, feature: 'dashboard' as const },
-    { id: 'settings', label: 'Settings', icon: Globe, feature: 'dashboard' as const },
+    { id: 'literature-review', label: 'Literature Review', icon: Search, feature: 'literatureReview' as const },
+    { id: 'reference-manager', label: 'References', icon: PenTool, feature: 'referenceManager' as const },
+    { id: 'thesis-assistant', label: 'Thesis Assistant', icon: Globe, feature: 'thesisWriting' as const },
+    { id: 'data-analysis', label: 'Data Analysis', icon: BarChart3, feature: 'dataAnalysis' as const },
   ];
 
   // Filter tabs based on user level

@@ -168,7 +168,6 @@ const AITutorChat = () => {
         setIsSearchingDocuments(true);
       }
       
-      // Call the AI tutor chat function with RAG support
       const { data, error } = await supabase.functions.invoke('ai-tutor-chat', {
         body: {
           message: userMessage,
@@ -180,6 +179,9 @@ const AITutorChat = () => {
             expertise: tutor.expertise,
             greeting: tutor.greeting
           }
+        },
+        headers: {
+          Authorization: `Bearer ${(await supabase.auth.getSession()).data.session?.access_token}`
         }
       });
 
