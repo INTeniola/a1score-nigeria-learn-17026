@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { BookOpen, Users, Heart, Building2 } from "lucide-react";
+import { BookOpen, Users, Heart, Building2, ArrowLeft } from "lucide-react";
 
 interface UserTypeSelectorProps {
   onClose?: () => void;
@@ -51,13 +51,34 @@ const UserTypeSelector = ({ onClose }: UserTypeSelectorProps) => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background to-muted p-4">
-      <Card className="w-full max-w-4xl">
-        <CardHeader className="text-center">
-          <CardTitle className="text-3xl font-bold">Choose Your Role</CardTitle>
-          <p className="text-muted-foreground text-lg">
-            Select how you'll be using A1Score to get personalized features
-          </p>
-        </CardHeader>
+      <div className="w-full max-w-4xl space-y-4">
+        {/* Back to Home Link */}
+        <button
+          onClick={() => navigate('/')}
+          className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors group"
+        >
+          <ArrowLeft className="h-4 w-4 group-hover:-translate-x-1 transition-transform" />
+          Back to home
+        </button>
+
+        <Card className="w-full">
+          <CardHeader className="text-center space-y-4">
+            {/* Clickable Logo */}
+            <div 
+              className="flex justify-center cursor-pointer hover:scale-105 transition-transform"
+              onClick={() => navigate('/')}
+            >
+              <img 
+                src="/lovable-uploads/cd2e80a3-ae02-4d77-b4b6-84f985045e4e.png" 
+                alt="A1Score Logo" 
+                className="h-16 w-auto object-contain"
+              />
+            </div>
+            <CardTitle className="text-3xl font-bold">Choose Your Role</CardTitle>
+            <p className="text-muted-foreground text-lg">
+              Select how you'll be using A1Score to get personalized features
+            </p>
+          </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
             {userTypes.map((userType) => {
@@ -103,6 +124,7 @@ const UserTypeSelector = ({ onClose }: UserTypeSelectorProps) => {
           </div>
         </CardContent>
       </Card>
+      </div>
     </div>
   );
 };
