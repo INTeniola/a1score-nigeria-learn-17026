@@ -326,6 +326,39 @@ export type Database = {
         }
         Relationships: []
       }
+      learning_insights: {
+        Row: {
+          confidence_score: number | null
+          data_points: Json | null
+          generated_at: string | null
+          id: string
+          insight_text: string
+          insight_type: string
+          is_read: boolean | null
+          user_id: string
+        }
+        Insert: {
+          confidence_score?: number | null
+          data_points?: Json | null
+          generated_at?: string | null
+          id?: string
+          insight_text: string
+          insight_type: string
+          is_read?: boolean | null
+          user_id: string
+        }
+        Update: {
+          confidence_score?: number | null
+          data_points?: Json | null
+          generated_at?: string | null
+          id?: string
+          insight_text?: string
+          insight_type?: string
+          is_read?: boolean | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       learning_sessions: {
         Row: {
           achievements_unlocked: string[] | null
@@ -563,6 +596,51 @@ export type Database = {
         }
         Relationships: []
       }
+      quiz_attempts: {
+        Row: {
+          completed_at: string | null
+          correct_count: number
+          difficulty: string | null
+          duration_seconds: number | null
+          exam_type: string | null
+          id: string
+          questions_count: number
+          quiz_id: string | null
+          score: number
+          subject: string
+          topic: string | null
+          user_id: string
+        }
+        Insert: {
+          completed_at?: string | null
+          correct_count: number
+          difficulty?: string | null
+          duration_seconds?: number | null
+          exam_type?: string | null
+          id?: string
+          questions_count: number
+          quiz_id?: string | null
+          score: number
+          subject: string
+          topic?: string | null
+          user_id: string
+        }
+        Update: {
+          completed_at?: string | null
+          correct_count?: number
+          difficulty?: string | null
+          duration_seconds?: number | null
+          exam_type?: string | null
+          id?: string
+          questions_count?: number
+          quiz_id?: string | null
+          score?: number
+          subject?: string
+          topic?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       quiz_questions: {
         Row: {
           correct_answer: string
@@ -747,6 +825,96 @@ export type Database = {
         }
         Relationships: []
       }
+      study_goals: {
+        Row: {
+          created_at: string | null
+          current_value: number | null
+          description: string | null
+          end_date: string
+          goal_type: string
+          id: string
+          metadata: Json | null
+          start_date: string
+          status: string | null
+          subject: string | null
+          target_value: number
+          time_period: string
+          title: string
+          topic: string | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          current_value?: number | null
+          description?: string | null
+          end_date: string
+          goal_type: string
+          id?: string
+          metadata?: Json | null
+          start_date: string
+          status?: string | null
+          subject?: string | null
+          target_value: number
+          time_period: string
+          title: string
+          topic?: string | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          current_value?: number | null
+          description?: string | null
+          end_date?: string
+          goal_type?: string
+          id?: string
+          metadata?: Json | null
+          start_date?: string
+          status?: string | null
+          subject?: string | null
+          target_value?: number
+          time_period?: string
+          title?: string
+          topic?: string | null
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_achievements: {
+        Row: {
+          achievement_type: string
+          description: string | null
+          earned_at: string | null
+          icon: string | null
+          id: string
+          metadata: Json | null
+          title: string
+          user_id: string
+        }
+        Insert: {
+          achievement_type: string
+          description?: string | null
+          earned_at?: string | null
+          icon?: string | null
+          id?: string
+          metadata?: Json | null
+          title: string
+          user_id: string
+        }
+        Update: {
+          achievement_type?: string
+          description?: string | null
+          earned_at?: string | null
+          icon?: string | null
+          id?: string
+          metadata?: Json | null
+          title?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       user_ai_usage: {
         Row: {
           cost_usd: number | null
@@ -887,6 +1055,14 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      calculate_concept_mastery: {
+        Args: { p_subject: string; p_user_id: string }
+        Returns: number
+      }
+      calculate_exam_readiness: {
+        Args: { p_exam_date: string; p_subject: string; p_user_id: string }
+        Returns: Json
+      }
       get_document_stats: {
         Args: { p_user_id: string }
         Returns: {
