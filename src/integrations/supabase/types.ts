@@ -687,36 +687,48 @@ export type Database = {
       }
       user_documents: {
         Row: {
+          chunks_count: number | null
           created_at: string | null
+          error_message: string | null
           file_name: string
           file_size: number | null
           file_type: string | null
           id: string
           processing_metadata: Json | null
+          processing_progress: number | null
+          retry_count: number | null
           storage_path: string
           updated_at: string | null
           upload_status: string | null
           user_id: string
         }
         Insert: {
+          chunks_count?: number | null
           created_at?: string | null
+          error_message?: string | null
           file_name: string
           file_size?: number | null
           file_type?: string | null
           id?: string
           processing_metadata?: Json | null
+          processing_progress?: number | null
+          retry_count?: number | null
           storage_path: string
           updated_at?: string | null
           upload_status?: string | null
           user_id: string
         }
         Update: {
+          chunks_count?: number | null
           created_at?: string | null
+          error_message?: string | null
           file_name?: string
           file_size?: number | null
           file_type?: string | null
           id?: string
           processing_metadata?: Json | null
+          processing_progress?: number | null
+          retry_count?: number | null
           storage_path?: string
           updated_at?: string | null
           upload_status?: string | null
@@ -756,7 +768,16 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      get_document_stats: {
+        Args: { p_user_id: string }
+        Returns: {
+          completed: number
+          failed: number
+          processing: number
+          total_chunks: number
+          total_documents: number
+        }[]
+      }
     }
     Enums: {
       [_ in never]: never
