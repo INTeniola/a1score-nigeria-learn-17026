@@ -1,8 +1,8 @@
 
-import { useState, useEffect } from "react";
 import { useTranslation } from 'react-i18next';
 import { Button } from "@/components/ui/button";
-import { ArrowRight, BookOpen, Users, Heart, Building2 } from "lucide-react";
+import { ArrowRight, BookOpen, Sparkles } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 
 interface RotatingHeroContentProps {
   onShowAuth: (userType: 'student' | 'teacher' | 'parent' | 'admin') => void;
@@ -10,120 +10,81 @@ interface RotatingHeroContentProps {
 
 const RotatingHeroContent = ({ onShowAuth }: RotatingHeroContentProps) => {
   const { t } = useTranslation();
-  const [currentSlide, setCurrentSlide] = useState(0);
-
-  const heroContent = [
-    {
-      userType: 'student' as const,
-      icon: BookOpen,
-      gradient: "from-blue-600 to-purple-600"
-    },
-    {
-      userType: 'teacher' as const,
-      icon: Users,
-      gradient: "from-green-600 to-teal-600"
-    },
-    {
-      userType: 'parent' as const,
-      icon: Heart,
-      gradient: "from-pink-600 to-rose-600"
-    },
-    {
-      userType: 'admin' as const,
-      icon: Building2,
-      gradient: "from-purple-600 to-indigo-600"
-    }
-  ];
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % heroContent.length);
-    }, 5000);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  const currentContent = heroContent[currentSlide];
-  const CurrentIcon = currentContent.icon;
 
   return (
     <div className="relative overflow-hidden">
-      {/* Background gradient that changes with content */}
-      <div className={`absolute inset-0 bg-gradient-to-br ${currentContent.gradient} opacity-5 transition-all duration-1000`} />
+      {/* Background gradient */}
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-secondary/5 to-accent/5" />
       
-      <div className="relative z-10 text-center max-w-4xl mx-auto">
-        {/* Icon */}
-        <div className="mb-6">
-          <div className={`w-16 h-16 mx-auto rounded-full bg-gradient-to-r ${currentContent.gradient} flex items-center justify-center transition-all duration-500`}>
-            <CurrentIcon className="h-8 w-8 text-white" />
+      <div className="relative z-10 text-center max-w-5xl mx-auto">
+        {/* Logo Space - Ready for your logo upload */}
+        <div className="mb-8 flex justify-center">
+          <div className="flex items-center gap-3 px-6 py-3 bg-background/80 backdrop-blur-sm rounded-2xl border-2 border-primary/20">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
+              <Sparkles className="h-6 w-6 text-white" />
+            </div>
+            <span className="text-3xl font-bold bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
+              A1Score
+            </span>
           </div>
         </div>
 
-        {/* Main content with smooth transitions */}
-        <div className="space-y-6 transition-all duration-700 ease-in-out">
-          <h2 className="text-4xl md:text-6xl font-bold text-gray-900 leading-tight">
-            {t(`hero.${currentContent.userType}.title`)}
+        {/* Main Icon */}
+        <div className="mb-6">
+          <div className="w-20 h-20 mx-auto rounded-2xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-lg shadow-primary/20">
+            <BookOpen className="h-10 w-10 text-white" />
+          </div>
+        </div>
+
+        {/* Main content */}
+        <div className="space-y-6">
+          <h1 className="text-5xl md:text-7xl font-bold text-foreground leading-tight">
+            {t('hero.student.title')}
+          </h1>
+          
+          <h2 className="text-2xl md:text-4xl font-medium text-transparent bg-clip-text bg-gradient-to-r from-primary via-secondary to-accent">
+            {t('hero.student.subtitle')}
           </h2>
           
-          <h3 className={`text-2xl md:text-3xl font-medium text-transparent bg-clip-text bg-gradient-to-r ${currentContent.gradient}`}>
-            {t(`hero.${currentContent.userType}.subtitle`)}
-          </h3>
-          
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            {t(`hero.${currentContent.userType}.description`)}
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+            {t('hero.student.description')}
           </p>
         </div>
         
         {/* Action buttons */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
+        <div className="flex flex-col sm:flex-row gap-4 justify-center mt-10">
           <Button 
             size="lg" 
-            className={`bg-gradient-to-r ${currentContent.gradient} hover:opacity-90 text-white px-8 py-4 text-lg hover:scale-105 transition-all duration-200`}
-            onClick={() => onShowAuth(currentContent.userType)}
+            className="bg-gradient-to-r from-primary to-secondary hover:opacity-90 px-8 py-6 text-lg font-semibold shadow-lg shadow-primary/30 hover:scale-105 transition-all duration-200"
+            onClick={() => onShowAuth('student')}
           >
-            {t(`hero.${currentContent.userType}.primaryButton`)}
+            {t('hero.student.primaryButton')}
             <ArrowRight className="ml-2 h-5 w-5" />
           </Button>
           <Button 
             size="lg" 
             variant="outline" 
-            className={`px-8 py-4 text-lg border-2 border-gray-300 text-gray-700 hover:bg-gray-50 hover:scale-105 transition-all duration-200`}
-            onClick={() => onShowAuth(currentContent.userType)}
+            className="px-8 py-6 text-lg font-semibold border-2 hover:bg-accent/10 hover:border-accent hover:scale-105 transition-all duration-200"
+            onClick={() => onShowAuth('student')}
           >
-            {t(`hero.${currentContent.userType}.secondaryButton`)}
+            {t('hero.student.secondaryButton')}
           </Button>
         </div>
 
-        {/* Slide indicators */}
-        <div className="flex justify-center mt-8 space-x-2">
-          {heroContent.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setCurrentSlide(index)}
-              className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                index === currentSlide 
-                  ? `bg-gradient-to-r ${currentContent.gradient}` 
-                  : 'bg-gray-300 hover:bg-gray-400'
-              }`}
-            />
-          ))}
-        </div>
-
-        {/* User type labels */}
-        <div className="flex justify-center mt-4 space-x-6 text-sm text-gray-500">
-          {heroContent.map((content, index) => (
-            <button
-              key={index}
-              onClick={() => setCurrentSlide(index)}
-              className={`capitalize transition-all duration-300 ${
-                index === currentSlide 
-                  ? 'text-gray-800 font-medium' 
-                  : 'hover:text-gray-700'
-              }`}
-            >
-              {content.userType === 'admin' ? 'Institution' : content.userType}
-            </button>
-          ))}
+        {/* Coming Soon badges */}
+        <div className="flex flex-wrap justify-center gap-3 mt-12">
+          <Badge variant="secondary" className="px-4 py-2 text-sm font-medium">
+            <span className="text-muted-foreground">Teachers</span>
+            <span className="ml-2 text-xs text-primary">Coming Soon</span>
+          </Badge>
+          <Badge variant="secondary" className="px-4 py-2 text-sm font-medium">
+            <span className="text-muted-foreground">Parents</span>
+            <span className="ml-2 text-xs text-primary">Coming Soon</span>
+          </Badge>
+          <Badge variant="secondary" className="px-4 py-2 text-sm font-medium">
+            <span className="text-muted-foreground">Institutions</span>
+            <span className="ml-2 text-xs text-primary">Coming Soon</span>
+          </Badge>
         </div>
       </div>
     </div>
