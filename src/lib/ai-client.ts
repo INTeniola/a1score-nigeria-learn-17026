@@ -1,10 +1,12 @@
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
+import { searchSemanticCache, cacheResponse } from './semantic-cache';
+import { checkRateLimit, incrementRateLimit, getRateLimitMessage } from './rate-limiter';
 
 /**
  * AI API error types
  */
-export type AIErrorType = 'rate_limit' | 'payment_required' | 'auth_error' | 'network_error' | 'unknown' | 'daily_limit_exceeded';
+export type AIErrorType = 'rate_limit' | 'payment_required' | 'auth_error' | 'network_error' | 'unknown' | 'daily_limit_exceeded' | 'rate_limit_user';
 
 /**
  * AI API error with type classification
@@ -47,9 +49,9 @@ async function generateCacheKey(query: string, context?: any): Promise<string> {
 }
 
 /**
- * Check and update rate limit
+ * Check and update rate limit (DEPRECATED - use rate-limiter.ts)
  */
-async function checkRateLimit(userId: string): Promise<{ allowed: boolean; remaining: number }> {
+async function checkRateLimitOld(userId: string): Promise<{ allowed: boolean; remaining: number }> {
   const today = new Date().toISOString().split('T')[0];
   
   const { data, error } = await supabase
@@ -74,9 +76,9 @@ async function checkRateLimit(userId: string): Promise<{ allowed: boolean; remai
 }
 
 /**
- * Update usage tracking
+ * Update usage tracking (DEPRECATED - use rate-limiter.ts)
  */
-async function trackUsage(userId: string, tokensUsed: number, costUsd: number): Promise<void> {
+async function trackUsageOld(userId: string, tokensUsed: number, costUsd: number): Promise<void> {
   const today = new Date().toISOString().split('T')[0];
   
   const { error } = await supabase
@@ -98,9 +100,9 @@ async function trackUsage(userId: string, tokensUsed: number, costUsd: number): 
 }
 
 /**
- * Try to get response from cache
+ * Try to get response from cache (DEPRECATED - use semantic-cache.ts)
  */
-async function getCachedResponse(queryHash: string): Promise<string | null> {
+async function getCachedResponseOld(queryHash: string): Promise<string | null> {
   const { data, error } = await supabase
     .from('ai_response_cache')
     .select('response_text, hit_count')
@@ -122,9 +124,9 @@ async function getCachedResponse(queryHash: string): Promise<string | null> {
 }
 
 /**
- * Cache AI response
+ * Cache AI response (DEPRECATED - use semantic-cache.ts)
  */
-async function cacheResponse(
+async function cacheResponseOld(
   queryHash: string,
   queryText: string,
   responseText: string,
@@ -164,8 +166,10 @@ export function handleAIError(error: AIError): void {
       break;
     
     case 'daily_limit_exceeded':
+    case 'rate_limit_user':
       toast.error('Daily limit reached', {
-        description: 'You\'ve reached your free tier limit of 100 requests today. Resets at midnight!',
+        description: 'You\'ve reached your daily limit. Upgrade to Premium for unlimited access!',
+        duration: 5000,
       });
       break;
     
@@ -189,14 +193,14 @@ export function handleAIError(error: AIError): void {
 }
 
 /**
- * Call AI Tutor Chat edge function with caching and rate limiting
+ * Call AI Tutor Chat edge function with semantic caching and rate limiting
  */
 export async function callAITutor(params: {
   message: string;
   tutorId: string;
   subject: string;
   conversationContext?: any;
-}): Promise<AIResponse<{ response: string; conversationId: string; tokensUsed: number; cached?: boolean }>> {
+}): Promise<AIResponse<{ response: string; conversationId: string; tokensUsed: number; cached?: boolean; similarity?: number }>> {
   try {
     // Get current user
     const { data: { user } } = await supabase.auth.getUser();
@@ -209,32 +213,57 @@ export async function callAITutor(params: {
       };
     }
 
-    // Check rate limit
+    // Check user rate limit
     const rateLimitCheck = await checkRateLimit(user.id);
     if (!rateLimitCheck.allowed) {
+      const message = getRateLimitMessage(rateLimitCheck);
+      toast.info('Rate Limit', { description: message, duration: 5000 });
+      
       return {
         error: {
-          type: 'daily_limit_exceeded',
-          message: `Daily limit of 100 requests exceeded. ${rateLimitCheck.remaining} remaining.`
+          type: 'rate_limit_user',
+          message
         }
       };
     }
 
-    // Check cache for common queries
-    const cacheKey = await generateCacheKey(params.message, { tutorId: params.tutorId, subject: params.subject });
-    const cachedResponse = await getCachedResponse(cacheKey);
+    // Show remaining requests to user
+    if (rateLimitCheck.tier === 'free' && rateLimitCheck.remaining <= 5) {
+      toast.info(
+        `${rateLimitCheck.remaining} requests remaining today`,
+        { description: 'Upgrade to Premium for unlimited access!' }
+      );
+    }
+
+    // Try semantic cache search first
+    const cachedResult = await searchSemanticCache(
+      params.message,
+      0.85, // 85% similarity threshold
+      params.subject
+    );
     
-    if (cachedResponse) {
+    if (cachedResult) {
+      console.log(`Cache hit! Similarity: ${cachedResult.similarity.toFixed(2)}`);
+      
+      if (cachedResult.similarity < 1.0) {
+        toast.success('Similar question found', {
+          description: `Retrieved cached answer (${Math.round(cachedResult.similarity * 100)}% match)`,
+          duration: 3000
+        });
+      }
+      
       return {
         data: {
-          response: cachedResponse,
+          response: cachedResult.response,
           conversationId: crypto.randomUUID(),
           tokensUsed: 0,
-          cached: true
+          cached: true,
+          similarity: cachedResult.similarity
         }
       };
     }
 
+    // No cache hit, call AI
     const { data, error } = await supabase.functions.invoke('ai-tutor-chat', {
       body: params
     });
@@ -250,21 +279,21 @@ export async function callAITutor(params: {
       return { error: aiError };
     }
 
-    // Track usage
+    // Track usage and increment rate limit
     if (data.tokensUsed) {
-      const costPer1kTokens = 0.001; // google/gemini-2.5-flash cost
-      const cost = (data.tokensUsed / 1000) * costPer1kTokens;
-      await trackUsage(user.id, data.tokensUsed, cost);
+      await incrementRateLimit(user.id, data.tokensUsed);
     }
 
-    // Cache response for common patterns
+    // Cache the new response
     if (data.response) {
       await cacheResponse(
-        cacheKey,
         params.message,
         data.response,
-        'google/gemini-2.5-flash',
-        data.tokensUsed || 0
+        {
+          topic: params.subject,
+          model: 'google/gemini-2.5-flash',
+          tokensUsed: data.tokensUsed || 0
+        }
       );
     }
 
