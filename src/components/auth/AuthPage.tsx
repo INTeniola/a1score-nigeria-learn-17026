@@ -8,10 +8,11 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { supabase } from "@/integrations/supabase/client";
-import { Eye, EyeOff, Loader2, ArrowLeft } from "lucide-react";
+import { Eye, EyeOff, Loader2, ArrowLeft, Key, Check, X } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
-import { validateEmail, validatePassword, validatePasswordMatch } from "@/lib/auth-validation";
+import { validateEmail, validatePassword, validatePasswordMatch, generateStrongPassword, DEFAULT_PASSWORD_REQUIREMENTS } from "@/lib/auth-validation";
 import type { SignInFormData, SignUpFormData, UserType } from "@/types/auth";
+import { toast } from "sonner";
 
 /**
  * Location state type for navigation
@@ -31,9 +32,11 @@ const AuthPage = (): JSX.Element => {
   const { signIn, signUp } = useAuth();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
+  const [passwordStrength, setPasswordStrength] = useState<'weak' | 'medium' | 'strong'>('weak');
 
   const locationState = location.state as LocationState | null;
 
@@ -213,6 +216,13 @@ const AuthPage = (): JSX.Element => {
     const { id, value } = e.target;
     const field = id.replace('signup-', '') as keyof SignUpFormData;
     setSignUpData(prev => ({ ...prev, [field]: value }));
+    
+    // Update password strength indicator
+    if (field === 'password') {
+      const validation = validatePassword(value);
+      setPasswordStrength(validation.strength);
+    }
+    
     // Clear field error when user starts typing
     if (fieldErrors[field]) {
       setFieldErrors(prev => {
@@ -221,6 +231,22 @@ const AuthPage = (): JSX.Element => {
         return newErrors;
       });
     }
+  };
+
+  /**
+   * Generate and fill a strong password
+   */
+  const handleGeneratePassword = (): void => {
+    const newPassword = generateStrongPassword();
+    setSignUpData(prev => ({ 
+      ...prev, 
+      password: newPassword,
+      confirmPassword: newPassword 
+    }));
+    setPasswordStrength('strong');
+    setShowPassword(true);
+    setShowConfirmPassword(true);
+    toast.success('Strong password generated!');
   };
 
   return (
@@ -351,12 +377,24 @@ const AuthPage = (): JSX.Element => {
                   )}
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="signup-password">Password</Label>
+                  <div className="flex items-center justify-between">
+                    <Label htmlFor="signup-password">Password</Label>
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="sm"
+                      onClick={handleGeneratePassword}
+                      className="h-auto py-1 px-2 text-xs"
+                    >
+                      <Key className="h-3 w-3 mr-1" />
+                      Generate
+                    </Button>
+                  </div>
                   <div className="relative">
                     <Input
                       id="signup-password"
                       type={showPassword ? "text" : "password"}
-                      placeholder="Create a password (min 6 characters)"
+                      placeholder="Create a strong password"
                       value={signUpData.password}
                       onChange={handleSignUpChange}
                       aria-invalid={!!fieldErrors.password}
@@ -373,6 +411,50 @@ const AuthPage = (): JSX.Element => {
                       {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                     </Button>
                   </div>
+                  
+                  {/* Password Requirements */}
+                  <div className="space-y-1 text-xs">
+                    <div className={`flex items-center gap-1 ${signUpData.password.length >= DEFAULT_PASSWORD_REQUIREMENTS.minLength ? 'text-green-600' : 'text-muted-foreground'}`}>
+                      {signUpData.password.length >= DEFAULT_PASSWORD_REQUIREMENTS.minLength ? <Check className="h-3 w-3" /> : <X className="h-3 w-3" />}
+                      <span>At least {DEFAULT_PASSWORD_REQUIREMENTS.minLength} characters</span>
+                    </div>
+                    <div className={`flex items-center gap-1 ${/[A-Z]/.test(signUpData.password) ? 'text-green-600' : 'text-muted-foreground'}`}>
+                      {/[A-Z]/.test(signUpData.password) ? <Check className="h-3 w-3" /> : <X className="h-3 w-3" />}
+                      <span>One uppercase letter</span>
+                    </div>
+                    <div className={`flex items-center gap-1 ${/[a-z]/.test(signUpData.password) ? 'text-green-600' : 'text-muted-foreground'}`}>
+                      {/[a-z]/.test(signUpData.password) ? <Check className="h-3 w-3" /> : <X className="h-3 w-3" />}
+                      <span>One lowercase letter</span>
+                    </div>
+                    <div className={`flex items-center gap-1 ${/[0-9]/.test(signUpData.password) ? 'text-green-600' : 'text-muted-foreground'}`}>
+                      {/[0-9]/.test(signUpData.password) ? <Check className="h-3 w-3" /> : <X className="h-3 w-3" />}
+                      <span>One number</span>
+                    </div>
+                  </div>
+                  
+                  {/* Password Strength */}
+                  {signUpData.password && (
+                    <div className="space-y-1">
+                      <div className="flex items-center justify-between text-xs">
+                        <span className="text-muted-foreground">Strength:</span>
+                        <span className={`font-medium ${
+                          passwordStrength === 'strong' ? 'text-green-600' :
+                          passwordStrength === 'medium' ? 'text-yellow-600' :
+                          'text-red-600'
+                        }`}>
+                          {passwordStrength.charAt(0).toUpperCase() + passwordStrength.slice(1)}
+                        </span>
+                      </div>
+                      <div className="h-1 bg-muted rounded-full overflow-hidden">
+                        <div className={`h-full transition-all ${
+                          passwordStrength === 'strong' ? 'w-full bg-green-600' :
+                          passwordStrength === 'medium' ? 'w-2/3 bg-yellow-600' :
+                          'w-1/3 bg-red-600'
+                        }`} />
+                      </div>
+                    </div>
+                  )}
+                  
                   {fieldErrors.password && (
                     <p id="signup-password-error" className="text-sm text-destructive mt-1">
                       {fieldErrors.password}
@@ -381,19 +463,36 @@ const AuthPage = (): JSX.Element => {
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="signup-confirmPassword">Confirm Password</Label>
-                  <Input
-                    id="signup-confirmPassword"
-                    type="password"
-                    placeholder="Confirm your password"
-                    value={signUpData.confirmPassword}
-                    onChange={handleSignUpChange}
-                    aria-invalid={!!fieldErrors.confirmPassword}
-                    aria-describedby={fieldErrors.confirmPassword ? 'signup-confirm-error' : undefined}
-                    required
-                  />
+                  <div className="relative">
+                    <Input
+                      id="signup-confirmPassword"
+                      type={showConfirmPassword ? "text" : "password"}
+                      placeholder="Confirm your password"
+                      value={signUpData.confirmPassword}
+                      onChange={handleSignUpChange}
+                      aria-invalid={!!fieldErrors.confirmPassword}
+                      aria-describedby={fieldErrors.confirmPassword ? 'signup-confirm-error' : undefined}
+                      required
+                    />
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="sm"
+                      className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
+                      onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                    >
+                      {showConfirmPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                    </Button>
+                  </div>
                   {fieldErrors.confirmPassword && (
                     <p id="signup-confirm-error" className="text-sm text-destructive mt-1">
                       {fieldErrors.confirmPassword}
+                    </p>
+                  )}
+                  {signUpData.confirmPassword && signUpData.password === signUpData.confirmPassword && (
+                    <p className="text-xs text-green-600 flex items-center gap-1">
+                      <Check className="h-3 w-3" />
+                      Passwords match
                     </p>
                   )}
                 </div>

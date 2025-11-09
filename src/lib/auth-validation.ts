@@ -5,12 +5,40 @@ import type { EmailValidationResult, PasswordValidationResult, PasswordRequireme
  * Default password requirements
  */
 export const DEFAULT_PASSWORD_REQUIREMENTS: PasswordRequirements = {
-  minLength: 6,
-  requireUppercase: false,
-  requireLowercase: false,
-  requireNumber: false,
+  minLength: 8,
+  requireUppercase: true,
+  requireLowercase: true,
+  requireNumber: true,
   requireSpecialChar: false,
 };
+
+/**
+ * Generate a strong random password
+ */
+export function generateStrongPassword(): string {
+  const length = 12;
+  const uppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  const lowercase = 'abcdefghijklmnopqrstuvwxyz';
+  const numbers = '0123456789';
+  const special = '!@#$%^&*';
+  
+  const allChars = uppercase + lowercase + numbers + special;
+  
+  // Ensure at least one of each required type
+  let password = '';
+  password += uppercase[Math.floor(Math.random() * uppercase.length)];
+  password += lowercase[Math.floor(Math.random() * lowercase.length)];
+  password += numbers[Math.floor(Math.random() * numbers.length)];
+  password += special[Math.floor(Math.random() * special.length)];
+  
+  // Fill rest with random characters
+  for (let i = password.length; i < length; i++) {
+    password += allChars[Math.floor(Math.random() * allChars.length)];
+  }
+  
+  // Shuffle the password
+  return password.split('').sort(() => Math.random() - 0.5).join('');
+}
 
 /**
  * Zod schema for email validation

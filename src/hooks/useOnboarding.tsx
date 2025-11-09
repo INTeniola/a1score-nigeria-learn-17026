@@ -63,8 +63,10 @@ export const useOnboarding = () => {
   }, [user]);
 
   useEffect(() => {
-    fetchProgress();
-  }, [fetchProgress]);
+    if (user) {
+      fetchProgress();
+    }
+  }, [user, fetchProgress]);
 
   const updateProgress = async (updates: Partial<OnboardingProgress>) => {
     if (!user || !progress) return;
