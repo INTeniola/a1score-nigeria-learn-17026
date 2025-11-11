@@ -64,7 +64,7 @@
     "feature1": {
       "title": "Malamin AI Na Ku",
       "subtitle": "Taimako Na Ƙwararru 24/7",
-      "description": "Samu taimako na musamman koyaushe, ko'ina. Daga magance matsalolin lissafi masu wuyar gaske zuwa nazarin batutuwan kasuwanci - malamin AI naku yana daidaitawa da salon koyo da saurin ku.",
+      "description": "Samu taimako na musamman koyaushe, ko'ina. Daga magance matsalolin lissafi masu wuyar gaske zuga nazarin batutuwan kasuwanci - malamin AI naku yana daidaitawa da salon koyo da saurin ku.",
       "label": "Malamin AI",
       "primaryButton": "Gwada Malamin AI",
       "secondaryButton": "Koyi Ƙari"
@@ -85,5 +85,62 @@
       "primaryButton": "Shiga Jerin Jira",
       "secondaryButton": "Ci Gaba Da Samun Sabuntawa"
     }
+  },
+  "socialProof": {
+    "activeStudents": "Dalibai Masu Aiki",
+    "partnerSchools": "Makarantun Abokan Hulɗa",
+    "satisfaction": "Gamsuwar Dalibai",
+    "aiAccess": "Samun Damar Malamin AI"
+  },
+  "problemSolution": {
+    "title": "Kuna Fama Da Shirye-shiryen JAMB? Ba Ku Iya Biyan Malami Na Keɓaɓɓe?",
+    "subtitle": "Samu koyarwa na AI mara iyaka a ƙasan ₦100/rana",
+    "problemTitle": "Matsala",
+    "solutionTitle": "Mafita Ta A1Score",
+    "problems": {
+      "cost": "Darussan keɓaɓɓe suna farashin ₦5,000+ a kowace awa",
+      "attention": "Malamai suna da yawa ba su da lokacin kulawa da kowane dalibi",
+      "explanations": "Tambayoyin baya ba sa bayyana mafita",
+      "alone": "Kuna karatu kadai ba tare da taimako ba"
+    },
+    "solutions": {
+      "affordable": "Koyarwa na AI mara iyaka 24/7 na ₦2,500/wata",
+      "personal": "Malamin AI na keɓaɓɓe don kowane darasi",
+      "stepByStep": "Bayani na mataki-da-mataki don kowace amsa",
+      "community": "Shiga ƙungiyoyin karatu tare da dubban dalibai"
+    },
+    "cta": "Gwada Kyauta Har Kwana 7",
+    "disclaimer": "Ba a buƙatar katin kiredit • Soke koyaushe"
+  },
+  "howItWorks": {
+    "title": "Farawa Yana Da Sauƙi",
+    "step1Title": "Yi Rajista Kyauta",
+    "step1Desc": "Ƙirƙiri asusun ku cikin daƙiƙa 30. Ba a buƙatar katin kiredit.",
+    "step2Title": "Faɗa Mana Manufofin Ku",
+    "step2Desc": "Zaɓi matakin ajin ku da burin jarrabawa (JAMB, WAEC, NECO).",
+    "step3Title": "Fara Koyo",
+    "step3Desc": "Yi hira da malamin AI naku, ɗauki jarrabawar, kuma ku bi ci gaban ku.",
+    "cta": "Fara Gwajin Kyauta"
+  },
+  "testimonials": {
+    "title": "Dalibai Na Gaske, Sakamakon Na Gaske",
+    "subtitle": "Shiga dubban daliban Najeriya masu cimma manufofin karatunsu",
+    "student1Name": "Chioma B.",
+    "student1Location": "SS3, Lagos",
+    "student1Quote": "Na tashi daga 180 zuwa 267 a gwajin adadin JAMB! Malamin AI yana bayyana lissafi fiye da malami na.",
+    "student1Badge": "+87 Ci Gaban Maki",
+    "student2Name": "Emeka O.",
+    "student2Location": "SS2, Abuja",
+    "student2Quote": "A1Score ya taimake ni fahimtar darussan chemistry da na yi ta fama da su tsawon watanni. Yanzu shine darasi na mafi kyau!",
+    "student2Badge": "Malamin Chemistry",
+    "student3Name": "Fatima A.",
+    "student3Location": "SS3, Kano",
+    "student3Quote": "Malamin AI na 24/7 yana kama da samun malami na keɓaɓɓe. Ina iya yin karatu koyaushe, har da dare kafin jarrabawa.",
+    "student3Badge": "300+ Sa'o'in Karatu",
+    "trustBadge1": "🔒 Takaddun Sirrin Bayanai",
+    "trustBadge2": "✅ Daidaitaccen Tsarin Koyarwa (WAEC/JAMB/NECO)",
+    "trustBadge3": "🌍 Ana Samuwa A Harsuna 5",
+    "trustBadge4": "👨‍🏫 Abun Ciki Da Malami Ya Tabbatar",
+    "disclaimer": "Sakamakon da aka nuna sun fito ne daga haɓakar ayyukan dalibai na gaske. Sakamakon mutum ɗaya zai iya bambanta dangane da daidaitaccen karatu da ƙoƙari."
   }
 }

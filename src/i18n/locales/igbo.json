@@ -52,38 +52,95 @@
   },
   "hero": {
     "main": {
-      "title": "Mụta Ihe Ọ Bụla, Merie Ihe Niile",
-      "subtitle": "Onye Inyeaka Mmụta AI Nke Gị",
-      "description": "Nweta enyemaka ozugbo na ọrụ ụlọ, nkwadebe ule, na mmepe ọrụ gị. Ma ị bụ nwa akwụkwọ ilimi ma ọ bụ na-amụta nka ọrụ ọhụrụ - anyị nọ ebe a 24/7 iji nyere gị aka inweta ihe ịga nke ọma.",
-      "example1": "Ụmụ Akwụkwọ Ilimi",
-      "example2": "Mmepe Ọrụ Ọkachamara",
-      "label": "Nlegharị Anya",
+      "title": "Mụta Ihe Ọ Bụla, Bụrụ Ọkachamara",
+      "subtitle": "Onye Enyemaka Mmụta AI Nke Gị",
+      "description": "Nweta enyemaka ozugbo maka ọrụ ụlọ, nkwadebe ule, na mmepe ọrụ. Ma ị bụ nwa akwụkwọ maọbụ na-eme nkwalite ọrụ - anyị nọ ebe a 24/7 iji nyere gị aka inweta ihe ịga nke ọma.",
+      "example1": "Ụmụ Akwụkwọ",
+      "example2": "Nkwalite Nka Ọrụ",
+      "label": "Nchịkọta",
       "primaryButton": "Malite Mmụta N'efu",
-      "secondaryButton": "Lee Otú Ọ Na-arụ Ọrụ"
+      "secondaryButton": "Lee Ka Ọ Si Arụ Ọrụ"
     },
     "feature1": {
       "title": "Onye Nkuzi AI Nke Gị",
       "subtitle": "Nkwado Ọkachamara 24/7",
-      "description": "Nweta enyemaka ahaziri ahazi mgbe ọ bụla, ebe ọ bụla. Site na idozi nsogbu mgbakọ na mwepụ dị mgbagwoju anya ruo na nyocha azụmahịa - onye nkuzi AI gị ga-agbanwe ka ọ dabara n'ụdị mmụta gị na ọsọ gị.",
+      "description": "Nweta enyemaka ahaziri ahazi mgbe ọ bụla, ebe ọ bụla. Site n'idozi nsogbu mgbakọ na mwepụ gbagwojuru anya ruo na nyocha okwu azụmahịa - onye nkuzi AI gị na-emegharị ka ọ dabara n'ụdị mmụta na ọsọ gị.",
       "label": "Onye Nkuzi AI",
-      "primaryButton": "Nwalee Onye Nkuzi AI",
-      "secondaryButton": "Mụta Karịa"
+      "primaryButton": "Gbalịa Onye Nkuzi AI",
+      "secondaryButton": "Mụtakwuo"
     },
     "feature2": {
       "title": "Soro Ọganihu Gị",
       "subtitle": "Nyocha Mmụta A Na-ahụ Anya",
-      "description": "Hụ ka ị na-aga n'ihu site na nnyocha ọganihu zuru ezu, nghọta arụmọrụ, na akara nrụzu. Mee ememe ncheta ọ bụla na njem mmụta gị.",
+      "description": "Lee ka ị na-aga n'ihu site na nchịkọta ọganihu zuru ezu, nghọta arụmọrụ, na akara nrụpụta. Mee ememe maka nkume ọ bụla n'ije mmụta gị.",
       "label": "Ọganihu",
-      "primaryButton": "Lelee Ngosi",
+      "primaryButton": "Lee Ngosi",
       "secondaryButton": "Hụ Nyocha"
     },
     "feature3": {
       "title": "Na-abịa N'oge Na-adịghị Anya",
-      "subtitle": "Njirimara Ọhụrụ Na-atọ Ụtọ",
-      "description": "Anyị na-ewu ahịa ndị nkuzi, dashboard nne na nna ka mma, na ngwa ụlọ ọrụ dị ike. Sonye na obodo anyị ka ị bụrụ onye mbụ na ahịrị maka njirimara ndị a dị ịtụnanya.",
+      "subtitle": "Atụmatụ Ọhụrụ Na-atọ Ụtọ",
+      "description": "Anyị na-ewu ahịa ndị nkuzi, dashboard ndị nne na nna ka mma, na ngwa ụlọ akwụkwọ siri ike. Sonye na obodo anyị ka ị bụrụ onye mbụ maka atụmatụ ndị a dị ịtụnanya.",
       "label": "Ọdịnihu",
-      "primaryButton": "Sonye na Ndepụta Nchere",
+      "primaryButton": "Sonye Na Ndepụta Nchere",
       "secondaryButton": "Nọgide Na-enweta Mmelite"
     }
+  },
+  "socialProof": {
+    "activeStudents": "Ụmụ Akwụkwọ Na-arụsi Ọrụ Ike",
+    "partnerSchools": "Ụlọ Akwụkwọ Ndị Mmekọ",
+    "satisfaction": "Afọ Ojuju Ụmụ Akwụkwọ",
+    "aiAccess": "Ịnweta Onye Nkuzi AI"
+  },
+  "problemSolution": {
+    "title": "Ị Na-enwe Nsogbu Na Nkwadebe JAMB? Ị Nweghị Ike Ịkwụ Ụgwọ Onye Nkuzi Nkeonwe?",
+    "subtitle": "Nweta nkuzi AI na-enweghị njedebe maka ihe na-erughị ₦100/ụbọchị",
+    "problemTitle": "Nsogbu Ahụ",
+    "solutionTitle": "Ngwọta A1Score",
+    "problems": {
+      "cost": "Nkuzi nkeonwe na-efu ₦5,000+ kwa elekere",
+      "attention": "Ndị nkuzi nwere ọrụ karịrị akarị inye nlebara anya n'otu n'otu",
+      "explanations": "Ajụjụ ochie adịghị akọwa azịza",
+      "alone": "Ị na-amụ naanị gị na-enweghị enyemaka"
+    },
+    "solutions": {
+      "affordable": "Nkuzi AI na-enweghị njedebe 24/7 maka ₦2,500/ọnwa",
+      "personal": "Onye nkuzi AI nkeonwe maka isiokwu ọ bụla",
+      "stepByStep": "Nkọwa nzọụkwụ site na nzọụkwụ maka azịza ọ bụla",
+      "community": "Sonye na otu mmụta na ọtụtụ puku ụmụ akwụkwọ"
+    },
+    "cta": "Gbalịa N'efu Maka Ụbọchị 7",
+    "disclaimer": "Achọghị kaadị kredit • Kagbuo mgbe ọ bụla"
+  },
+  "howItWorks": {
+    "title": "Ọ Dị Mfe Ịmalite",
+    "step1Title": "Debanye Aha N'efu",
+    "step1Desc": "Mepụta akaụntụ gị na sekọnd 30. Achọghị kaadị kredit.",
+    "step2Title": "Gwa Anyị Ebumnuche Gị",
+    "step2Desc": "Họrọ ọkwa klaasị gị na ebumnuche ule (JAMB, WAEC, NECO).",
+    "step3Title": "Malite Ịmụ Akwụkwọ",
+    "step3Desc": "Kparịta ụka na onye nkuzi AI gị, mee ule, ma soro ọganihu gị.",
+    "cta": "Malite Nnwale Efu Gị"
+  },
+  "testimonials": {
+    "title": "Ụmụ Akwụkwọ N'ezie, Nsonaazụ N'ezie",
+    "subtitle": "Sonye na ọtụtụ puku ụmụ akwụkwọ Naịjirịa na-enweta ebumnuche agụmakwụkwọ ha",
+    "student1Name": "Chioma B.",
+    "student1Location": "SS3, Lagos",
+    "student1Quote": "M si na 180 ruo 267 na ule mmegharị JAMB! Onye nkuzi AI na-akọwa mgbakọ na mwepụ nke ọma karịa onye nkuzi m.",
+    "student1Badge": "+87 Mmụba Akara",
+    "student2Name": "Emeka O.",
+    "student2Location": "SS2, Abuja",
+    "student2Quote": "A1Score nyeere m aka ịghọta echiche kemistri m na-enwe nsogbu na ya ruo ọtụtụ ọnwa. Ugbu a ọ bụ isiokwu m kacha mma!",
+    "student2Badge": "Ọkachamara Kemistri",
+    "student3Name": "Fatima A.",
+    "student3Location": "SS3, Kano",
+    "student3Quote": "Onye nkuzi AI 24/7 dị ka inwe onye nkuzi nkeonwe. Enwere m ike ịmụ akwụkwọ mgbe ọ bụla, ọbụlagodi n'abalị tupu ule.",
+    "student3Badge": "300+ Awa Ọmụmụ",
+    "trustBadge1": "🔒 Asambodo Nzuzo Data",
+    "trustBadge2": "✅ Usoro Ọmụmụ Dabara (WAEC/JAMB/NECO)",
+    "trustBadge3": "🌍 Dị na Asụsụ 5",
+    "trustBadge4": "👨‍🏫 Ọdịnaya Onye Nkuzi Kwadoro",
+    "disclaimer": "Nsonaazụ e gosiri sitere na mmụba arụmọrụ ụmụ akwụkwọ n'ezie. Nsonaazụ onye ọ bụla nwere ike ịdị iche dabere na mgbanwe ọmụmụ na mbọ."
   }
 }

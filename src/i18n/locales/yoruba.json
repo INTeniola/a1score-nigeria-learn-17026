@@ -52,38 +52,95 @@
   },
   "hero": {
     "main": {
-      "title": "Kọ́ Ohunkóhun, Ṣàkóso Gbogbo Rẹ̀",
-      "subtitle": "Olùrànlọ́wọ́ Ẹ̀kọ́ AI Ti Ara Rẹ",
-      "description": "Gba ìrànlọ́wọ́ lẹ́sẹ̀kẹsẹ̀ pẹ̀lú iṣẹ́ ilé, ìmúrasílẹ̀ ìdánwò, àti ìdàgbàsókè iṣẹ́. Bóyá o jẹ́ akẹ́kọ̀ọ́ ilimi tàbí o ń gbìyànjú láti mú ọgbọ́n iṣẹ́ rẹ pọ̀ sí i - a wà níbí 24/7 láti ràn ọ́ lọ́wọ́ láti ṣàṣeyọrí.",
-      "example1": "Àwọn Akẹ́kọ̀ọ́ Ilimi",
-      "example2": "Ìmúdàgbà Ọgbọ́n Iṣẹ́",
-      "label": "Àkójọpọ̀",
-      "primaryButton": "Bẹ̀rẹ̀ Ẹ̀kọ́ Lọ́fẹ̀ẹ́",
-      "secondaryButton": "Wo Bí Ó Ṣe Ń Ṣiṣẹ́"
+      "title": "Kọ Ohunkohun, Ṣakoso Gbogbo Nkan",
+      "subtitle": "Olùrànlọ́wọ́ Ẹ̀kọ́ AI Ti ara ẹni",
+      "description": "Gba iranlọwọ lẹsẹkẹsẹ pẹlu iṣẹ ile, igbaradi idanwo, ati idagbasoke ọjọgbọn. Boya o jẹ ọmọ ile-iwe tabi o n ṣe ilọsiwaju ọjọgbọn - a wa nibi 24/7 lati ran ọ lọwọ lati ṣaṣeyọri.",
+      "example1": "Àwọn Akẹ́kọ̀ọ́",
+      "example2": "Ìmúdára Ọjọ̀gbọ́n Iṣẹ́",
+      "label": "Àkópọ̀",
+      "primaryButton": "Bẹrẹ Kikọ Ẹkọ Ọfẹ",
+      "secondaryButton": "Wo Bii O Ṣe N Ṣiṣẹ"
     },
     "feature1": {
-      "title": "Olùkọ́ AI Ti Ara Rẹ",
-      "subtitle": "Àtìlẹyìn Ọ̀mọ̀ràn 24/7",
-      "description": "Gba ìrànlọ́wọ́ ti ara ẹni ní ìgbàkúgbà, níbikíbi. Láti yanjú àwọn ìṣòro mathematics tó nira sí àgbéyẹ̀wò àwọn ọ̀rọ̀ iṣowo - olùkọ́ AI rẹ yóò ṣàtúnṣe sí ọ̀nà ẹ̀kọ́ rẹ àti ìyára rẹ.",
+      "title": "Olùkọ́ AI Ti ara ẹni",
+      "subtitle": "Atilẹyin Alamọdaju 24/7",
+      "description": "Gba iranlọwọ ti ara ẹni nigbakugba, nibikibi. Lati yanju awọn iṣoro mathimatiki to nira si itupalẹ awọn ọran iṣowo - olukọ AI rẹ yoo ṣe atunṣe si ara rẹ ni ibamu si ara ati iyara ẹkọ rẹ.",
       "label": "Olùkọ́ AI",
-      "primaryButton": "Gbìyànjú Olùkọ́ AI",
-      "secondaryButton": "Kọ́ Síi"
+      "primaryButton": "Gbiyanju Olùkọ́ AI",
+      "secondaryButton": "Kọ́ síi"
     },
     "feature2": {
-      "title": "Tọpinpin Ìlọsíwájú Rẹ",
-      "subtitle": "Àgbéyẹ̀wò Ẹ̀kọ́ Tí A Rí",
-      "description": "Wo ara rẹ tí o ń dára sí i pẹ̀lú ìtọpinpin ìlọsíwájú àlàyé, ìmọ̀ nípa ìṣesí, àti àwọn àmì àṣeyọrí. Ṣe àjọyọ̀ gbogbo àmì-ayé ní ìrìn-àjò ẹ̀kọ́ rẹ.",
+      "title": "Tọpa Ilọsiwaju Rẹ",
+      "subtitle": "Itupalẹ Ẹkọ Ti o Han",
+      "description": "Wo ara rẹ ti n dara si pẹlu tọpa ilọsiwaju alaye, oye iṣẹ ṣiṣe, ati awọn ami-ẹyẹ aṣeyọri. Ṣe ayẹyẹ gbogbo aami pataki ni irin-ajo ẹkọ rẹ.",
       "label": "Ìlọsíwájú",
-      "primaryButton": "Wo Àpẹẹrẹ",
-      "secondaryButton": "Wo Àgbéyẹ̀wò"
+      "primaryButton": "Wo Apẹẹrẹ",
+      "secondaryButton": "Wo Itupalẹ"
     },
     "feature3": {
-      "title": "Ń Bọ̀ Láìpẹ́",
-      "subtitle": "Àwọn Ẹ̀yà Tuntun Tó Dùn",
-      "description": "A ń kọ́ ọjà àwọn olùkọ́, dashboard òbí tí a ti mú dára sí i, àti àwọn irinṣẹ́ ilé-iṣẹ́ tó lágbára. Darapọ̀ mọ́ àwùjọ wa láti jẹ́ ẹni àkọ́kọ́ ní ìlà fún àwọn ẹ̀yà ìyanu wọ̀nyí.",
-      "label": "Ọ̀la",
-      "primaryButton": "Darapọ̀ Mọ́ Àkójọ Ìdúró",
-      "secondaryButton": "Wà Ní Ìmúdójúìwọ̀n"
+      "title": "N bọ laipẹ",
+      "subtitle": "Awọn ẹya tuntun ti o niyanju",
+      "description": "A n kọ ọja olukọ kan, dashboard obi ti o ni ilọsiwaju, ati awọn irinṣẹ ile-ẹkọ to lagbara. Darapọ mọ agbegbe wa lati jẹ akọkọ ni ila fun awọn ẹya iyalẹnu wọnyi.",
+      "label": "Ọjọ́ iwájú",
+      "primaryButton": "Darapọ mọ Atokọ iduro",
+      "secondaryButton": "Duro ni imudojuiwọn"
     }
+  },
+  "socialProof": {
+    "activeStudents": "Awọn Ọmọ Ile-iwe Ti N Ṣiṣẹ",
+    "partnerSchools": "Awọn Ile-iwe Alabaṣepọ",
+    "satisfaction": "Itẹlọrun Ọmọ Ile-iwe",
+    "aiAccess": "Wiwọle Olukọ AI"
+  },
+  "problemSolution": {
+    "title": "Ṣe o n tiraka pẹlu Igbaradi JAMB? O ko le sanwo fun Ẹkọ Ikọkọ?",
+    "subtitle": "Gba ẹkọ AI ailopin fun o kere ju ₦100/ọjọ",
+    "problemTitle": "Iṣoro Naa",
+    "solutionTitle": "Ojutu A1Score",
+    "problems": {
+      "cost": "Awọn ẹkọ ikọkọ jẹ ₦5,000+ fun wakati kan",
+      "attention": "Awọn olukọ ṣe ojukokoro pupọ lati fun akiyesi ẹnikan",
+      "explanations": "Awọn ibeere atijọ ko ṣalaye awọn ojutu",
+      "alone": "N kọ ẹkọ nikan laisi iranlọwọ"
+    },
+    "solutions": {
+      "affordable": "Ẹkọ AI ailopin 24/7 fun ₦2,500/oṣu",
+      "personal": "Olukọ AI ti ara ẹni fun gbogbo koko-ẹkọ",
+      "stepByStep": "Awọn alaye igbesẹ-nipasẹ-igbesẹ fun gbogbo idahun",
+      "community": "Darapọ mọ awọn ẹgbẹ ikẹkọ pẹlu ẹgbẹrun awọn ọmọ ile-iwe"
+    },
+    "cta": "Gbiyanju Ọfẹ fun Ọjọ 7",
+    "disclaimer": "Ko nilo kaadi kirẹditi • Fagilee nigbakugba"
+  },
+  "howItWorks": {
+    "title": "O Rọrun Lati Bẹrẹ",
+    "step1Title": "Forukọsilẹ Ọfẹ",
+    "step1Desc": "Ṣẹda akọọlẹ rẹ ni aaya 30. Ko nilo kaadi kirẹditi.",
+    "step2Title": "Sọ fun Wa Nipa Awọn Ibi-afẹde Rẹ",
+    "step2Desc": "Yan ipele kilasi rẹ ati awọn ibi-afẹde idanwo (JAMB, WAEC, NECO).",
+    "step3Title": "Bẹrẹ Kikọ Ẹkọ",
+    "step3Desc": "Ba olukọ AI rẹ sọrọ, ṣe awọn idanwo, ki o si tọpa ilọsiwaju rẹ.",
+    "cta": "Bẹrẹ Idanwo Ọfẹ Rẹ"
+  },
+  "testimonials": {
+    "title": "Awọn Ọmọ Ile-iwe Gidi, Awọn Abajade Gidi",
+    "subtitle": "Darapọ mọ ẹgbẹẹgbẹrun awọn ọmọ ile-iwe Naijiria ti n ṣaṣeyọri awọn ibi-afẹde ẹkọ wọn",
+    "student1Name": "Chioma B.",
+    "student1Location": "SS3, Eko",
+    "student1Quote": "Mo lọ lati 180 si 267 ninu awọn idanwo adaṣe JAMB! Olukọ AI ṣalaye mathimatiki daradara ju olukọ mi lọ.",
+    "student1Badge": "+87 Awọn Aaye Ilọsiwaju",
+    "student2Name": "Emeka O.",
+    "student2Location": "SS2, Abuja",
+    "student2Quote": "A1Score ran mi lọwọ lati loye awọn imọ-jinlẹ kemistri ti mo tiraka pẹlu fun oṣu pupọ. Bayi o jẹ koko-ẹkọ ti o dara julọ mi!",
+    "student2Badge": "Oga Kemistri",
+    "student3Name": "Fatima A.",
+    "student3Location": "SS3, Kano",
+    "student3Quote": "Olukọ AI 24/7 dabi nini olukọ ikọkọ. Mo le kọ ẹkọ nigbakugba, paapaa ni alẹ pẹ ṣaaju awọn idanwo.",
+    "student3Badge": "300+ Awọn Wakati Ikẹkọ",
+    "trustBadge1": "🔒 Aṣẹ Aṣiri Data",
+    "trustBadge2": "✅ Iṣiro Eto-ẹkọ (WAEC/JAMB/NECO)",
+    "trustBadge3": "🌍 Wa ni Awọn Ede 5",
+    "trustBadge4": "👨‍🏫 Akoonu Ti Olukọ Jẹrisi",
+    "disclaimer": "Awọn abajade ti a han wa lati awọn ilọsiwaju iṣẹ ṣiṣe ọmọ ile-iwe gidi. Awọn abajade ẹni kọọkan le yatọ da lori iṣọkan ikẹkọ ati igbiyanju."
   }
 }

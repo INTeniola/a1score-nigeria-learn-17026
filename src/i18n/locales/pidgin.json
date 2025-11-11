@@ -55,27 +55,27 @@
   },
   "hero": {
     "main": {
-      "title": "Learn Anything, Master Everything",
+      "title": "Learn Anytin, Master Everytin",
       "subtitle": "Your Personal AI Learning Assistant",
-      "description": "Get instant help with homework, exam prep, and career development. Whether you be academic student or you wan improve your work skills - we dey here 24/7 to help you succeed.",
+      "description": "Get instant help wit homework, exam prep, and professional development. Weda you be academic student or you dey upskill for your career - we dey here 24/7 to help you succeed.",
       "example1": "Academic Students",
-      "example2": "Professional Skills",
+      "example2": "Professional Upskilling",
       "label": "Overview",
-      "primaryButton": "Start Learning Free",
-      "secondaryButton": "See How E Work"
+      "primaryButton": "Start to Learn Free",
+      "secondaryButton": "See How E Dey Work"
     },
     "feature1": {
-      "title": "Your Personal AI Teacher",
+      "title": "Your Personal AI Tutor",
       "subtitle": "24/7 Expert Support",
-      "description": "Get personalized help anytime, anywhere. From solving hard math problems to analyzing business matters - your AI teacher go adjust to your learning style and speed.",
-      "label": "AI Teacher",
-      "primaryButton": "Try AI Teacher",
+      "description": "Get personalized help anytime, anywhere. From solving complex maths problems to analyzing business cases - your AI tutor go adapt to your learning style and pace.",
+      "label": "AI Tutor",
+      "primaryButton": "Try AI Tutor",
       "secondaryButton": "Learn More"
     },
     "feature2": {
       "title": "Track Your Progress",
       "subtitle": "Visual Learning Analytics",
-      "description": "See yourself dey improve with detailed progress tracking, performance insights, and achievement badges. Celebrate every milestone for your learning journey.",
+      "description": "Watch yourself dey improve wit detailed progress tracking, performance insights, and achievement badges. Celebrate every milestone for your learning journey.",
       "label": "Progress",
       "primaryButton": "View Demo",
       "secondaryButton": "See Analytics"
@@ -83,10 +83,67 @@
     "feature3": {
       "title": "Coming Soon",
       "subtitle": "Exciting New Features",
-      "description": "We dey build teacher marketplace, enhanced parent dashboard, and powerful institutional tools. Join our community make you be first to get these amazing features.",
+      "description": "We dey build teacher marketplace, enhanced parent dashboard, and powerful institutional tools. Join our community make you be first in line for these amazing features.",
       "label": "Future",
       "primaryButton": "Join Waitlist",
       "secondaryButton": "Stay Updated"
     }
+  },
+  "socialProof": {
+    "activeStudents": "Active Students",
+    "partnerSchools": "Partner Schools",
+    "satisfaction": "Student Satisfaction",
+    "aiAccess": "AI Tutor Access"
+  },
+  "problemSolution": {
+    "title": "You Dey Struggle wit JAMB Prep? You No Fit Afford Private Lesson?",
+    "subtitle": "Get unlimited AI tutoring for less than ₦100/day",
+    "problemTitle": "The Problem",
+    "solutionTitle": "The A1Score Solution",
+    "problems": {
+      "cost": "Private lessons cost ₦5,000+ per hour",
+      "attention": "Teachers too busy no get time for individual attention",
+      "explanations": "Past questions no dey explain solutions",
+      "alone": "You dey study alone without help"
+    },
+    "solutions": {
+      "affordable": "Unlimited AI tutoring 24/7 for ₦2,500/month",
+      "personal": "Personal AI tutor for every subject",
+      "stepByStep": "Step-by-step explanations for every answer",
+      "community": "Join study groups wit thousands of students"
+    },
+    "cta": "Try Free for 7 Days",
+    "disclaimer": "No credit card required • Cancel anytime"
+  },
+  "howItWorks": {
+    "title": "E Easy to Start",
+    "step1Title": "Sign Up Free",
+    "step1Desc": "Create your account for 30 seconds. No credit card required.",
+    "step2Title": "Tell Us Your Goals",
+    "step2Desc": "Select your class level and exam targets (JAMB, WAEC, NECO).",
+    "step3Title": "Start to Dey Learn",
+    "step3Desc": "Chat wit your AI tutor, take quizzes, and track your progress.",
+    "cta": "Start Your Free Trial"
+  },
+  "testimonials": {
+    "title": "Real Students, Real Results",
+    "subtitle": "Join thousands of Nigerian students wey dey achieve their academic goals",
+    "student1Name": "Chioma B.",
+    "student1Location": "SS3, Lagos",
+    "student1Quote": "I move from 180 to 267 for JAMB practice tests! The AI tutor explain maths better pass my teacher.",
+    "student1Badge": "+87 Points Improvement",
+    "student2Name": "Emeka O.",
+    "student2Location": "SS2, Abuja",
+    "student2Quote": "A1Score help me understand chemistry concepts wey I dey struggle wit for months. Now na my best subject!",
+    "student2Badge": "Chemistry Master",
+    "student3Name": "Fatima A.",
+    "student3Location": "SS3, Kano",
+    "student3Quote": "The 24/7 AI tutor be like say you get private teacher. I fit study anytime, even late night before exams.",
+    "student3Badge": "300+ Study Hours",
+    "trustBadge1": "🔒 Data Privacy Certified",
+    "trustBadge2": "✅ Curriculum Aligned (WAEC/JAMB/NECO)",
+    "trustBadge3": "🌍 Available in 5 Languages",
+    "trustBadge4": "👨‍🏫 Teacher Verified Content",
+    "disclaimer": "Results wey we show na from actual student performance improvements. Individual results fit vary based on study consistency and effort."
   }
 }

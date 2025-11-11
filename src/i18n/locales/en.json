@@ -88,5 +88,62 @@
       "primaryButton": "Join Waitlist",
       "secondaryButton": "Stay Updated"
     }
+  },
+  "socialProof": {
+    "activeStudents": "Active Students",
+    "partnerSchools": "Partner Schools",
+    "satisfaction": "Student Satisfaction",
+    "aiAccess": "AI Tutor Access"
+  },
+  "problemSolution": {
+    "title": "Struggling with JAMB Prep? Can't Afford Private Tutoring?",
+    "subtitle": "Get unlimited AI tutoring for less than ₦100/day",
+    "problemTitle": "The Problem",
+    "solutionTitle": "The A1Score Solution",
+    "problems": {
+      "cost": "Private lessons cost ₦5,000+ per hour",
+      "attention": "Teachers are too busy for individual attention",
+      "explanations": "Past questions don't explain solutions",
+      "alone": "Studying alone without help"
+    },
+    "solutions": {
+      "affordable": "Unlimited AI tutoring 24/7 for ₦2,500/month",
+      "personal": "Personal AI tutor for every subject",
+      "stepByStep": "Step-by-step explanations for every answer",
+      "community": "Join study groups with thousands of students"
+    },
+    "cta": "Try Free for 7 Days",
+    "disclaimer": "No credit card required • Cancel anytime"
+  },
+  "howItWorks": {
+    "title": "Getting Started is Easy",
+    "step1Title": "Sign Up Free",
+    "step1Desc": "Create your account in 30 seconds. No credit card required.",
+    "step2Title": "Tell Us Your Goals",
+    "step2Desc": "Select your class level and exam targets (JAMB, WAEC, NECO).",
+    "step3Title": "Start Learning",
+    "step3Desc": "Chat with your AI tutor, take quizzes, and track your progress.",
+    "cta": "Start Your Free Trial"
+  },
+  "testimonials": {
+    "title": "Real Students, Real Results",
+    "subtitle": "Join thousands of Nigerian students achieving their academic goals",
+    "student1Name": "Chioma B.",
+    "student1Location": "SS3, Lagos",
+    "student1Quote": "I went from 180 to 267 in JAMB practice tests! The AI tutor explains math better than my teacher.",
+    "student1Badge": "+87 Points Improvement",
+    "student2Name": "Emeka O.",
+    "student2Location": "SS2, Abuja",
+    "student2Quote": "A1Score helped me understand chemistry concepts I struggled with for months. Now it's my best subject!",
+    "student2Badge": "Chemistry Master",
+    "student3Name": "Fatima A.",
+    "student3Location": "SS3, Kano",
+    "student3Quote": "The 24/7 AI tutor is like having a private teacher. I can study anytime, even late at night before exams.",
+    "student3Badge": "300+ Study Hours",
+    "trustBadge1": "🔒 Data Privacy Certified",
+    "trustBadge2": "✅ Curriculum Aligned (WAEC/JAMB/NECO)",
+    "trustBadge3": "🌍 Available in 5 Languages",
+    "trustBadge4": "👨‍🏫 Teacher Verified Content",
+    "disclaimer": "Results shown are from actual student performance improvements. Individual results may vary based on study consistency and effort."
   }
 }
