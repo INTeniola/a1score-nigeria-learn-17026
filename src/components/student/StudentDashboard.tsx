@@ -156,20 +156,20 @@ const StudentDashboard = ({ user, onLogout }: StudentDashboardProps) => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 pb-20 md:pb-0">
+    <div className="min-h-screen bg-background pb-20 md:pb-0">
       {/* Header */}
-      <header className="bg-white shadow-sm border-b fixed top-0 left-0 right-0 z-30">
-        <div className="px-3 md:px-6 py-2 md:py-4 flex items-center justify-between">
-          <div className="flex items-center space-x-2 md:space-x-3 ml-0 md:ml-16">
+      <header className="bg-card/80 backdrop-blur-sm shadow-sm border-b fixed top-0 left-0 right-0 z-30">
+        <div className="px-4 md:px-6 lg:px-8 py-2 md:py-4 flex items-center justify-between">
+          <div className="flex items-center space-x-2 md:space-x-3">
             <img 
               src="/lovable-uploads/cd2e80a3-ae02-4d77-b4b6-84f985045e4e.png" 
               alt="A1Score Logo" 
               className="h-6 md:h-8 w-auto object-contain"
             />
             <div>
-              <h1 className="text-base md:text-xl font-bold text-gray-900">A1Score</h1>
+              <h1 className="text-base md:text-xl lg:text-2xl font-bold text-foreground">A1Score</h1>
               <div className="flex items-center gap-2 flex-wrap">
-                <p className="text-xs md:text-sm text-gray-600">Welcome, {user.name}!</p>
+                <p className="text-xs md:text-sm text-muted-foreground">Welcome, {user.name}!</p>
                 {getLevelBadge(user.level)}
               </div>
             </div>
@@ -185,9 +185,9 @@ const StudentDashboard = ({ user, onLogout }: StudentDashboardProps) => {
       <StudentSidebar activeTab={activeTab} onTabChange={setActiveTab} userLevel={user.level} />
 
       {/* Main Content */}
-      <div className="pt-14 md:pt-20 px-4 md:px-6 lg:px-8">
+      <div className="pt-14 md:pt-20 px-4 md:px-6 lg:px-8 md:ml-64">
         <Tabs value={activeTab} onValueChange={setActiveTab}>
-          <TabsContent value="dashboard" className="space-y-6 max-w-7xl mx-auto">
+          <TabsContent value="dashboard" className="space-y-8 md:space-y-12 max-w-7xl mx-auto">
             {/* Welcome Banner - Personalized */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -195,20 +195,20 @@ const StudentDashboard = ({ user, onLogout }: StudentDashboardProps) => {
               transition={{ duration: 0.5 }}
             >
               <Card className="bg-gradient-to-br from-blue-600 to-purple-600 text-white">
-                <CardContent className="p-4 md:p-6">
+                <CardContent className="p-4 md:p-6 lg:p-8">
                   <div className="flex items-center justify-between">
                     <div className="space-y-1 md:space-y-2">
-                      <h2 className="text-lg md:text-2xl font-bold">Welcome back, {user.name}! 👋</h2>
-                      <p className="text-sm md:text-base text-blue-100">{getWelcomeMessage()}</p>
+                      <h2 className="text-xl md:text-2xl lg:text-3xl font-bold leading-relaxed">Welcome back, {user.name}! 👋</h2>
+                      <p className="text-sm md:text-base leading-relaxed text-blue-100">{getWelcomeMessage()}</p>
                     </div>
                     <div className="hidden md:flex gap-8 text-center">
                       <div>
-                        <div className="text-3xl font-bold">{userStats?.streak || 0}</div>
-                        <div className="text-sm text-blue-100">Day Streak</div>
+                        <div className="text-2xl md:text-3xl font-bold">{userStats?.streak || 0}</div>
+                        <div className="text-xs md:text-sm text-blue-100">Day Streak</div>
                       </div>
                       <div>
-                        <div className="text-3xl font-bold">{userStats?.leagueRank || '#--'}</div>
-                        <div className="text-sm text-blue-100">{userStats?.leagueName || 'Bronze League'}</div>
+                        <div className="text-2xl md:text-3xl font-bold">{userStats?.leagueRank || '#--'}</div>
+                        <div className="text-xs md:text-sm text-blue-100">{userStats?.leagueName || 'Bronze League'}</div>
                       </div>
                     </div>
                   </div>
@@ -222,9 +222,9 @@ const StudentDashboard = ({ user, onLogout }: StudentDashboardProps) => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
             >
-              <div className="mb-3 md:mb-4">
-                <h3 className="text-sm md:text-lg font-semibold text-gray-900">Start Learning</h3>
-                <p className="text-xs md:text-sm text-gray-600">Choose how you want to study today</p>
+              <div className="mb-4 md:mb-6">
+                <h3 className="text-lg md:text-xl lg:text-2xl font-semibold text-foreground leading-relaxed">Start Learning</h3>
+                <p className="text-sm md:text-base text-muted-foreground leading-relaxed">Choose how you want to study today</p>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
                 <Button 
@@ -294,9 +294,9 @@ const StudentDashboard = ({ user, onLogout }: StudentDashboardProps) => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.3 }}
             >
-              <div className="mb-3 md:mb-4">
-                <h3 className="text-sm md:text-lg font-semibold text-gray-900">Your Subjects</h3>
-                <p className="text-xs md:text-sm text-gray-600">
+              <div className="mb-4 md:mb-6">
+                <h3 className="text-lg md:text-xl lg:text-2xl font-semibold text-foreground leading-relaxed">Your Subjects</h3>
+                <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
                   {userSubjects.length === 0 
                     ? "Start studying to track your progress" 
                     : "Based on your actual study activity"}
@@ -310,16 +310,16 @@ const StudentDashboard = ({ user, onLogout }: StudentDashboardProps) => {
               ) : userSubjects.length === 0 ? (
                 <Card className="p-8 text-center">
                   <div className="space-y-4">
-                    <div className="mx-auto w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center">
-                      <BookOpen className="h-8 w-8 text-blue-600" />
+                    <div className="mx-auto w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center">
+                      <BookOpen className="h-8 w-8 text-primary" />
                     </div>
                     <div>
-                      <h3 className="text-lg font-semibold mb-2">
+                      <h3 className="text-lg md:text-xl lg:text-2xl font-semibold mb-2 leading-relaxed">
                         {preferences?.learningSubjects && preferences.learningSubjects.length > 0
                           ? `Let's start with ${preferences.learningSubjects.join(', ')}`
                           : 'No Subjects Yet'}
                       </h3>
-                      <p className="text-gray-600 mb-4">
+                      <p className="text-sm md:text-base text-muted-foreground mb-4 leading-relaxed">
                         {preferences?.learningSubjects && preferences.learningSubjects.length > 0
                           ? 'Take your first quiz or start a study session to begin tracking progress!'
                           : 'Complete onboarding or start studying to see your subjects here'}

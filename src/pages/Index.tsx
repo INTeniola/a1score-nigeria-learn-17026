@@ -155,9 +155,9 @@ const Index = () => {
       <StudentFocusedHomePage onLogin={handleShowAuth} onShowAuth={handleShowAuth} />
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-white py-8 sm:py-12">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
+      <footer className="bg-gray-900 text-white py-8 md:py-12 lg:py-16">
+        <div className="container mx-auto px-4 md:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
             <div>
               <div className="flex items-center space-x-2 mb-4">
                 <img 
@@ -165,15 +165,15 @@ const Index = () => {
                   alt="A1Score Logo" 
                   className="h-8 w-auto object-contain brightness-0 invert"
                 />
-                <span className="text-lg sm:text-xl font-bold">A1Score</span>
+                <span className="text-xl md:text-2xl font-bold">A1Score</span>
               </div>
-              <p className="text-gray-400 text-sm sm:text-base">
+              <p className="text-gray-400 text-sm md:text-base leading-relaxed">
                 AI-powered education platform designed specifically for Nigerian students and teachers.
               </p>
             </div>
             <div>
-              <h4 className="font-semibold mb-4 text-sm sm:text-base">For Students</h4>
-              <ul className="space-y-2 text-gray-400 text-sm">
+              <h4 className="font-semibold mb-4 text-lg md:text-xl">For Students</h4>
+              <ul className="space-y-2 text-gray-400 text-sm md:text-base leading-relaxed">
                 <li>AI Tutoring</li>
                 <li>JAMB Practice</li>
                 <li>WAEC Prep</li>
@@ -181,8 +181,8 @@ const Index = () => {
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold mb-4 text-sm sm:text-base">For Teachers</h4>
-              <ul className="space-y-2 text-gray-400 text-sm">
+              <h4 className="font-semibold mb-4 text-lg md:text-xl">For Teachers</h4>
+              <ul className="space-y-2 text-gray-400 text-sm md:text-base leading-relaxed">
                 <li>Class Analytics</li>
                 <li>Content Creation</li>
                 <li>Student Management</li>
@@ -190,8 +190,8 @@ const Index = () => {
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold mb-4 text-sm sm:text-base">Support</h4>
-              <ul className="space-y-2 text-gray-400 text-sm">
+              <h4 className="font-semibold mb-4 text-lg md:text-xl">Support</h4>
+              <ul className="space-y-2 text-gray-400 text-sm md:text-base leading-relaxed">
                 <li>Help Center</li>
                 <li>Contact Us</li>
                 <li>Community</li>
@@ -199,7 +199,7 @@ const Index = () => {
               </ul>
             </div>
           </div>
-          <div className="border-t border-gray-800 mt-6 sm:mt-8 pt-6 sm:pt-8 text-center text-gray-400 text-sm">
+          <div className="border-t border-gray-800 mt-8 md:mt-12 pt-8 text-center text-gray-400 text-xs md:text-sm leading-relaxed">
             <p>&copy; 2024 A1Score. All rights reserved. Built for Nigerian Education.</p>
           </div>
         </div>
