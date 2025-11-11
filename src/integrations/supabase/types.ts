@@ -309,6 +309,7 @@ export type Database = {
           content: string
           created_at: string | null
           document_id: string
+          embedding: string | null
           id: string
           metadata: Json | null
         }
@@ -317,6 +318,7 @@ export type Database = {
           content: string
           created_at?: string | null
           document_id: string
+          embedding?: string | null
           id?: string
           metadata?: Json | null
         }
@@ -325,6 +327,7 @@ export type Database = {
           content?: string
           created_at?: string | null
           document_id?: string
+          embedding?: string | null
           id?: string
           metadata?: Json | null
         }
@@ -1355,6 +1358,16 @@ export type Database = {
           _user_id: string
         }
         Returns: boolean
+      }
+      search_document_chunks: {
+        Args: { p_limit?: number; p_query_embedding: string; p_user_id: string }
+        Returns: {
+          chunk_index: number
+          content: string
+          document_id: string
+          id: string
+          similarity: number
+        }[]
       }
     }
     Enums: {

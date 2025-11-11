@@ -190,12 +190,108 @@ serve(async (req) => {
 
     console.log('Analysis saved successfully:', savedAnalysis.id);
 
+    // Create document record for RAG search
+    const { data: document, error: docError } = await supabase
+      .from('user_documents')
+      .insert({
+        user_id: user.id,
+        file_name: fileName,
+        file_path: filePath,
+        file_type: 'application/pdf',
+        file_size: 0,
+        status: 'completed'
+      })
+      .select()
+      .single();
+
+    if (docError) {
+      console.error('Error creating document record:', docError);
+    } else {
+      console.log('Document record created:', document.id);
+
+      // Generate embeddings for the document content
+      const openaiApiKey = Deno.env.get('OPENAI_API_KEY');
+      if (openaiApiKey && document) {
+        try {
+          // Combine all breakdown content for chunking
+          const fullContent = `
+Summary: ${breakdown.summary}
+
+Key Points:
+${breakdown.keyPoints?.join('\n') || ''}
+
+Concepts:
+${breakdown.concepts?.join('\n') || ''}
+
+Study Guide:
+${breakdown.studyGuide?.join('\n') || ''}
+
+Questions:
+${breakdown.questions?.join('\n') || ''}`;
+
+          // Split into chunks (roughly 500 tokens each)
+          const chunkSize = 500;
+          const words = fullContent.split(/\s+/);
+          const chunks: string[] = [];
+          
+          for (let i = 0; i < words.length; i += chunkSize) {
+            const chunk = words.slice(i, i + chunkSize).join(' ');
+            if (chunk.trim()) {
+              chunks.push(chunk);
+            }
+          }
+
+          console.log(`Created ${chunks.length} chunks for embedding`);
+
+          // Generate embeddings for each chunk
+          for (let i = 0; i < chunks.length; i++) {
+            const embeddingResponse = await fetch('https://api.openai.com/v1/embeddings', {
+              method: 'POST',
+              headers: {
+                'Authorization': `Bearer ${openaiApiKey}`,
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                model: 'text-embedding-3-small',
+                input: chunks[i],
+                dimensions: 1536
+              }),
+            });
+
+            if (embeddingResponse.ok) {
+              const embeddingData = await embeddingResponse.json();
+              const embedding = embeddingData.data[0].embedding;
+
+              // Store chunk with embedding
+              await supabase
+                .from('document_chunks')
+                .insert({
+                  document_id: document.id,
+                  chunk_index: i,
+                  content: chunks[i],
+                  embedding: embedding,
+                  metadata: { source: 'pdf_analysis', file_name: fileName }
+                });
+
+              console.log(`Stored chunk ${i + 1}/${chunks.length} with embedding`);
+            } else {
+              console.error(`Failed to generate embedding for chunk ${i}`);
+            }
+          }
+        } catch (embError) {
+          console.error('Error generating embeddings:', embError);
+          // Continue without embeddings - analysis still saved
+        }
+      }
+    }
+
     return new Response(JSON.stringify({
       id: savedAnalysis.id,
       fileName: fileName,
       breakdown: breakdown,
       createdAt: savedAnalysis.created_at,
-      model: 'google/gemini-2.5-pro'
+      model: 'google/gemini-2.5-pro',
+      chunksCreated: document ? 'yes' : 'no'
     }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });

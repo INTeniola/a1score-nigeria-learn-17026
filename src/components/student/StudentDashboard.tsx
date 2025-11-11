@@ -595,7 +595,10 @@ const StudentDashboard = ({ user, onLogout }: StudentDashboardProps) => {
                 >
                   ← Upload New PDF
                 </Button>
-                <PDFAnalysisViewer analysis={currentAnalysis} />
+                <PDFAnalysisViewer 
+                  analysis={currentAnalysis}
+                  onOpenAIChat={() => setActiveTab('tutor')}
+                />
               </div>
             )}
           </TabsContent>

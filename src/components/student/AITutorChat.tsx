@@ -278,7 +278,7 @@ const AITutorChat = () => {
                           Search My Documents
                         </Label>
                         <p className="text-[10px] md:text-xs text-muted-foreground leading-relaxed">
-                          Answer from your uploaded PDFs
+                          Answer from your uploaded PDFs and documents
                         </p>
                       </div>
                     </div>
@@ -289,6 +289,11 @@ const AITutorChat = () => {
                       className="flex-shrink-0"
                     />
                   </div>
+                  {useDocuments && (
+                    <div className="mt-2 p-2 bg-blue-50 rounded text-xs text-blue-700">
+                      💡 Tip: Upload PDFs using PDF Helper to enable document search
+                    </div>
+                  )}
                 </CardContent>
               </Card>
 

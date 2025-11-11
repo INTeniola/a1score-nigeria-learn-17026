@@ -2,7 +2,9 @@ import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
-import { FileText, BookOpen, Target, Lightbulb } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Alert, AlertDescription } from '@/components/ui/alert';
+import { FileText, BookOpen, Target, Lightbulb, MessageSquare, CheckCircle2 } from 'lucide-react';
 
 interface PDFAnalysisViewerProps {
   analysis: {
@@ -17,11 +19,33 @@ interface PDFAnalysisViewerProps {
     };
     createdAt: string;
   };
+  onOpenAIChat?: () => void;
 }
 
-const PDFAnalysisViewer: React.FC<PDFAnalysisViewerProps> = ({ analysis }) => {
+const PDFAnalysisViewer: React.FC<PDFAnalysisViewerProps> = ({ analysis, onOpenAIChat }) => {
   return (
     <div className="space-y-6">
+      {/* Document Searchable Alert */}
+      <Alert className="border-green-200 bg-green-50">
+        <CheckCircle2 className="h-4 w-4 text-green-600" />
+        <AlertDescription className="flex items-center justify-between gap-4">
+          <span className="text-sm text-green-800">
+            ✅ This document is now searchable in AI Chat! Enable "Search My Documents" to ask questions about it.
+          </span>
+          {onOpenAIChat && (
+            <Button 
+              size="sm" 
+              variant="outline"
+              className="flex-shrink-0 border-green-300 hover:bg-green-100"
+              onClick={onOpenAIChat}
+            >
+              <MessageSquare className="h-4 w-4 mr-2" />
+              Open AI Chat
+            </Button>
+          )}
+        </AlertDescription>
+      </Alert>
+
       <Card>
         <CardHeader>
           <div className="flex items-center justify-between">
