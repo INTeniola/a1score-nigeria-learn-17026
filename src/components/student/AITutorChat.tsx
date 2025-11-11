@@ -238,17 +238,17 @@ const AITutorChat = () => {
   };
 
   return (
-    <div className="max-w-6xl mx-auto space-y-6">
+    <div className="max-w-6xl mx-auto space-y-4 md:space-y-6 container-padding">
       <Card>
-        <CardHeader>
-          <CardTitle>🎓 AI Chat Tutor</CardTitle>
-          <p className="text-gray-600">
+        <CardHeader className="p-4 md:p-6">
+          <CardTitle className="text-lg md:text-xl lg:text-2xl">🎓 AI Chat Tutor</CardTitle>
+          <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
             Choose your personal tutor and get instant help with any subject
           </p>
         </CardHeader>
       </Card>
 
-      <div className="space-y-4">
+      <div className="space-y-3 md:space-y-4">
           {/* Tutor Selection */}
           {!selectedTutor && (
             <TutorSelection 
@@ -269,16 +269,16 @@ const AITutorChat = () => {
 
               {/* Document Search Toggle */}
               <Card>
-                <CardContent className="p-4">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                      <BookMarked className="h-5 w-5 text-primary" />
-                      <div>
-                        <Label htmlFor="use-documents" className="text-sm font-medium cursor-pointer">
+                <CardContent className="p-3 md:p-4">
+                  <div className="flex items-center justify-between gap-3">
+                    <div className="flex items-center gap-2 md:gap-3 flex-1">
+                      <BookMarked className="h-4 w-4 md:h-5 md:w-5 text-primary flex-shrink-0" />
+                      <div className="flex-1 min-w-0">
+                        <Label htmlFor="use-documents" className="text-xs md:text-sm font-medium cursor-pointer leading-relaxed">
                           Search My Documents
                         </Label>
-                        <p className="text-xs text-muted-foreground">
-                          Answer from your uploaded PDFs and notes
+                        <p className="text-[10px] md:text-xs text-muted-foreground leading-relaxed">
+                          Answer from your uploaded PDFs
                         </p>
                       </div>
                     </div>
@@ -286,6 +286,7 @@ const AITutorChat = () => {
                       id="use-documents"
                       checked={useDocuments}
                       onCheckedChange={setUseDocuments}
+                      className="flex-shrink-0"
                     />
                   </div>
                 </CardContent>
@@ -294,7 +295,7 @@ const AITutorChat = () => {
               {/* Chat Messages */}
               <Card>
                 <CardContent className="p-0">
-                  <div className="h-96 overflow-y-auto p-4 space-y-4">
+                  <div className="h-[calc(100vh-20rem)] md:h-96 overflow-y-auto p-3 md:p-4 space-y-3 md:space-y-4">
                     {messages.map((message) => (
                       <ChatMessage 
                         key={message.id}
@@ -307,7 +308,7 @@ const AITutorChat = () => {
                     {isSearchingDocuments && (
                       <Alert className="border-primary bg-primary/5">
                         <FileSearch className="h-4 w-4 text-primary animate-pulse" />
-                        <AlertDescription className="text-sm">
+                        <AlertDescription className="text-xs md:text-sm">
                           Searching your documents...
                         </AlertDescription>
                       </Alert>

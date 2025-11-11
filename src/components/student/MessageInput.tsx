@@ -30,17 +30,22 @@ const MessageInput = ({
   isTyping 
 }: MessageInputProps) => {
   return (
-    <div className="border-t p-4">
+    <div className="border-t p-3 md:p-4 bg-card">
       <div className="flex gap-2">
         <Input
           value={inputMessage}
           onChange={(e) => setInputMessage(e.target.value)}
-          placeholder={`Ask ${selectedTutor.name} anything about ${selectedTutor.subject}...`}
-          onKeyPress={(e) => e.key === 'Enter' && onSendMessage()}
-          className="flex-1"
+          placeholder={`Ask ${selectedTutor.name} about ${selectedTutor.subject}...`}
+          onKeyPress={(e) => e.key === 'Enter' && !e.shiftKey && onSendMessage()}
+          className="flex-1 h-11 md:h-10 text-sm md:text-base p-3 md:p-2"
         />
-        <Button onClick={onSendMessage} disabled={!inputMessage.trim() || isTyping}>
-          <Send className="h-4 w-4" />
+        <Button 
+          onClick={onSendMessage} 
+          disabled={!inputMessage.trim() || isTyping}
+          className="min-h-11 min-w-11 md:min-h-10 md:min-w-10 flex-shrink-0"
+          size="icon"
+        >
+          <Send className="h-4 w-4 md:h-5 md:w-5" />
         </Button>
       </div>
     </div>

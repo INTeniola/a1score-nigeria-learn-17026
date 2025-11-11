@@ -251,18 +251,18 @@ const AuthPage = (): JSX.Element => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background to-muted p-4">
-      <div className="w-full max-w-md space-y-4">
+      <div className="w-full max-w-sm md:max-w-md space-y-4 md:space-y-6">
         {/* Back to Home Link */}
         <button
           onClick={() => navigate('/')}
-          className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors group"
+          className="flex items-center gap-2 text-xs md:text-sm text-muted-foreground hover:text-foreground transition-colors group min-h-11"
         >
           <ArrowLeft className="h-4 w-4 group-hover:-translate-x-1 transition-transform" />
           Back to home
         </button>
 
         <Card className="w-full">
-        <CardHeader className="text-center space-y-4">
+        <CardHeader className="text-center space-y-3 md:space-y-4 p-4 md:p-6">
           {/* Clickable Logo */}
           <div 
             className="flex justify-center cursor-pointer hover:scale-105 transition-transform"
@@ -271,23 +271,23 @@ const AuthPage = (): JSX.Element => {
             <img 
               src="/lovable-uploads/cd2e80a3-ae02-4d77-b4b6-84f985045e4e.png" 
               alt="A1Score Logo" 
-              className="h-16 w-auto object-contain"
+              className="h-12 md:h-16 w-auto object-contain"
             />
           </div>
-          <CardTitle className="text-2xl font-bold">Welcome to A1Score</CardTitle>
-          <p className="text-muted-foreground">Join the student community platform</p>
+          <CardTitle className="text-xl md:text-2xl font-bold leading-relaxed">Welcome to A1Score</CardTitle>
+          <p className="text-sm md:text-base text-muted-foreground leading-relaxed">Join the student community platform</p>
         </CardHeader>
-        <CardContent>
+        <CardContent className="p-4 md:p-6">
           <Tabs defaultValue="signin" className="w-full">
-            <TabsList className="grid w-full grid-cols-2">
-              <TabsTrigger value="signin">Sign In</TabsTrigger>
-              <TabsTrigger value="signup">Sign Up</TabsTrigger>
+            <TabsList className="grid w-full grid-cols-2 h-11 md:h-10">
+              <TabsTrigger value="signin" className="text-sm md:text-base">Sign In</TabsTrigger>
+              <TabsTrigger value="signup" className="text-sm md:text-base">Sign Up</TabsTrigger>
             </TabsList>
 
             <TabsContent value="signin">
-              <form onSubmit={handleSignIn} className="space-y-4">
+              <form onSubmit={handleSignIn} className="space-y-4 md:space-y-6">
                 <div className="space-y-2">
-                  <Label htmlFor="signin-email">Email</Label>
+                  <Label htmlFor="signin-email" className="text-sm md:text-base leading-relaxed">Email</Label>
                   <Input
                     id="signin-email"
                     type="email"
@@ -296,16 +296,17 @@ const AuthPage = (): JSX.Element => {
                     onChange={handleSignInChange}
                     aria-invalid={!!fieldErrors.email}
                     aria-describedby={fieldErrors.email ? 'signin-email-error' : undefined}
+                    className="h-12 md:h-10 text-base md:text-sm p-3 md:p-2"
                     required
                   />
                   {fieldErrors.email && (
-                    <p id="signin-email-error" className="text-sm text-destructive mt-1">
+                    <p id="signin-email-error" className="text-xs md:text-sm text-destructive mt-1 leading-relaxed">
                       {fieldErrors.email}
                     </p>
                   )}
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="signin-password">Password</Label>
+                  <Label htmlFor="signin-password" className="text-sm md:text-base leading-relaxed">Password</Label>
                   <div className="relative">
                     <Input
                       id="signin-password"
@@ -315,25 +316,26 @@ const AuthPage = (): JSX.Element => {
                       onChange={handleSignInChange}
                       aria-invalid={!!fieldErrors.password}
                       aria-describedby={fieldErrors.password ? 'signin-password-error' : undefined}
+                      className="h-12 md:h-10 text-base md:text-sm p-3 md:p-2 pr-12"
                       required
                     />
                     <Button
                       type="button"
                       variant="ghost"
                       size="sm"
-                      className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
+                      className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent min-h-11 min-w-11"
                       onClick={() => setShowPassword(!showPassword)}
                     >
                       {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                     </Button>
                   </div>
                   {fieldErrors.password && (
-                    <p id="signin-password-error" className="text-sm text-destructive mt-1">
+                    <p id="signin-password-error" className="text-xs md:text-sm text-destructive mt-1 leading-relaxed">
                       {fieldErrors.password}
                     </p>
                   )}
                 </div>
-                <Button type="submit" className="w-full" disabled={isLoading}>
+                <Button type="submit" className="w-full min-h-12 md:min-h-11 text-base md:text-sm" disabled={isLoading}>
                   {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                   Sign In
                 </Button>
@@ -341,25 +343,26 @@ const AuthPage = (): JSX.Element => {
             </TabsContent>
 
             <TabsContent value="signup">
-              <form onSubmit={handleSignUp} className="space-y-4">
+              <form onSubmit={handleSignUp} className="space-y-4 md:space-y-6">
                 <div className="space-y-2">
-                  <Label htmlFor="signup-displayName">Full Name</Label>
+                  <Label htmlFor="signup-displayName" className="text-sm md:text-base leading-relaxed">Full Name</Label>
                   <Input
                     id="signup-displayName"
                     type="text"
                     placeholder="Enter your full name"
                     value={signUpData.displayName}
                     onChange={handleSignUpChange}
+                    className="h-12 md:h-10 text-base md:text-sm p-3 md:p-2"
                     required
                   />
                   {fieldErrors.displayName && (
-                    <p className="text-sm text-destructive mt-1">
+                    <p className="text-xs md:text-sm text-destructive mt-1 leading-relaxed">
                       {fieldErrors.displayName}
                     </p>
                   )}
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="signup-email">Email</Label>
+                  <Label htmlFor="signup-email" className="text-sm md:text-base leading-relaxed">Email</Label>
                   <Input
                     id="signup-email"
                     type="email"
@@ -368,23 +371,24 @@ const AuthPage = (): JSX.Element => {
                     onChange={handleSignUpChange}
                     aria-invalid={!!fieldErrors.email}
                     aria-describedby={fieldErrors.email ? 'signup-email-error' : undefined}
+                    className="h-12 md:h-10 text-base md:text-sm p-3 md:p-2"
                     required
                   />
                   {fieldErrors.email && (
-                    <p id="signup-email-error" className="text-sm text-destructive mt-1">
+                    <p id="signup-email-error" className="text-xs md:text-sm text-destructive mt-1 leading-relaxed">
                       {fieldErrors.email}
                     </p>
                   )}
                 </div>
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
-                    <Label htmlFor="signup-password">Password</Label>
+                    <Label htmlFor="signup-password" className="text-sm md:text-base leading-relaxed">Password</Label>
                     <Button
                       type="button"
                       variant="ghost"
                       size="sm"
                       onClick={handleGeneratePassword}
-                      className="h-auto py-1 px-2 text-xs"
+                      className="h-auto py-1 px-2 text-[10px] md:text-xs min-h-8"
                     >
                       <Key className="h-3 w-3 mr-1" />
                       Generate
@@ -399,13 +403,14 @@ const AuthPage = (): JSX.Element => {
                       onChange={handleSignUpChange}
                       aria-invalid={!!fieldErrors.password}
                       aria-describedby={fieldErrors.password ? 'signup-password-error' : undefined}
+                      className="h-12 md:h-10 text-base md:text-sm p-3 md:p-2 pr-12"
                       required
                     />
                     <Button
                       type="button"
                       variant="ghost"
                       size="sm"
-                      className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
+                      className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent min-h-11 min-w-11"
                       onClick={() => setShowPassword(!showPassword)}
                     >
                       {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
@@ -413,7 +418,7 @@ const AuthPage = (): JSX.Element => {
                   </div>
                   
                   {/* Password Requirements */}
-                  <div className="space-y-1 text-xs">
+                  <div className="space-y-1 text-[10px] md:text-xs">
                     <div className={`flex items-center gap-1 ${signUpData.password.length >= DEFAULT_PASSWORD_REQUIREMENTS.minLength ? 'text-green-600' : 'text-muted-foreground'}`}>
                       {signUpData.password.length >= DEFAULT_PASSWORD_REQUIREMENTS.minLength ? <Check className="h-3 w-3" /> : <X className="h-3 w-3" />}
                       <span>At least {DEFAULT_PASSWORD_REQUIREMENTS.minLength} characters</span>
@@ -435,7 +440,7 @@ const AuthPage = (): JSX.Element => {
                   {/* Password Strength */}
                   {signUpData.password && (
                     <div className="space-y-1">
-                      <div className="flex items-center justify-between text-xs">
+                      <div className="flex items-center justify-between text-[10px] md:text-xs">
                         <span className="text-muted-foreground">Strength:</span>
                         <span className={`font-medium ${
                           passwordStrength === 'strong' ? 'text-green-600' :
@@ -456,13 +461,13 @@ const AuthPage = (): JSX.Element => {
                   )}
                   
                   {fieldErrors.password && (
-                    <p id="signup-password-error" className="text-sm text-destructive mt-1">
+                    <p id="signup-password-error" className="text-xs md:text-sm text-destructive mt-1 leading-relaxed">
                       {fieldErrors.password}
                     </p>
                   )}
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="signup-confirmPassword">Confirm Password</Label>
+                  <Label htmlFor="signup-confirmPassword" className="text-sm md:text-base leading-relaxed">Confirm Password</Label>
                   <div className="relative">
                     <Input
                       id="signup-confirmPassword"
@@ -472,35 +477,36 @@ const AuthPage = (): JSX.Element => {
                       onChange={handleSignUpChange}
                       aria-invalid={!!fieldErrors.confirmPassword}
                       aria-describedby={fieldErrors.confirmPassword ? 'signup-confirm-error' : undefined}
+                      className="h-12 md:h-10 text-base md:text-sm p-3 md:p-2 pr-12"
                       required
                     />
                     <Button
                       type="button"
                       variant="ghost"
                       size="sm"
-                      className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
+                      className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent min-h-11 min-w-11"
                       onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                     >
                       {showConfirmPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                     </Button>
                   </div>
                   {fieldErrors.confirmPassword && (
-                    <p id="signup-confirm-error" className="text-sm text-destructive mt-1">
+                    <p id="signup-confirm-error" className="text-xs md:text-sm text-destructive mt-1 leading-relaxed">
                       {fieldErrors.confirmPassword}
                     </p>
                   )}
                   {signUpData.confirmPassword && signUpData.password === signUpData.confirmPassword && (
-                    <p className="text-xs text-green-600 flex items-center gap-1">
+                    <p className="text-xs md:text-sm text-green-600 flex items-center gap-1 leading-relaxed">
                       <Check className="h-3 w-3" />
                       Passwords match
                     </p>
                   )}
                 </div>
-                <Button type="submit" className="w-full" disabled={isLoading}>
+                <Button type="submit" className="w-full min-h-12 md:min-h-11 text-base md:text-sm" disabled={isLoading}>
                   {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                   Create Account
                 </Button>
-                <p className="text-xs text-center text-muted-foreground">
+                <p className="text-xs md:text-sm text-center text-muted-foreground leading-relaxed">
                   We'll personalize your experience in the next step
                 </p>
               </form>
@@ -518,7 +524,7 @@ const AuthPage = (): JSX.Element => {
 
           <Button 
             variant="outline" 
-            className="w-full mt-4" 
+            className="w-full mt-4 min-h-12 md:min-h-11 text-base md:text-sm" 
             onClick={handleGuestSignIn}
             disabled={isLoading}
           >
@@ -528,13 +534,13 @@ const AuthPage = (): JSX.Element => {
 
           {error && (
             <Alert className="mt-4 border-destructive">
-              <AlertDescription className="text-destructive">{error}</AlertDescription>
+              <AlertDescription className="text-xs md:text-sm text-destructive leading-relaxed">{error}</AlertDescription>
             </Alert>
           )}
 
           {success && (
             <Alert className="mt-4 border-green-500">
-              <AlertDescription className="text-green-700">{success}</AlertDescription>
+              <AlertDescription className="text-xs md:text-sm text-green-700 leading-relaxed">{success}</AlertDescription>
             </Alert>
           )}
         </CardContent>

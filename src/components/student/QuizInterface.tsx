@@ -254,44 +254,44 @@ const QuizInterface = () => {
   if (quizComplete) {
     const percentage = Math.round((score / currentQuiz.length) * 100);
     return (
-      <div className="max-w-2xl mx-auto">
+      <div className="max-w-2xl mx-auto container-padding">
         <Card>
-          <CardHeader className="text-center">
-            <div className="mx-auto mb-4 p-4 bg-yellow-100 rounded-full w-fit">
-              <Trophy className="h-12 w-12 text-yellow-600" />
+          <CardHeader className="text-center p-4 md:p-6">
+            <div className="mx-auto mb-3 md:mb-4 p-3 md:p-4 bg-yellow-100 rounded-full w-fit">
+              <Trophy className="h-10 w-10 md:h-12 md:w-12 text-yellow-600" />
             </div>
-            <CardTitle className="text-2xl">Quiz Complete!</CardTitle>
+            <CardTitle className="text-xl md:text-2xl leading-relaxed">Quiz Complete!</CardTitle>
           </CardHeader>
-          <CardContent className="text-center space-y-6">
-            <div className="grid grid-cols-3 gap-4">
-              <div className="p-4 bg-blue-50 rounded-lg">
-                <div className="text-2xl font-bold text-blue-600">{score}</div>
-                <div className="text-sm text-gray-600">Correct</div>
+          <CardContent className="text-center space-y-4 md:space-y-6">
+            <div className="grid grid-cols-3 gap-2 md:gap-4">
+              <div className="p-3 md:p-4 bg-blue-50 rounded-lg">
+                <div className="text-xl md:text-2xl font-bold text-blue-600">{score}</div>
+                <div className="text-xs md:text-sm text-muted-foreground">Correct</div>
               </div>
-              <div className="p-4 bg-red-50 rounded-lg">
-                <div className="text-2xl font-bold text-red-600">{currentQuiz.length - score}</div>
-                <div className="text-sm text-gray-600">Incorrect</div>
+              <div className="p-3 md:p-4 bg-red-50 rounded-lg">
+                <div className="text-xl md:text-2xl font-bold text-red-600">{currentQuiz.length - score}</div>
+                <div className="text-xs md:text-sm text-muted-foreground">Incorrect</div>
               </div>
-              <div className="p-4 bg-green-50 rounded-lg">
-                <div className="text-2xl font-bold text-green-600">{percentage}%</div>
-                <div className="text-sm text-gray-600">Score</div>
+              <div className="p-3 md:p-4 bg-green-50 rounded-lg">
+                <div className="text-xl md:text-2xl font-bold text-green-600">{percentage}%</div>
+                <div className="text-xs md:text-sm text-muted-foreground">Score</div>
               </div>
             </div>
 
             <div className="space-y-2">
-              <Progress value={percentage} className="h-3" />
-              <p className="text-lg">
+              <Progress value={percentage} className="h-2 md:h-3" />
+              <p className="text-base md:text-lg leading-relaxed">
                 {percentage >= 80 ? "Excellent work! 🎉" :
                  percentage >= 60 ? "Good job! Keep practicing! 👍" :
                  "Keep studying! You'll improve! 💪"}
               </p>
             </div>
 
-            <div className="flex gap-3 justify-center">
-              <Button onClick={generateQuiz} variant="outline">
+            <div className="flex flex-col md:flex-row gap-3 justify-center">
+              <Button onClick={generateQuiz} variant="outline" className="w-full md:w-auto min-h-11">
                 Try Again
               </Button>
-              <Button onClick={resetQuiz}>
+              <Button onClick={resetQuiz} className="w-full md:w-auto min-h-11">
                 <RotateCcw className="h-4 w-4 mr-2" />
                 New Quiz
               </Button>
@@ -304,22 +304,22 @@ const QuizInterface = () => {
 
   if (currentQuiz.length === 0) {
     return (
-      <div className="max-w-2xl mx-auto space-y-6">
+      <div className="max-w-2xl mx-auto space-y-4 md:space-y-6 container-padding">
         <Card>
-          <CardHeader>
-            <CardTitle>Practice Quiz Generator</CardTitle>
-            <p className="text-gray-600">Select a subject and topic to generate personalized practice questions.</p>
+          <CardHeader className="p-4 md:p-6">
+            <CardTitle className="text-lg md:text-xl lg:text-2xl leading-relaxed">Practice Quiz Generator</CardTitle>
+            <p className="text-sm md:text-base text-muted-foreground leading-relaxed">Select a subject and topic to generate personalized practice questions.</p>
           </CardHeader>
-          <CardContent className="space-y-4">
+          <CardContent className="space-y-4 md:space-y-6">
             <div>
-              <label className="text-sm font-medium mb-2 block">Subject</label>
+              <label className="text-sm md:text-base font-medium mb-2 block leading-relaxed">Subject</label>
               <Select value={selectedSubject} onValueChange={setSelectedSubject}>
-                <SelectTrigger>
+                <SelectTrigger className="h-11 md:h-10">
                   <SelectValue placeholder="Choose a subject" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="bg-card z-50">
                   {Object.entries(subjects).map(([key, subject]) => (
-                    <SelectItem key={key} value={key}>{subject.name}</SelectItem>
+                    <SelectItem key={key} value={key} className="min-h-11 md:min-h-10">{subject.name}</SelectItem>
                   ))}
                 </SelectContent>
               </Select>
@@ -327,14 +327,14 @@ const QuizInterface = () => {
 
             {selectedSubject && (
               <div>
-                <label className="text-sm font-medium mb-2 block">Topic</label>
+                <label className="text-sm md:text-base font-medium mb-2 block leading-relaxed">Topic</label>
                 <Select value={selectedTopic} onValueChange={setSelectedTopic}>
-                  <SelectTrigger>
+                  <SelectTrigger className="h-11 md:h-10">
                     <SelectValue placeholder="Choose a topic" />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent className="bg-card z-50">
                     {subjects[selectedSubject as keyof typeof subjects].topics.map((topic) => (
-                      <SelectItem key={topic} value={topic}>{topic}</SelectItem>
+                      <SelectItem key={topic} value={topic} className="min-h-11 md:min-h-10">{topic}</SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
@@ -344,7 +344,7 @@ const QuizInterface = () => {
             <Button 
               onClick={generateQuiz} 
               disabled={!selectedSubject || !selectedTopic}
-              className="w-full"
+              className="w-full min-h-12 text-sm md:text-base"
             >
               <Play className="h-4 w-4 mr-2" />
               Start Quiz (5 Questions)
@@ -354,14 +354,14 @@ const QuizInterface = () => {
 
         {/* Quick Start Options */}
         <Card>
-          <CardHeader>
-            <CardTitle>Quick Start</CardTitle>
+          <CardHeader className="p-4 md:p-6">
+            <CardTitle className="text-base md:text-lg lg:text-xl leading-relaxed">Quick Start</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="grid md:grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               <Button 
                 variant="outline" 
-                className="justify-start h-auto p-4"
+                className="justify-start h-auto p-4 min-h-14 text-left active:scale-95"
                 onClick={() => {
                   setSelectedSubject('mathematics');
                   setSelectedTopic('Algebra');
@@ -369,13 +369,13 @@ const QuizInterface = () => {
                 }}
               >
                 <div className="text-left">
-                  <div className="font-medium">Mathematics - Algebra</div>
-                  <div className="text-sm text-gray-600">Perfect for JAMB prep</div>
+                  <div className="font-medium text-sm md:text-base leading-relaxed">Mathematics - Algebra</div>
+                  <div className="text-xs md:text-sm text-muted-foreground leading-relaxed">Perfect for JAMB prep</div>
                 </div>
               </Button>
               <Button 
                 variant="outline" 
-                className="justify-start h-auto p-4"
+                className="justify-start h-auto p-4 min-h-14 text-left active:scale-95"
                 onClick={() => {
                   setSelectedSubject('physics');
                   setSelectedTopic('Mechanics');
@@ -383,8 +383,8 @@ const QuizInterface = () => {
                 }}
               >
                 <div className="text-left">
-                  <div className="font-medium">Physics - Mechanics</div>
-                  <div className="text-sm text-gray-600">Motion and forces</div>
+                  <div className="font-medium text-sm md:text-base leading-relaxed">Physics - Mechanics</div>
+                  <div className="text-xs md:text-sm text-muted-foreground leading-relaxed">Motion and forces</div>
                 </div>
               </Button>
             </div>
@@ -398,58 +398,59 @@ const QuizInterface = () => {
   const progress = ((currentQuestionIndex + 1) / currentQuiz.length) * 100;
 
   return (
-    <div className="max-w-2xl mx-auto">
+    <div className="max-w-2xl mx-auto container-padding">
       <Card>
-        <CardHeader>
-          <div className="flex justify-between items-center">
+        <CardHeader className="p-4 md:p-6 lg:p-8">
+          <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-3 md:gap-4">
             <div>
-              <CardTitle>Question {currentQuestionIndex + 1} of {currentQuiz.length}</CardTitle>
-              <Badge variant="secondary">{currentQuestion.subject}</Badge>
+              <CardTitle className="text-base md:text-lg lg:text-xl leading-relaxed">Question {currentQuestionIndex + 1} of {currentQuiz.length}</CardTitle>
+              <Badge variant="secondary" className="mt-1 text-xs md:text-sm">{currentQuestion.subject}</Badge>
             </div>
-            <div className="text-right">
-              <div className="text-sm text-gray-600">Progress</div>
-              <div className="text-lg font-bold">{Math.round(progress)}%</div>
+            <div className="text-left md:text-right">
+              <div className="text-xs md:text-sm text-muted-foreground">Progress</div>
+              <div className="text-base md:text-lg font-bold">{Math.round(progress)}%</div>
             </div>
           </div>
-          <Progress value={progress} className="mt-4" />
+          <Progress value={progress} className="mt-3 md:mt-4 h-2 md:h-2.5" />
         </CardHeader>
-        <CardContent className="space-y-6">
-          <div className="text-lg font-medium">{currentQuestion.question}</div>
+        <CardContent className="space-y-4 md:space-y-6">
+          <div className="text-base md:text-lg font-medium leading-relaxed">{currentQuestion.question}</div>
           
-          <div className="space-y-3">
+          <div className="space-y-2 md:space-y-3">
             {currentQuestion.options.map((option, index) => {
               let buttonVariant: "outline" | "default" | "destructive" = "outline";
               let buttonClass = "";
               
               if (selectedAnswer === index) {
-                buttonClass = "border-blue-500 bg-blue-50";
+                buttonClass = "border-primary bg-primary/10 border-2";
               }
 
               return (
                 <Button
                   key={index}
                   variant={buttonVariant}
-                  className={`w-full justify-start h-auto p-4 text-left ${buttonClass}`}
+                  className={`w-full justify-start h-auto p-4 text-left min-h-14 md:min-h-12 active:scale-95 ${buttonClass}`}
                   onClick={() => handleAnswerSelect(index)}
                 >
                   <div className="flex items-center gap-3">
-                    <div className="flex-shrink-0 w-6 h-6 rounded-full border-2 flex items-center justify-center text-sm font-bold">
+                    <div className="flex-shrink-0 w-7 h-7 md:w-6 md:h-6 rounded-full border-2 flex items-center justify-center text-xs md:text-sm font-bold">
                       {String.fromCharCode(65 + index)}
                     </div>
-                    <div className="flex-1">{option}</div>
+                    <div className="flex-1 text-sm md:text-base leading-relaxed">{option}</div>
                   </div>
                 </Button>
               );
             })}
           </div>
 
-          <div className="flex justify-between">
-            <div className="text-sm text-gray-600">
+          <div className="flex flex-col md:flex-row md:justify-between gap-3 md:gap-4 pt-2">
+            <div className="text-xs md:text-sm text-muted-foreground leading-relaxed md:self-center">
               {selectedAnswer !== null ? 'Answer selected' : 'Select an answer to continue'}
             </div>
             <Button 
               onClick={handleNextQuestion}
               disabled={selectedAnswer === null}
+              className="w-full md:w-auto min-h-11"
             >
               {currentQuestionIndex < currentQuiz.length - 1 ? 'Next Question' : 'Finish Quiz'}
             </Button>
