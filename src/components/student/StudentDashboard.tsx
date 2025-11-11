@@ -186,7 +186,7 @@ const StudentDashboard = ({ user, onLogout }: StudentDashboardProps) => {
       <StudentSidebar activeTab={activeTab} onTabChange={setActiveTab} userLevel={user.level} />
 
       {/* Main Content */}
-      <div className="pt-14 md:pt-20 px-4 md:px-6 lg:px-8 md:ml-64">
+      <div className="pt-14 md:pt-20 px-4 md:px-6 lg:px-8">
         <Tabs value={activeTab} onValueChange={setActiveTab}>
           <TabsContent value="dashboard" className="space-y-8 md:space-y-12 max-w-7xl mx-auto">
             {/* Welcome Banner - Personalized */}
