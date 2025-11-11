@@ -81,24 +81,24 @@ const FeaturesSection = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4 lg:gap-6 max-w-7xl mx-auto">
           {features.map((feature, index) => {
             const Icon = feature.icon;
             return (
               <Card 
                 key={index} 
-                className="group hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-pointer border border-border bg-card"
+                className="group hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-pointer border border-border bg-card overflow-hidden"
               >
                 <CardHeader className="space-y-4">
-                  <div className={`w-14 h-14 rounded-full bg-gradient-to-r ${feature.gradient} flex items-center justify-center`}>
-                    <Icon className="h-7 w-7 text-white" />
+                  <div className={`h-8 w-8 md:h-10 md:w-10 lg:h-12 lg:w-12 rounded-full bg-gradient-to-r ${feature.gradient} flex items-center justify-center`}>
+                    <Icon className="h-4 w-4 md:h-5 md:w-5 lg:h-6 lg:w-6 text-white" />
                   </div>
-                  <CardTitle className="text-xl font-semibold text-foreground group-hover:text-primary transition-colors">
+                  <CardTitle className="text-base md:text-lg lg:text-xl font-semibold text-foreground group-hover:text-primary transition-colors">
                     {feature.title}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-base text-muted-foreground leading-relaxed">
+                  <p className="text-sm md:text-base text-muted-foreground leading-relaxed break-words">
                     {feature.description}
                   </p>
                 </CardContent>
