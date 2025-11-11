@@ -88,22 +88,22 @@ const RotatingHeroContent = ({ onShowAuth }: RotatingHeroContentProps) => {
   const CurrentIcon = currentContent.icon;
 
   return (
-    <div className="relative overflow-hidden px-2 py-3 md:px-6 md:py-8 lg:px-8 lg:py-12">
+    <div className="relative overflow-hidden px-3 py-4 sm:py-6 md:py-8 lg:py-10">
       {/* Background gradient that changes with content */}
-      <div className={`absolute inset-0 bg-gradient-to-br ${currentContent.gradient} opacity-5 transition-all duration-1000`} />
+      <div className={`absolute inset-0 bg-gradient-to-br ${currentContent.gradient} opacity-5 transition-all duration-700`} />
       
-      <div className="relative z-10 text-center max-w-4xl mx-auto space-y-2 md:space-y-6 lg:space-y-10">
+      <div className="relative z-10 text-center max-w-4xl mx-auto space-y-4 sm:space-y-5 md:space-y-7">
         {/* Icon */}
-        <div className="mb-1 md:mb-3 lg:mb-5">
-          <div className={`w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 mx-auto rounded-full bg-gradient-to-r ${currentContent.gradient} flex items-center justify-center transition-all duration-600 shadow-lg`}>
-            <CurrentIcon className="h-6 w-6 md:h-7 md:w-7 lg:h-8 lg:w-8 text-white" />
+        <div>
+          <div className={`w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 mx-auto rounded-full bg-gradient-to-r ${currentContent.gradient} flex items-center justify-center transition-all duration-700 shadow-lg`}>
+            <CurrentIcon className="h-5 w-5 sm:h-6 sm:w-6 md:h-7 md:w-7 lg:h-8 lg:w-8 text-white" />
           </div>
         </div>
 
         {/* Carousel container with overflow hidden */}
-        <div className="relative min-h-[320px] sm:min-h-[380px] md:min-h-[450px] overflow-hidden">
+        <div className="relative overflow-hidden">
           <div 
-            className={`flex transition-transform duration-1000 ease-in-out`}
+            className={`flex transition-all duration-700 ease-out`}
             style={{
               transform: `translateX(-${currentSlide * 100}%)`,
             }}
@@ -115,38 +115,38 @@ const RotatingHeroContent = ({ onShowAuth }: RotatingHeroContentProps) => {
               return (
                 <div 
                   key={isLastDuplicate ? 'duplicate-0' : content.slideKey}
-                  className="min-w-full flex-shrink-0 px-1 sm:px-2 md:px-4"
+                  className="min-w-full flex-shrink-0"
                 >
-                  <div className="space-y-2 sm:space-y-3 md:space-y-5 max-w-4xl mx-auto">
-                    <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-5xl font-bold text-foreground leading-tight text-center px-2">
+                  <div className="space-y-3 sm:space-y-4 md:space-y-5 max-w-3xl mx-auto px-2">
+                    <h2 className="text-[22px] sm:text-[26px] md:text-[32px] lg:text-[40px] xl:text-5xl font-bold text-foreground leading-tight text-center">
                       {t(`hero.${content.slideKey}.title`)}
                     </h2>
                     
-                    <h3 className={`text-base sm:text-lg md:text-xl lg:text-2xl font-medium text-transparent bg-clip-text bg-gradient-to-r ${content.gradient} text-center px-2`}>
+                    <h3 className={`text-[16px] sm:text-[18px] md:text-xl lg:text-2xl font-medium text-transparent bg-clip-text bg-gradient-to-r ${content.gradient} text-center`}>
                       {t(`hero.${content.slideKey}.subtitle`)}
                     </h3>
                     
-                    <p className="text-xs sm:text-sm md:text-base lg:text-lg text-muted-foreground max-w-3xl mx-auto text-center px-3 sm:px-4 md:px-6 leading-relaxed">
+                    <p className="text-[13px] sm:text-[15px] md:text-base lg:text-lg text-muted-foreground max-w-2xl mx-auto text-center leading-relaxed">
                       {t(`hero.${content.slideKey}.description`)}
                     </p>
 
                     {/* Examples for main slide */}
                     {content.showExamples && (
-                      <div className="flex flex-wrap gap-1.5 sm:gap-2 justify-center mt-2 sm:mt-3 md:mt-5 px-2">
-                        <Badge variant="secondary" className="px-2 py-1 sm:px-3 sm:py-1.5 text-xs sm:text-sm whitespace-nowrap">
+                      <div className="flex flex-wrap gap-1.5 sm:gap-2 justify-center">
+                        <Badge variant="secondary" className="px-2 py-0.5 sm:px-3 sm:py-1 text-[11px] sm:text-xs whitespace-nowrap">
                           📚 {t('hero.main.example1')}
                         </Badge>
-                        <Badge variant="secondary" className="px-2 py-1 sm:px-3 sm:py-1.5 text-xs sm:text-sm whitespace-nowrap">
+                        <Badge variant="secondary" className="px-2 py-0.5 sm:px-3 sm:py-1 text-[11px] sm:text-xs whitespace-nowrap">
                           🎓 {t('hero.main.example2')}
                         </Badge>
                       </div>
                     )}
 
                      {/* Action buttons */}
-                    <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 justify-center mt-3 sm:mt-5 md:mt-7 px-2">
+                    <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 justify-center">
                       <Button 
                         size="lg" 
-                        className={`w-full sm:w-auto bg-gradient-to-r ${content.gradient} hover:opacity-90 text-white px-6 sm:px-8 py-3 sm:py-4 text-sm sm:text-base md:text-lg transition-all duration-200 min-h-12 active:scale-95 md:hover:scale-105 hover-gpu shadow-lg`}
+                        className={`w-full sm:w-auto bg-gradient-to-r ${content.gradient} hover:opacity-90 text-white px-4 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 text-[15px] sm:text-base md:text-lg transition-all duration-200 min-h-11 active:scale-95 md:hover:scale-105 hover-gpu shadow-lg`}
                         onClick={() => {
                           if (content.slideKey === 'feature3') {
                             navigate('/join-waitlist');
@@ -161,7 +161,7 @@ const RotatingHeroContent = ({ onShowAuth }: RotatingHeroContentProps) => {
                       <Button 
                         size="lg" 
                         variant="outline" 
-                        className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 text-sm sm:text-base md:text-lg border-2 transition-all duration-200 min-h-12 active:scale-95 md:hover:scale-105 hover-gpu"
+                        className="w-full sm:w-auto px-4 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 text-[15px] sm:text-base md:text-lg border-2 transition-all duration-200 min-h-11 active:scale-95 md:hover:scale-105 hover-gpu"
                         onClick={() => {
                           if (content.slideKey === 'feature3') {
                             navigate('/stay-updated');
@@ -181,13 +181,13 @@ const RotatingHeroContent = ({ onShowAuth }: RotatingHeroContentProps) => {
         </div>
 
         {/* Slide indicators - touch friendly */}
-        <div className="flex justify-center mt-3 sm:mt-5 md:mt-7 gap-2">
+        <div className="flex justify-center gap-1.5">
           {heroContent.map((_, index) => (
             <button
               key={index}
               onClick={() => navigateToSlide(index)}
               disabled={isTransitioning}
-              className={`w-8 h-8 p-2 rounded-full transition-all duration-300 active:scale-90 touch-manipulation ${
+              className={`w-7 h-7 p-1.5 sm:w-8 sm:h-8 sm:p-2 rounded-full transition-all duration-300 active:scale-90 touch-manipulation ${
                 index === (currentSlide % heroContent.length)
                   ? `bg-gradient-to-r ${currentContent.gradient} shadow-md` 
                   : 'bg-muted active:bg-muted-foreground/40 md:hover:bg-muted-foreground/40'

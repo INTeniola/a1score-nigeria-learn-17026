@@ -7,7 +7,7 @@ interface HeroSectionProps {
 
 const HeroSection = ({ onShowAuth }: HeroSectionProps) => {
   return (
-    <section className="py-8 md:py-16 px-4 min-h-[calc(100vh-6rem)] md:min-h-0 flex items-center">
+    <section className="py-6 md:py-12 px-3 min-h-[calc(100vh-6rem)] md:min-h-0 flex items-center">
       <div className="container mx-auto w-full">
         <RotatingHeroContent onShowAuth={onShowAuth} />
       </div>
