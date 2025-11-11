@@ -4,18 +4,18 @@ import { Brain, Users, Heart, Building2 } from "lucide-react";
 
 const DashboardsSection = () => {
   return (
-    <section className="py-20 bg-white">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <h3 className="text-3xl font-bold text-gray-900 mb-4">
+    <section className="py-12 md:py-16 lg:py-20 bg-background">
+      <div className="container mx-auto container-padding">
+        <div className="text-center mb-8 md:mb-12 lg:mb-16 space-y-3 md:space-y-4">
+          <h3 className="text-xl md:text-2xl lg:text-3xl font-bold text-foreground leading-relaxed">
             Made for Every Level of Education
           </h3>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-sm md:text-base lg:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
             Different tools for students, parents, teachers, and institutions to work together across all educational levels.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 lg:gap-6">
           {[
             { 
               title: "For Students", 
@@ -44,13 +44,16 @@ const DashboardsSection = () => {
           ].map((dashboard, index) => {
             const Icon = dashboard.icon;
             return (
-              <Card key={index} className="hover:shadow-lg hover:scale-105 transition-all duration-300 cursor-pointer">
-                <CardHeader className="text-center">
-                  <Icon className={`h-12 w-12 ${dashboard.color} mx-auto mb-4`} />
-                  <CardTitle className="text-lg">{dashboard.title}</CardTitle>
+              <Card 
+                key={index} 
+                className="shadow-sm md:shadow-md transition-all duration-300 cursor-pointer active:scale-95 md:hover:shadow-lg md:hover:scale-105 min-h-12"
+              >
+                <CardHeader className="text-center p-4 md:p-6">
+                  <Icon className={`h-10 w-10 md:h-12 md:w-12 ${dashboard.color} mx-auto mb-3 md:mb-4`} />
+                  <CardTitle className="text-base md:text-lg lg:text-xl leading-relaxed">{dashboard.title}</CardTitle>
                 </CardHeader>
-                <CardContent className="text-center">
-                  <p className="text-gray-600 text-sm">{dashboard.description}</p>
+                <CardContent className="text-center p-4 md:p-6 pt-0">
+                  <p className="text-sm md:text-base text-muted-foreground leading-relaxed">{dashboard.description}</p>
                 </CardContent>
               </Card>
             );
