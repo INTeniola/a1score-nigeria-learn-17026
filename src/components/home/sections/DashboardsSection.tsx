@@ -46,14 +46,14 @@ const DashboardsSection = () => {
             return (
               <Card 
                 key={index} 
-                className="shadow-sm md:shadow-md transition-all duration-300 cursor-pointer active:scale-95 md:hover:shadow-lg md:hover:scale-105 min-h-12"
+                className="shadow-sm md:shadow-md transition-all duration-300 cursor-pointer active:scale-95 md:hover:shadow-lg md:hover:scale-105"
               >
-                <CardHeader className="text-center p-4 md:p-6">
-                  <Icon className={`h-10 w-10 md:h-12 md:w-12 ${dashboard.color} mx-auto mb-3 md:mb-4`} />
-                  <CardTitle className="text-base md:text-lg lg:text-xl leading-relaxed">{dashboard.title}</CardTitle>
+                <CardHeader className="text-center p-3 md:p-4 lg:p-6">
+                  <Icon className={`h-8 w-8 md:h-10 md:w-10 ${dashboard.color} mx-auto mb-2 md:mb-3`} />
+                  <CardTitle className="text-sm md:text-base lg:text-lg leading-relaxed">{dashboard.title}</CardTitle>
                 </CardHeader>
-                <CardContent className="text-center p-4 md:p-6 pt-0">
-                  <p className="text-sm md:text-base text-muted-foreground leading-relaxed">{dashboard.description}</p>
+                <CardContent className="text-center p-3 md:p-4 lg:p-6 pt-0">
+                  <p className="text-xs md:text-sm text-muted-foreground leading-relaxed">{dashboard.description}</p>
                 </CardContent>
               </Card>
             );
