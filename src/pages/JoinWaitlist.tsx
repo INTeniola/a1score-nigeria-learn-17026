@@ -100,9 +100,11 @@ const JoinWaitlist = () => {
                 <Input
                   id="name"
                   type="text"
+                  autoComplete="name"
                   placeholder="Enter your full name"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  className="h-12 md:h-10 text-base md:text-sm"
                   required
                 />
               </div>
@@ -112,9 +114,12 @@ const JoinWaitlist = () => {
                 <Input
                   id="email"
                   type="email"
+                  inputMode="email"
+                  autoComplete="email"
                   placeholder="Enter your email"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  className="h-12 md:h-10 text-base md:text-sm"
                   required
                 />
               </div>
@@ -151,11 +156,12 @@ const JoinWaitlist = () => {
 
               <Button
                 type="submit"
-                className="w-full"
+                className="w-full min-h-12 md:min-h-11 text-base md:text-sm"
                 size="lg"
                 disabled={isLoading}
+                loading={isLoading}
               >
-                {isLoading ? "Joining..." : "Join Waitlist"}
+                Join Waitlist
               </Button>
             </form>
           </CardContent>

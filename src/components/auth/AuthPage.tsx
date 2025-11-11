@@ -291,6 +291,8 @@ const AuthPage = (): JSX.Element => {
                   <Input
                     id="signin-email"
                     type="email"
+                    inputMode="email"
+                    autoComplete="email"
                     placeholder="your@email.com"
                     value={signInData.email}
                     onChange={handleSignInChange}
@@ -311,6 +313,7 @@ const AuthPage = (): JSX.Element => {
                     <Input
                       id="signin-password"
                       type={showPassword ? "text" : "password"}
+                      autoComplete="current-password"
                       placeholder="Enter your password"
                       value={signInData.password}
                       onChange={handleSignInChange}
@@ -349,6 +352,7 @@ const AuthPage = (): JSX.Element => {
                   <Input
                     id="signup-displayName"
                     type="text"
+                    autoComplete="name"
                     placeholder="Enter your full name"
                     value={signUpData.displayName}
                     onChange={handleSignUpChange}
@@ -366,6 +370,8 @@ const AuthPage = (): JSX.Element => {
                   <Input
                     id="signup-email"
                     type="email"
+                    inputMode="email"
+                    autoComplete="email"
                     placeholder="your@email.com"
                     value={signUpData.email}
                     onChange={handleSignUpChange}
@@ -398,6 +404,7 @@ const AuthPage = (): JSX.Element => {
                     <Input
                       id="signup-password"
                       type={showPassword ? "text" : "password"}
+                      autoComplete="new-password"
                       placeholder="Create a strong password"
                       value={signUpData.password}
                       onChange={handleSignUpChange}

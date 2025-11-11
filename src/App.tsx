@@ -8,6 +8,7 @@ import { AuthProvider } from "@/hooks/useAuth";
 import { ScrollToTop } from "@/components/layout/ScrollToTop";
 import { BackToTop } from "@/components/layout/BackToTop";
 import { OnboardingWrapper } from "@/components/onboarding/OnboardingWrapper";
+import { ErrorBoundary } from "@/components/ui/error-boundary";
 import { useAuth } from "./hooks/useAuth";
 import { lazy, Suspense } from "react";
 import { FullPageSkeleton } from "@/components/ui/loading-skeleton";
@@ -59,17 +60,18 @@ const PublicRoute = ({ children }: { children: React.ReactNode }) => {
 };
 
 const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <AuthProvider>
-      <EthicsProvider>
-        <TooltipProvider>
-          <Toaster />
-          <Sonner />
-          <BrowserRouter>
-            <ScrollToTop />
-            <BackToTop />
-            <Suspense fallback={<FullPageSkeleton />}>
-              <Routes>
+  <ErrorBoundary>
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>
+        <EthicsProvider>
+          <TooltipProvider>
+            <Toaster />
+            <Sonner />
+            <BrowserRouter>
+              <ScrollToTop />
+              <BackToTop />
+              <Suspense fallback={<FullPageSkeleton />}>
+                <Routes>
                 <Route path="/select-role" element={<UserTypeSelector />} />
                 <Route path="/auth" element={
                   <PublicRoute>
@@ -108,14 +110,15 @@ const App = () => (
                   </ProtectedRoute>
                 } />
                 {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </Suspense>
-          </BrowserRouter>
-        </TooltipProvider>
-      </EthicsProvider>
-    </AuthProvider>
-  </QueryClientProvider>
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </Suspense>
+            </BrowserRouter>
+          </TooltipProvider>
+        </EthicsProvider>
+      </AuthProvider>
+    </QueryClientProvider>
+  </ErrorBoundary>
 );
 
 export default App;
