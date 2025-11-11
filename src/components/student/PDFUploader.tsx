@@ -135,15 +135,15 @@ const PDFUploader: React.FC<PDFUploaderProps> = ({ onAnalysisComplete }) => {
               className="hidden"
               id="pdf-upload"
             />
-            <Button
-              asChild
-              variant="outline"
-              className="mt-4"
-            >
-              <label htmlFor="pdf-upload" className="cursor-pointer">
+            <label htmlFor="pdf-upload">
+              <Button
+                variant="outline"
+                className="mt-4"
+                type="button"
+              >
                 Choose File
-              </label>
-            </Button>
+              </Button>
+            </label>
           </div>
         ) : (
           <div className="space-y-4">
