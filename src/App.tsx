@@ -23,6 +23,7 @@ const ForParents = lazy(() => import("./pages/ForParents"));
 const ForInstitutions = lazy(() => import("./pages/ForInstitutions"));
 const JoinWaitlist = lazy(() => import("./pages/JoinWaitlist"));
 const StayUpdated = lazy(() => import("./pages/StayUpdated"));
+const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
 
 const queryClient = new QueryClient();
 
@@ -84,6 +85,7 @@ const App = () => (
                 <Route path="/for-institutions" element={<ForInstitutions />} />
                 <Route path="/join-waitlist" element={<JoinWaitlist />} />
                 <Route path="/stay-updated" element={<StayUpdated />} />
+                <Route path="/privacy-policy" element={<PrivacyPolicy />} />
                 <Route path="/dashboard/*" element={
                   <ProtectedRoute>
                     <Index />

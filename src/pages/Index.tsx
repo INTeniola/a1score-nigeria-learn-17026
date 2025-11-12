@@ -176,28 +176,28 @@ const Index = () => {
             <div className="text-center sm:text-left">
               <h4 className="font-semibold mb-3 md:mb-4 text-base md:text-lg">For Students</h4>
               <ul className="space-y-2 text-gray-400 text-sm leading-relaxed">
-                <li>AI Tutoring</li>
-                <li>JAMB Practice</li>
-                <li>WAEC Prep</li>
-                <li>Progress Tracking</li>
+                <li className="hover:text-white transition-colors cursor-pointer" onClick={() => user ? navigate('/dashboard') : handleShowAuth('student')}>AI Tutoring</li>
+                <li className="hover:text-white transition-colors cursor-pointer" onClick={() => user ? navigate('/dashboard') : handleShowAuth('student')}>JAMB Practice</li>
+                <li className="hover:text-white transition-colors cursor-pointer" onClick={() => user ? navigate('/dashboard') : handleShowAuth('student')}>WAEC Prep</li>
+                <li className="hover:text-white transition-colors cursor-pointer" onClick={() => user ? navigate('/dashboard') : handleShowAuth('student')}>Progress Tracking</li>
               </ul>
             </div>
             <div className="text-center sm:text-left">
               <h4 className="font-semibold mb-3 md:mb-4 text-base md:text-lg">For Teachers</h4>
               <ul className="space-y-2 text-gray-400 text-sm leading-relaxed">
-                <li>Class Analytics</li>
-                <li>Content Creation</li>
-                <li>Student Management</li>
-                <li>Earn with Validation</li>
+                <li className="hover:text-white transition-colors cursor-pointer" onClick={() => navigate('/for-teachers')}>Class Analytics</li>
+                <li className="hover:text-white transition-colors cursor-pointer" onClick={() => navigate('/for-teachers')}>Content Creation</li>
+                <li className="hover:text-white transition-colors cursor-pointer" onClick={() => navigate('/for-teachers')}>Student Management</li>
+                <li className="hover:text-white transition-colors cursor-pointer" onClick={() => navigate('/for-teachers')}>Earn with Validation</li>
               </ul>
             </div>
             <div className="text-center sm:text-left">
               <h4 className="font-semibold mb-3 md:mb-4 text-base md:text-lg">Support</h4>
               <ul className="space-y-2 text-gray-400 text-sm leading-relaxed">
-                <li>Help Center</li>
-                <li>Contact Us</li>
-                <li>Community</li>
-                <li>Privacy Policy</li>
+                <li className="hover:text-white transition-colors cursor-pointer" onClick={() => window.open('https://docs.lovable.dev', '_blank')}>Help Center</li>
+                <li className="hover:text-white transition-colors cursor-pointer" onClick={() => window.location.href = 'mailto:support@a1score.com'}>Contact Us</li>
+                <li className="hover:text-white transition-colors cursor-pointer" onClick={() => user ? navigate('/dashboard') : handleShowAuth('student')}>Community</li>
+                <li className="hover:text-white transition-colors cursor-pointer" onClick={() => navigate('/privacy-policy')}>Privacy Policy</li>
               </ul>
             </div>
           </div>
