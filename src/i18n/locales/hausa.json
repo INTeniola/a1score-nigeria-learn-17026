@@ -122,6 +122,34 @@
     "step3Desc": "Yi hira da malamin AI naku, ɗauki jarrabawar, kuma ku bi ci gaban ku.",
     "cta": "Fara Gwajin Kyauta"
   },
+  "features": {
+    "title": "Duk Abin Da Kuke Bukata Don Samun Nasara",
+    "subtitle": "Kayan aikin koyo masu ƙarfi da aka ƙera don ɗaliban Najeriya",
+    "aiTutor": {
+      "title": "Hira Da Malamin AI",
+      "description": "Samu taimako nan take game da aikin gida da tambayoyin jarrabawa. Malamin ku na 24/7 wanda ba ya gajiya."
+    },
+    "homework": {
+      "title": "Na'urar Daukar Hoton Aikin Gida",
+      "description": "Dauki hoton aikin gidan ku kuma ku sami mafita mataki-mataki tare da cikakkun bayanai."
+    },
+    "exam": {
+      "title": "Shirye-shiryen Jarrabawa",
+      "description": "Yi aiki da tambayoyin WAEC, JAMB, da NECO na baya. Yi jarrabawar lokaci don gina kwarin gwiwa."
+    },
+    "personalized": {
+      "title": "Koyo Na Musamman",
+      "description": "AI yana daidaitawa da salon koyo da saurin ku. Mayar da hankali kan batutuwan da kuke buƙatar taimako da su."
+    },
+    "progress": {
+      "title": "Bin Diddigin Ci Gaba",
+      "description": "Dubi kanku kuna inganta tare da nazarin gani, ginshiƙan ayyuka, da cikakkun bayanai."
+    },
+    "gamification": {
+      "title": "Nasarori & Lambobin Yabo",
+      "description": "Samu lambobin yabo, ci gaba da koyo, kuma ku yi gasa da abokai yayin da kuke koyon ra'ayoyi."
+    }
+  },
   "testimonials": {
     "title": "Dalibai Na Gaske, Sakamakon Na Gaske",
     "subtitle": "Shiga dubban daliban Najeriya masu cimma manufofin karatunsu",

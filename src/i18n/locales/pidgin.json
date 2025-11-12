@@ -125,6 +125,34 @@
     "step3Desc": "Chat wit your AI tutor, take quizzes, and track your progress.",
     "cta": "Start Your Free Trial"
   },
+  "features": {
+    "title": "Everything Wey You Need Make You Succeed",
+    "subtitle": "Powerful learning tools wey we design for Nigerian students",
+    "aiTutor": {
+      "title": "AI Teacher Chat",
+      "description": "Get instant help wit homework and exam questions. Your 24/7 personal teacher wey no dey tire."
+    },
+    "homework": {
+      "title": "Homework Scanner",
+      "description": "Snap photo of your homework and get step-by-step solutions wit detailed explanations."
+    },
+    "exam": {
+      "title": "Exam Preparation",
+      "description": "Practice wit past WAEC, JAMB, and NECO questions. Take timed mock exams make you build confidence."
+    },
+    "personalized": {
+      "title": "Personalized Learning",
+      "description": "AI go adapt to your learning style and pace. Focus on topics wey you need help wit pass."
+    },
+    "progress": {
+      "title": "Progress Tracking",
+      "description": "Watch yourself dey improve wit visual analytics, performance charts, and detailed insights."
+    },
+    "gamification": {
+      "title": "Achievements & Badges",
+      "description": "Collect badges, maintain learning streaks, and compete wit friends as you dey master concepts."
+    }
+  },
   "testimonials": {
     "title": "Real Students, Real Results",
     "subtitle": "Join thousands of Nigerian students wey dey achieve their academic goals",

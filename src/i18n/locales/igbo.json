@@ -122,6 +122,34 @@
     "step3Desc": "Kparịta ụka na onye nkuzi AI gị, mee ule, ma soro ọganihu gị.",
     "cta": "Malite Nnwale Efu Gị"
   },
+  "features": {
+    "title": "Ihe Niile I Chọrọ Ka Ị Nwee Ihe Ịga Nke Ọma",
+    "subtitle": "Ngwa mmụta dị ike emebere maka ụmụ akwụkwọ Naịjirịa",
+    "aiTutor": {
+      "title": "Mkparịta Ụka Onye Nkuzi AI",
+      "description": "Nweta enyemaka ozugbo na ọrụ ụlọ na ajụjụ ule. Onye nkuzi gị 24/7 nke na-adịghị ike ụgwụ."
+    },
+    "homework": {
+      "title": "Ngwa Nyocha Ọrụ Ụlọ",
+      "description": "Se foto ọrụ ụlọ gị wee nweta azịza nzọụkwụ site na nzọụkwụ na nkọwa zuru ezu."
+    },
+    "exam": {
+      "title": "Nkwadebe Ule",
+      "description": "Mee omume na ajụjụ WAEC, JAMB, na NECO gara aga. Mee ule oge iji wuo ntụkwasị obi."
+    },
+    "personalized": {
+      "title": "Mmụta Ahaziri Ahazi",
+      "description": "AI na-emegharị n'ụdị mmụta na ọsọ gị. Lekwasị anya na isiokwu ị chọrọ enyemaka karịa."
+    },
+    "progress": {
+      "title": "Soro Ọganihu Gị",
+      "description": "Lee ka ị na-aga n'ihu site na nyocha a na-ahụ anya, eserese arụmọrụ, na nghọta zuru ezu."
+    },
+    "gamification": {
+      "title": "Ihe Ịga Nke Ọma & Akara",
+      "description": "Nweta akara, jigide usoro mmụta, ma soro ndị enyi gị asọmpi ka ị na-amụta echiche."
+    }
+  },
   "testimonials": {
     "title": "Ụmụ Akwụkwọ N'ezie, Nsonaazụ N'ezie",
     "subtitle": "Sonye na ọtụtụ puku ụmụ akwụkwọ Naịjirịa na-enweta ebumnuche agụmakwụkwọ ha",

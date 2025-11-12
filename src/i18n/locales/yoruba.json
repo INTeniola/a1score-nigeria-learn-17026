@@ -122,6 +122,34 @@
     "step3Desc": "Ba olukọ AI rẹ sọrọ, ṣe awọn idanwo, ki o si tọpa ilọsiwaju rẹ.",
     "cta": "Bẹrẹ Idanwo Ọfẹ Rẹ"
   },
+  "features": {
+    "title": "Gbogbo Ohun Ti O Nilo Lati Ṣaṣeyọri",
+    "subtitle": "Awọn irinṣẹ ikẹkọ to lagbara ti a ṣe apẹrẹ fun awọn ọmọ ile-iwe Naijiria",
+    "aiTutor": {
+      "title": "Ibaraẹnisọrọ Olukọ AI",
+      "description": "Gba iranlọwọ lẹsẹkẹsẹ pẹlu iṣẹ ile ati awọn ibeere idanwo. Olukọ ti ara ẹni 24/7 ti ko ni rẹwẹsi."
+    },
+    "homework": {
+      "title": "Ẹrọ Ayẹwo Iṣẹ Ile",
+      "description": "Ya aworan iṣẹ ile rẹ ki o gba awọn ojutu igbesẹ-nipasẹ-igbesẹ pẹlu awọn alaye alaye."
+    },
+    "exam": {
+      "title": "Igbaradi Idanwo",
+      "description": "Ṣe adaṣe pẹlu awọn ibeere WAEC, JAMB, ati NECO ti tẹlẹ. Ṣe awọn idanwo akoko lati kọ igbẹkẹle."
+    },
+    "personalized": {
+      "title": "Ẹkọ Ti ara ẹni",
+      "description": "AI ṣe atunṣe si ara rẹ si ara ati iyara ẹkọ rẹ. Dojukọ awọn akọle ti o nilo iranlọwọ julọ."
+    },
+    "progress": {
+      "title": "Tọpa Ilọsiwaju",
+      "description": "Wo ara rẹ ti n dara si pẹlu awọn itupalẹ wiwo, awọn shatti iṣẹ ṣiṣe, ati awọn oye alaye."
+    },
+    "gamification": {
+      "title": "Awọn Aṣeyọri & Awọn Ami-ẹyẹ",
+      "description": "Jere awọn ami-ẹyẹ, ṣe itọju awọn ọna ikẹkọ, ki o si dije pẹlu awọn ọrẹ bi o ti n kọ awọn imọran."
+    }
+  },
   "testimonials": {
     "title": "Awọn Ọmọ Ile-iwe Gidi, Awọn Abajade Gidi",
     "subtitle": "Darapọ mọ ẹgbẹẹgbẹrun awọn ọmọ ile-iwe Naijiria ti n ṣaṣeyọri awọn ibi-afẹde ẹkọ wọn",
